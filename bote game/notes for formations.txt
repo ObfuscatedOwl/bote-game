@@ -1,0 +1,26 @@
+ok i want to keep working on this but i feel like i should just note down my thoughts for when thomas is next online
+so we can talk abbout together
+
+basically what's going on with the formations?
+
+my current idea is that when you select 5 ships in a line, and give them an order, a new object will be created
+to contain them, along with a navigationAgent2d
+
+then it keeps track of the botes in relation to each other, and makes sure when navigating coastline that all of them
+avoid it by having it's radius for the navigationAgent include all of the ships from its origin
+
+although maybe moving the whole object would get weird. perhaps a node that doesn't contain the botes but
+constantly updates its position to be the average position of the botes
+
+
+should the player be able to dictate which way the botes should face when they reach their position?
+how should this be implemented? how should the player input this command?
+
+
+if the player wants to take control of a single bote, what input should do this? should a player be
+able to manually control two botes with the keyboard at once?
+
+
+capital ship in formation is marked at a leader of the formation and has its own navigation agent
+that sets the course for the whole formation
+other ships have navigation agents just trying to reach a certain position relative to this capital ship
