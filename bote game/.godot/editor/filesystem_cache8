@@ -1,0 +1,17 @@
+2a60927148abd1d33b818b535e306557
+::res://::1680111423
+default_env.tres::Environment::2281046586866283389::1680111423::0::1::::<><>::
+icon.png::CompressedTexture2D::7921813261049669099::1680111112::1680111204::1::::<><>::
+notes for formations.txt::TextFile::-1::1680111112::0::1::::<><>::
+::res://scenes/::1680111423
+testScene.tscn::PackedScene::3464613294773536546::1680111423::0::1::::<><>::res://scripts/camera.gd<>res://scripts/boteHolder.gd<>uid://bwwglaykga4y3<>res://scripts/boteController.gd<>uid://bssdixaukgmfu
+::res://scripts/::1680111112
+boteController.gd::GDScript::-1::1680111112::0::1::::<>Node2D<>::
+boteHolder.gd::GDScript::-1::1680111112::0::1::::<>Node2D<>::
+camera.gd::GDScript::-1::1680111112::0::1::::<>Camera2D<>::
+::res://sprites/::1680111905
+bote2point1pointOh.png::CompressedTexture2D::1217327150985231235::1680111113::1680111204::1::::<><>::
+bote2pointOh.png::CompressedTexture2D::5490967871696925658::1680111113::1680111204::1::::<><>::
+Destroyer.png::CompressedTexture2D::3687176315039673534::1680111112::1680111204::1::::<><>::
+GunMk1.png::CompressedTexture2D::3676314350784982100::1680111905::1680111905::1::::<><>::
+rudder.png::CompressedTexture2D::3976375537546393824::1680111113::1680111204::1::::<><>::
