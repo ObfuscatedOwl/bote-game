@@ -1,18 +1,26 @@
-[gd_scene load_steps=8 format=3 uid="uid://dhrvsxswyqo8t"]
+[gd_scene load_steps=12 format=3 uid="uid://dhrvsxswyqo8t"]
 
 [ext_resource type="Texture2D" uid="uid://bsm3mio6i0xcm" path="res://sprites/GunMk1.png" id="1_o6hq1"]
+
+[sub_resource type="Gradient" id="Gradient_8ytho"]
+offsets = PackedFloat32Array(0, 0.874126, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.574091, 0.574091, 0.574091, 0.574091, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_uhwgc"]
+gradient = SubResource("Gradient_8ytho")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ww1de"]
 particle_flag_disable_z = true
 direction = Vector3(0, -1, 0)
 gravity = Vector3(0, 0, 0)
-initial_velocity_min = 20.0
-initial_velocity_max = 20.0
+initial_velocity_min = 15.0
+initial_velocity_max = 25.0
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
 damping_min = 26.0
 damping_max = 33.0
 color = Color(0.505882, 0.505882, 0.505882, 1)
+color_ramp = SubResource("GradientTexture1D_uhwgc")
 hue_variation_min = -1.0
 hue_variation_max = -0.9
 
@@ -32,6 +40,13 @@ point_count = 2
 [sub_resource type="CurveTexture" id="CurveTexture_h43xv"]
 curve = SubResource("Curve_cquwh")
 
+[sub_resource type="Curve" id="Curve_r33k0"]
+_data = [Vector2(0, 1), 0.0, 0.0855036, 0, 0, Vector2(1, 0.272727), -2.28485, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_fw6ow"]
+curve = SubResource("Curve_r33k0")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wy5f3"]
 particle_flag_disable_z = true
 direction = Vector3(0, -1, 0)
@@ -43,6 +58,7 @@ orbit_velocity_max = 0.0
 damping_min = 30.0
 damping_max = 35.0
 damping_curve = SubResource("CurveTexture_22um8")
+scale_curve = SubResource("CurveTexture_fw6ow")
 color = Color(0.823529, 0.552941, 0.458824, 1)
 hue_variation_min = -1.0
 hue_variation_max = -0.82
@@ -54,9 +70,10 @@ metadata/_edit_horizontal_guides_ = []
 [node name="Smoke" type="GPUParticles2D" parent="."]
 position = Vector2(1.5, -3.5)
 emitting = false
+amount = 40
 process_material = SubResource("ParticleProcessMaterial_ww1de")
-lifetime = 3.0
 one_shot = true
+explosiveness = 1.0
 
 [node name="Fire" type="GPUParticles2D" parent="."]
 position = Vector2(1.5, -3.5)
