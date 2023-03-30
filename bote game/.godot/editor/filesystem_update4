@@ -1,4 +1,3 @@
 res://default_env.tres
 res://scenes/testScene.tscn
-res://scripts/boteController.gd
-res://scripts/boteHolder.gd
+res://scenes/gun.tscn
