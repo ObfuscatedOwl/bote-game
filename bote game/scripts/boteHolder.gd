@@ -92,6 +92,7 @@ func _input(event):
 		if lineMode == "selecting":
 			print("line mode D E A C T I V A T E D") #cancel position order stage
 			lineMode = "off"
+			botesInLine = []
 		elif lineMode == "off":
 			deselectBotes()
 			lineMode = "selecting" #initiate line mode
@@ -124,6 +125,8 @@ func _input(event):
 				botesInLine[i].formationCommands = [Vector2(-50, 0)]
 				botesInLine[i+1].formationIndex = 0
 				botesInLine[i].formationOrder.connect(botesInLine[i+1].onFormationOrder)
+				
+			botesInLine = []
 	
 
 func _process(_delta):

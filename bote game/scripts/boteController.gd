@@ -6,17 +6,17 @@ var throttle = 0.0 #from -1 to 1
 
 var velocity = Vector2(0, 0)
 var mass = 1
-var rotorForce = 0.0005
+var rotorForce = 1.8
 var rotorRunning = true
 const forcePerDeltaSpeed = 10
-var sideForce = 0.05
-var drag = 0.0002
+var sideForce = 3.0
+var drag = 0.012
 
 var targetSpeed = 0.0
 var rudd = 0.0
 
-const maxSpeed = 0.3
-const acc = 0.001
+const maxSpeed = 18.0
+const acc = 0.06
 const maxRudd = 0.5
 const ruddEffect = 0.05
 
@@ -82,14 +82,14 @@ func _process(delta):
 			actions[keybinds[key]] = Input.is_action_pressed(key)
 		
 		if actions["ruddL"]:
-			rudd += 0.001
+			rudd += 0.06 * delta
 		if actions["ruddR"]:
-			rudd -= 0.001
+			rudd -= 0.006 * delta
 		
 		if actions["throtU"]:
-			targetSpeed += acc
+			targetSpeed += acc * delta
 		if actions["throtD"]:
-			targetSpeed -= acc
+			targetSpeed -= acc * delta
 			
 	elif not navigation_agent.is_navigation_finished(): #not metTarget
 		var next_path_position = navigation_agent.get_next_path_position()
@@ -111,19 +111,19 @@ func _process(delta):
 	var parallel = Vector2.from_angle(rotation)
 	var currentSpeed = parallel.dot(velocity)
 	if rotorRunning:
-		velocity += parallel * clamp((targetSpeed - currentSpeed) * forcePerDeltaSpeed, -rotorForce, rotorForce) / mass
+		velocity += delta * parallel * clamp((targetSpeed - currentSpeed) * forcePerDeltaSpeed, -rotorForce, rotorForce) / mass
 	#velocity -= parallel * velocity.length() * drag
-	velocity *= pow(10, -drag)
+	velocity *= pow(10, -drag * delta)
 	
 	var sideways = Vector2.from_angle(rotation - PI/2)
 	var sidewaysSpeed = sideways.dot(velocity)
-	velocity -= sideways * sidewaysSpeed * sideForce / mass
+	velocity -= delta * sideways * sidewaysSpeed * sideForce / mass
 	
 	var velocityAngle = velocity.angle()
 	var alpha = velocityAngle - rotation
-	rotation += cos(rudd) * velocity.length() * sin(alpha - rudd) * ruddEffect
+	rotation += delta * cos(rudd) * velocity.length() * sin(alpha - rudd) * ruddEffect
 	
-	position += velocity
+	position += velocity * delta
 	
 	$"rudder".rotation = PI + rudd 
 	
