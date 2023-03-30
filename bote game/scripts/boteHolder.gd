@@ -35,6 +35,15 @@ func deselectBotes():
 	for bote in selected:
 		order.disconnect(bote.onOrder)
 	selected = []
+	
+func givePositionOrder():
+	if globalToMouseDist(targetPosition) > angleDontCare:
+		var desiredAngle = targetPosition.angle_to_point(get_global_mouse_position())
+		order.emit(targetPosition, desiredAngle)
+		print("that angle DO care")
+	else:
+		order.emit(targetPosition, null)
+		print("that angle dont care")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -53,7 +62,7 @@ func _draw():
 
 func _input(event):
 	if event.get_class() == "InputEventMouseButton":
-		if event.button_index == 1 and not lineMode: #primary mouse button
+		if event.button_index == 1 and lineMode == "off": #primary mouse button
 			if event.pressed:
 				selecting = true
 				selectStart = get_global_mouse_position()
@@ -68,17 +77,11 @@ func _input(event):
 						order.connect(child.onOrder)
 					
 				queue_redraw()
-		if event.button_index == 2 and lineMode == "off":
+		if event.button_index == 2:
 			if event.pressed:
 				targetPosition = get_global_mouse_position()
-			if not event.pressed: #later add click and drag orders
-				if globalToMouseDist(targetPosition) > angleDontCare:
-					var desiredAngle = targetPosition.angle_to_point(get_global_mouse_position())
-					order.emit(targetPosition, desiredAngle)
-					print("that angle DO care")
-				else:
-					order.emit(targetPosition, null)
-					print("that angle dont care")
+			if not event.pressed  and lineMode == "off": #later add click and drag orders
+				givePositionOrder()
 
 	
 	if event.get_class() == "InputEventMouseMotion":
@@ -109,16 +112,18 @@ func _input(event):
 					closestBote = bote
 			if shortestDistance < clickRadius:
 				botesInLine.append(closestBote)
-		if event.pressed and event.button_index == 2:
-			givePositionOrder(botesInLine[0]) #assuming there are some in the list
-			#actually declare this function (bit starting at line 68)
+				
+		if not event.pressed and event.button_index == 2:
+			order.connect(botesInLine[0].onOrder)
+			givePositionOrder() #assuming there are some in the list
 			
 			#make sure not to allow deactivating the line mode while right click held? QOL stuff
 			
 			for i in range(botesInLine.size()-1):
-				botesInLine[i].formationOrder.connect(botesInLine[i].onOrder)
-				#the childs actually need to emit this signal but hopefully this is a good outline
-				#good luck tomorrow bb <3
+				botesInLine[i].isLeader = true
+				botesInLine[i].formationCommands = [Vector2(-50, 0)]
+				botesInLine[i+1].formationIndex = 0
+				botesInLine[i].formationOrder.connect(botesInLine[i+1].onFormationOrder)
 	
 
 func _process(_delta):

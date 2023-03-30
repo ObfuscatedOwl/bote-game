@@ -42,3 +42,37 @@ rotation = 1.5708
 texture = ExtResource("5_xjbhr")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="boteHolder/bote"]
+
+[node name="bote2" type="Node2D" parent="boteHolder"]
+show_behind_parent = true
+position = Vector2(200, 0)
+script = ExtResource("3_kidlr")
+
+[node name="rudder" type="Sprite2D" parent="boteHolder/bote2"]
+position = Vector2(-32, 0)
+rotation = 3.14159
+texture = ExtResource("3")
+offset = Vector2(2.5, 0)
+
+[node name="bote2pointOh" type="Sprite2D" parent="boteHolder/bote2"]
+rotation = 1.5708
+texture = ExtResource("5_xjbhr")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="boteHolder/bote2"]
+
+[node name="bote3" type="Node2D" parent="boteHolder"]
+show_behind_parent = true
+position = Vector2(400, 0)
+script = ExtResource("3_kidlr")
+
+[node name="rudder" type="Sprite2D" parent="boteHolder/bote3"]
+position = Vector2(-32, 0)
+rotation = 3.14159
+texture = ExtResource("3")
+offset = Vector2(2.5, 0)
+
+[node name="bote2pointOh" type="Sprite2D" parent="boteHolder/bote3"]
+rotation = 1.5708
+texture = ExtResource("5_xjbhr")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="boteHolder/bote3"]

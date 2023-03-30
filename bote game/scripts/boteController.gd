@@ -22,6 +22,11 @@ const ruddEffect = 0.05
 
 signal formationOrder
 
+var isLeader = false
+var formationCommands = []
+
+var formationIndex = null
+
 const playerControlled = false
 var targetPos = Vector2(0, 0)
 const closeEnough = 80
@@ -47,11 +52,11 @@ static func angleToAngleDiff(a, b):
 		return diff0
 	else:
 		return diff1
+
 static func normalize_angle(x):
 	return fposmod(x + PI, 2.0*PI) - PI
 
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
-
 
 func _ready():
 	pass#$"..".order.connect(onOrder)
@@ -123,11 +128,13 @@ func _process(delta):
 	$"rudder".rotation = PI + rudd 
 	
 	
-	#print(targetSpeed)
+	var commands = []
+	for command in formationCommands:
+		commands.append(command.rotated(rotation) + position)
+	formationOrder.emit(commands)
 	
 
-func onOrder(pos, desiredAngle):
-	
+func enactOrder(pos, desiredAngle):
 	if desiredAngle == null:
 		preTargetDone = true
 		targetPos = pos
@@ -139,5 +146,10 @@ func onOrder(pos, desiredAngle):
 		finalTarget = pos
 		
 	metTarget = false
-	
+
+func onOrder(pos, desiredAngle):
+	enactOrder(pos, desiredAngle)
 	print("order recieved maam")
+
+func onFormationOrder(commands):
+	enactOrder(commands[formationIndex], null)
