@@ -1,5 +1,3 @@
 res://default_env.tres
 res://scenes/testScene.tscn
 res://scenes/gun.tscn
-res://scripts/camera.gd
-res://scenes/turret.gd
