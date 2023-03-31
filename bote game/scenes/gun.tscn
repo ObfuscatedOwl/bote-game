@@ -64,7 +64,7 @@ hue_variation_min = -1.0
 hue_variation_max = -0.82
 hue_variation_curve = SubResource("CurveTexture_h43xv")
 
-[node name="Gun" type="Node2D"]
+[node name="Turret" type="Node2D"]
 metadata/_edit_horizontal_guides_ = []
 
 [node name="Smoke" type="GPUParticles2D" parent="."]
@@ -72,6 +72,7 @@ position = Vector2(1.5, -3.5)
 emitting = false
 amount = 40
 process_material = SubResource("ParticleProcessMaterial_ww1de")
+lifetime = 5.0
 one_shot = true
 explosiveness = 1.0
 

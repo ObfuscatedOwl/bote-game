@@ -2,8 +2,8 @@ extends Camera2D
 
 var actions = {"ui_up" : false, "ui_down" : false, "ui_left" : false, "ui_right" : false, "zoom_in" : false, "zoom_out" : false}
 
-const moveSpeed = 4
-const zoomRate = 0.03
+const moveSpeed = 500
+const zoomRate = 0.5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,18 +20,18 @@ func _process(delta):
 	var dx = 0
 	var dy = 0
 	if actions["ui_up"]:
-		dy -= moveSpeed
+		dy -= moveSpeed*delta
 	if actions["ui_down"]:
-		dy += moveSpeed
+		dy += moveSpeed*delta
 	if actions["ui_left"]:
-		dx -= moveSpeed
+		dx -= moveSpeed*delta
 	if actions["ui_right"]:
-		dx += moveSpeed
+		dx += moveSpeed*delta
 	
 	if actions["zoom_in"]:
-		zoom *= pow(10.0, zoomRate)
+		zoom *= pow(10.0, zoomRate*delta)
 	if actions["zoom_out"]:
-		zoom *= pow(10.0, -zoomRate)
+		zoom *= pow(10.0, -zoomRate*delta)
 	
 	offset.x += dx / zoom.x
 	offset.y += dy / zoom.x
