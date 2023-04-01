@@ -75,6 +75,7 @@ func _input(event):
 					if (xyCheck.x < 0 and xyCheck.y < 0):
 						selected.append(child)
 						order.connect(child.onOrder)
+						#bababa check if it has followers and if so show the formation
 					
 				queue_redraw()
 		if event.button_index == 2:
@@ -114,18 +115,19 @@ func _input(event):
 			if shortestDistance < clickRadius:
 				botesInLine.append(closestBote)
 				
-		if not event.pressed and event.button_index == 2:
+		if not event.pressed and event.button_index == 2 and botesInLine.size() != 0:
 			order.connect(botesInLine[0].onOrder)
 			givePositionOrder() #assuming there are some in the list
 			
 			#make sure not to allow deactivating the line mode while right click held? QOL stuff
 			
 			for i in range(botesInLine.size()-1):
-				botesInLine[i].isLeader = true
+				botesInLine[i].formationLeader = botesInLine[0]
 				botesInLine[i].formationCommands = [Vector2(-50, 0)]
 				botesInLine[i+1].formationIndex = 0
 				botesInLine[i].formationOrder.connect(botesInLine[i+1].onFormationOrder)
 				
+			botesInLine[-1].formationLeader = botesInLine[0]
 			botesInLine = []
 	
 

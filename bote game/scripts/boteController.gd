@@ -22,10 +22,19 @@ const ruddEffect = 0.05
 
 signal formationOrder
 
-var isLeader = false
 var formationCommands = []
+var formationLeader = null
 
 var formationIndex = null
+
+func getFollowers():
+	var followers = []
+	for follower in formationOrder.get_connections():
+		followers.append(follower["callable"].get_object())
+		for subFollower in follower.getFollowers():
+			followers.append(subFollower)
+			
+	return followers
 
 const playerControlled = false
 var targetPos = Vector2(0, 0)
@@ -84,7 +93,7 @@ func _process(delta):
 		if actions["ruddL"]:
 			rudd += 0.06 * delta
 		if actions["ruddR"]:
-			rudd -= 0.006 * delta
+			rudd -= 0.06 * delta
 		
 		if actions["throtU"]:
 			targetSpeed += acc * delta
