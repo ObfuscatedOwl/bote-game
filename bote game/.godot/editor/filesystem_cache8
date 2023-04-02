@@ -1,15 +1,15 @@
 2a60927148abd1d33b818b535e306557
-::res://::1680371506
-default_env.tres::Environment::2281046586866283389::1680371494::0::1::::<><>::
+::res://::1680469738
+default_env.tres::Environment::2281046586866283389::1680374784::0::1::::<><>::
 icon.png::CompressedTexture2D::7921813261049669099::1680111112::1680111204::1::::<><>::
 notes for formations.txt::TextFile::-1::1680111112::0::1::::<><>::
-::res://scenes/::1680371494
+::res://scenes/::1680374784
 gun.tscn::PackedScene::7686986816378760301::1680370931::0::1::::<><>::uid://bsm3mio6i0xcm<>res://scenes/turret.gd
-testScene.tscn::PackedScene::3464613294773536546::1680371494::0::1::::<><>::res://scripts/camera.gd<>res://scripts/boteHolder.gd<>uid://bwwglaykga4y3<>res://scripts/boteController.gd<>uid://bssdixaukgmfu
+testScene.tscn::PackedScene::3464613294773536546::1680374784::0::1::::<><>::res://scripts/camera.gd<>res://scripts/boteHolder.gd<>uid://bwwglaykga4y3<>res://scripts/boteController.gd<>uid://bssdixaukgmfu
 turret.gd::GDScript::-1::1680293079::0::1::::<>Node2D<>::
-::res://scripts/::1680371494
+::res://scripts/::1680374784
 boteController.gd::GDScript::-1::1680371494::0::1::::<>Node2D<>::
-boteHolder.gd::GDScript::-1::1680371233::0::1::::<>Node2D<>::
+boteHolder.gd::GDScript::-1::1680374784::0::1::::<>Node2D<>::
 camera.gd::GDScript::-1::1680285148::0::1::::<>Camera2D<>::
 ::res://sprites/::1680111905
 bote2point1pointOh.png::CompressedTexture2D::1217327150985231235::1680111113::1680111204::1::::<><>::
