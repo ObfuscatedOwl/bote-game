@@ -30,6 +30,20 @@ func globalToMouseDist(globalPos):
 func getControllableBotes():
 	return get_children()
 	
+func selectBotes():
+	var childs = getControllableBotes()
+	for child in childs:
+		var xyCheck = (child.position - selectStart) * (child.position - get_global_mouse_position())
+		if (xyCheck.x < 0 and xyCheck.y < 0):
+			if child.formationLeader in selected:
+				pass
+			elif child.formationLeader != null:
+				selected.append(child.formationLeader)
+				order.connect(child.formationLeader.onOrder)
+			else:
+				selected.append(child)
+				order.connect(child.onOrder)
+
 func deselectBotes():
 	selecting = false
 	for bote in selected:
@@ -57,8 +71,17 @@ func _draw():
 		drawSquare(selectStart, get_global_mouse_position() - selectStart, Color(0.1, 0.4, 0.1, 0.5))
 	for bote in selected:
 		draw_arc(bote.position, 50, 0, TAU, 20, Color(0, 0, 1), 2)
+		formationLines(bote)
 	for bote in botesInLine:
 		draw_arc(bote.position, 52, 0, TAU, 20, Color(0, 1, 0), 2)
+		
+func formationLines(bote):
+	for command in bote.getGlobalCommands():
+		draw_line(command[1].position, command[0], Color(255, 255, 0))
+		draw_arc(command[0], 3, 0, TAU, 20, Color(255, 255, 0), 6)
+	for follower in bote.getFollowers(true):
+		draw_arc(follower.position, 54, 0, TAU, 20, Color(255, 255, 0), 2)
+		formationLines(follower)
 
 func _input(event):
 	if event.get_class() == "InputEventMouseButton":
@@ -69,13 +92,7 @@ func _input(event):
 				queue_redraw()
 			else:
 				deselectBotes()
-				var childs = getControllableBotes()
-				for child in childs:
-					var xyCheck = (child.position - selectStart) * (child.position - get_global_mouse_position())
-					if (xyCheck.x < 0 and xyCheck.y < 0):
-						selected.append(child)
-						order.connect(child.onOrder)
-						#bababa check if it has followers and if so show the formation
+				selectBotes()
 					
 				queue_redraw()
 		if event.button_index == 2:
@@ -123,13 +140,17 @@ func _input(event):
 			
 			for i in range(botesInLine.size()-1):
 				botesInLine[i].formationLeader = botesInLine[0]
-				botesInLine[i].formationCommands = [Vector2(-50, 0)]
-				botesInLine[i+1].formationIndex = 0
+				botesInLine[i].formationCommands = [[Vector2(-50, 0), botesInLine[i+1]]]
 				botesInLine[i].formationOrder.connect(botesInLine[i+1].onFormationOrder)
 				
 			botesInLine[-1].formationLeader = botesInLine[0]
+			selected = [botesInLine[0]]
 			botesInLine = []
-	
+			lineMode = "off"
+			
+	if event.is_action_pressed("disband"):
+		for bote in selected:
+			selected.append_array(bote.disband()) #add the released botes to the selecteds
 
 func _process(_delta):
 	queue_redraw()

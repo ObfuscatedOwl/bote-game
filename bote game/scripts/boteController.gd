@@ -25,16 +25,6 @@ signal formationOrder
 var formationCommands = []
 var formationLeader = null
 
-var formationIndex = null
-
-func getFollowers():
-	var followers = []
-	for follower in formationOrder.get_connections():
-		followers.append(follower["callable"].get_object())
-		for subFollower in follower.getFollowers():
-			followers.append(subFollower)
-			
-	return followers
 
 const playerControlled = false
 var targetPos = Vector2(0, 0)
@@ -45,6 +35,31 @@ const slowDownDist = 100
 const turningDistance = 150
 var preTargetDone = false
 var finalTarget = Vector2(0,0)
+
+
+func getFollowers(deep):
+	var followers = []
+	for follower in formationOrder.get_connections():
+		followers.append(follower["callable"].get_object())
+		if deep:
+			followers.append_array(follower["callable"].get_object().getFollowers(true))
+			
+	return followers
+
+func disband():
+	var followers = getFollowers(true)
+	disconnectFollowers()
+	print(followers)
+	for follower in followers:
+		print("hello")
+		follower.disconnectFollowers()
+		follower.formationLeader = null
+	return followers
+
+func disconnectFollowers():
+	for command in formationCommands:
+		formationOrder.disconnect(command[1].onFormationOrder)
+	formationCommands = []
 
 static func angleToAngleDiff(a, b):
 	a = normalize_angle(a)
@@ -136,12 +151,13 @@ func _process(delta):
 	
 	$"rudder".rotation = PI + rudd 
 	
-	
+	formationOrder.emit(getGlobalCommands())
+
+func getGlobalCommands():
 	var commands = []
 	for command in formationCommands:
-		commands.append(command.rotated(rotation) + position)
-	formationOrder.emit(commands)
-	
+		commands.append([command[0].rotated(rotation) + position, command[1]])
+	return commands
 
 func enactOrder(pos, desiredAngle):
 	if desiredAngle == null:
@@ -161,4 +177,6 @@ func onOrder(pos, desiredAngle):
 	print("order recieved maam")
 
 func onFormationOrder(commands):
-	enactOrder(commands[formationIndex], null)
+	for command in commands:
+		if command[1] == self:
+			enactOrder(command[0], null)
