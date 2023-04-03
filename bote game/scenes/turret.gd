@@ -3,9 +3,10 @@ extends Node2D
 var reloadFull = 20
 var reloading = 20
 
-var target = Vector2(1, 1)
-var targetingPos = true
-const turnSpeed = 0.2
+var targetingType = "global"
+var globalTarget = Vector2(1, 1)
+var boteTarget = null
+const turretTurnSpeed = 0.2
 
 var relativeTurn = 0
 
@@ -20,10 +21,12 @@ func _process(delta):
 		fire()
 	
 	# Remember turning can only occur if ship not blocking angle! IMPLEMENT THIS
-	if targetingPos:
-		relativeTurn = (target - position).angle() - rotation
+	if (targetingType == "global"):
+		relativeTurn = (globalTarget - position).angle() - rotation
 		if relativeTurn:
-			rotation += abs(relativeTurn)/relativeTurn * delta * turnSpeed
+			rotation += abs(relativeTurn)/relativeTurn * delta * turretTurnSpeed
+	elif (targetingType == "bote"):
+		
 
 func fire():
 	$"Smoke".emitting = true
