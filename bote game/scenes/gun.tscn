@@ -1,7 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://dhrvsxswyqo8t"]
+[gd_scene load_steps=13 format=3 uid="uid://pbdbga62kt2w"]
 
+[ext_resource type="Script" path="res://scripts/turret.gd" id="1_12chk"]
 [ext_resource type="Texture2D" uid="uid://bsm3mio6i0xcm" path="res://sprites/GunMk1.png" id="1_o6hq1"]
-[ext_resource type="Script" path="res://scenes/turret.gd" id="1_v44le"]
 
 [sub_resource type="Gradient" id="Gradient_8ytho"]
 offsets = PackedFloat32Array(0, 0.874126, 1)
@@ -66,7 +66,7 @@ hue_variation_max = -0.82
 hue_variation_curve = SubResource("CurveTexture_h43xv")
 
 [node name="Turret" type="Node2D"]
-script = ExtResource("1_v44le")
+script = ExtResource("1_12chk")
 metadata/_edit_horizontal_guides_ = []
 
 [node name="Smoke" type="GPUParticles2D" parent="."]
