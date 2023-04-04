@@ -1,15 +1,16 @@
 2a60927148abd1d33b818b535e306557
-::res://::1680477558
-default_env.tres::Environment::2281046586866283389::1680477355::0::1::::<><>::
+::res://::1680563748
+bugWithLinePeterFound!.txt::TextFile::-1::1680533701::0::1::::<><>::
+default_env.tres::Environment::2281046586866283389::1680563543::0::1::::<><>::
 icon.png::CompressedTexture2D::7921813261049669099::1680040175::1680040418::1::::<><>::
 notes for formations.txt::TextFile::-1::1680040175::0::1::::<><>::
-::res://scenes/::1680477355
+::res://scenes/::1680563543
 gun.tscn::PackedScene::7686986816378760301::1680298486::0::1::::<><>::uid://bsm3mio6i0xcm<>res://scenes/turret.gd
-testScene.tscn::PackedScene::3464613294773536546::1680477355::0::1::::<><>::res://scripts/camera.gd<>res://scripts/boteHolder.gd<>uid://bwwglaykga4y3<>res://scripts/boteController.gd<>uid://bssdixaukgmfu
-turret.gd::GDScript::-1::1680298486::0::1::::<>Node2D<>::
-::res://scripts/::1680477518
-boteController.gd::GDScript::-1::1680477304::0::1::::<>Node2D<>::
-boteHolder.gd::GDScript::-1::1680477518::0::1::::<>Node2D<>::
+testScene.tscn::PackedScene::3464613294773536546::1680563543::0::1::::<><>::res://scripts/camera.gd<>res://scripts/boteHolder.gd<>uid://bwwglaykga4y3<>res://scripts/boteController.gd<>uid://bssdixaukgmfu
+turret.gd::GDScript::-1::1680479947::0::1::::<>Node2D<>::
+::res://scripts/::1680563542
+boteController.gd::GDScript::-1::1680563542::0::1::::<>Node2D<>::
+boteHolder.gd::GDScript::-1::1680563336::0::1::::<>Node2D<>::
 camera.gd::GDScript::-1::1680298486::0::1::::<>Camera2D<>::
 ::res://sprites/::1680210119
 bote2point1pointOh.png::CompressedTexture2D::1217327150985231235::1680040175::1680040417::1::::<><>::

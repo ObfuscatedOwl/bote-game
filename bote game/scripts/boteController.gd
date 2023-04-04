@@ -36,6 +36,17 @@ const turningDistance = 150
 var preTargetDone = false
 var finalTarget = Vector2(0,0)
 
+func getTrueLeader():
+	if formationLeader == null:
+		return null
+	else:
+		return formationLeader.internalGetLeader()
+		
+func internalGetLeader():
+	if formationLeader == null:
+		return self
+	else:
+		return formationLeader.internalGetLeader()
 
 func getFollowers(deep):
 	var followers = []
@@ -48,12 +59,22 @@ func getFollowers(deep):
 
 func disband():
 	var followers = getFollowers(true)
-	disconnectFollowers()
 	print(followers)
 	for follower in followers:
 		print("hello")
 		follower.disconnectFollowers()
 		follower.formationLeader = null
+		
+	if formationLeader == self:
+		print("something is very wrong")
+	
+	if formationLeader != null:
+		followers.append_array(formationLeader.disband())
+	
+	formationLeader = null
+	
+	disconnectFollowers()
+	
 	return followers
 
 func disconnectFollowers():
