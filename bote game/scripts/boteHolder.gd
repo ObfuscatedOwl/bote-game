@@ -88,6 +88,10 @@ func connectBotes(leader, follower, relPos):
 	leader.formationCommands.append([relPos, follower])
 	leader.formationOrder.connect(follower.onFormationOrder)
 	
+func prepareForFormation(bote):
+	if bote.formationLeader != null:
+		bote.disband() #hopefully formationLeader always gets set back to null after?
+	
 func _draw():
 	
 	draw_circle(targetPosition, 30, Color(1, 1, 1, 0.2))
@@ -155,7 +159,7 @@ func _input(event):
 				
 		if not event.pressed and event.button_index == 2 and botesInLine.size() != 0:
 			for bote in botesInLine:
-				bote.disband()
+				prepareForFormation(bote)
 			
 			order.connect(botesInLine[0].onOrder)
 			givePositionOrder() #assuming there are some in the list
@@ -177,7 +181,9 @@ func _input(event):
 			print("C L U S I V A T E")
 		else:
 			formationStatus = "off"
+			var putInSelected = clusterLeader
 			resetSelections()
+			selected.append(putInSelected)
 			print("D E C L U S I V A T E")
 		
 	if event.get_class() == "InputEventMouseButton" and formationStatus == "cluster":
@@ -187,18 +193,16 @@ func _input(event):
 				addClosestToList(getControllableBotes(), clusterLeaderList)
 				if clusterLeaderList != []:
 					clusterLeader = clusterLeaderList[0]
-					#maybe a better way to do this. i think its probably quite bug proof tho
-					#fingers crossed anyway
 					selected = [clusterLeader]
-					clusterLeader.disband()
+					prepareForFormation(clusterLeader)
 			else:
 				var clusterFollowerList = []
 				addClosestToList(getControllableBotes(), clusterFollowerList)
 				if clusterFollowerList != []:
 					clusterFollower = clusterFollowerList[0]
-					#huh deja vu. maybe this should be a method
+					
 		if event.pressed and event.button_index == 2 and clusterLeader != null and clusterFollower != null:
-			clusterFollower.disband()
+			prepareForFormation(clusterFollower)
 			print("give clusterOrder")
 			var formationPos = (clusterLeader.transform.affine_inverse())*get_global_mouse_position()
 			connectBotes(clusterLeader, clusterFollower, formationPos)

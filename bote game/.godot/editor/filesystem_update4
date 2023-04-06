@@ -1,5 +1,4 @@
 res://default_env.tres
-res://Terrain.gd
-res://scenes/terrain.tscn
-res://scenes/gun.tscn
 res://scenes/testScene.tscn
+res://scenes/gun.tscn
+res://scripts/boteHolder.gd
