@@ -8,7 +8,6 @@ var points = PackedVector2Array()
 var colours = PackedColorArray()
 
 func _ready():
-	landOrSea.noise_type = 2
 	landOrSea.seed = randi()
 	
 	for x in range(start.x, camSize.x):
