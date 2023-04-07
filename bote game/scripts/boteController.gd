@@ -104,8 +104,6 @@ static func normalize_angle(x):
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 
 func _ready():
-	pass#$"..".order.connect(onOrder)
-	#gonna try connecting from the holder's side
 	navigation_agent.path_desired_distance = closeEnough
 	navigation_agent.target_desired_distance = closeEnough
 	call_deferred("actor_setup")
@@ -153,6 +151,11 @@ func _process(delta):
 	rudd = clamp(rudd, -maxRudd, maxRudd)
 	targetSpeed = clamp(targetSpeed, -maxSpeed, +maxSpeed)
 	
+	moveBote(rudd, targetSpeed, delta)
+	
+	formationOrder.emit(getGlobalCommands())
+
+func moveBote(rudd, targetSpeed, delta):
 	var parallel = Vector2.from_angle(rotation)
 	var currentSpeed = parallel.dot(velocity)
 	if rotorRunning:
@@ -171,8 +174,6 @@ func _process(delta):
 	position += velocity * delta
 	
 	$"rudder".rotation = PI + rudd 
-	
-	formationOrder.emit(getGlobalCommands())
 
 func getGlobalCommands():
 	var commands = []

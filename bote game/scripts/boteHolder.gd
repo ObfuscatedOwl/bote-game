@@ -42,14 +42,17 @@ func selectBotes():
 	for child in childs:
 		var xyCheck = (child.position - selectStart) * (child.position - get_global_mouse_position())
 		if (xyCheck.x < 0 and xyCheck.y < 0):
-			if child.getTrueLeader() in selected:
-				pass
-			elif child.getTrueLeader() != null:
-				selected.append(child.getTrueLeader())
-				order.connect(child.getTrueLeader().onOrder)
-			else:
-				selected.append(child)
-				order.connect(child.onOrder)
+			selectBote(child)
+
+func selectBote(bote):
+	if bote.getTrueLeader() in selected:
+		pass
+	elif bote.getTrueLeader() != null:
+		selected.append(bote.getTrueLeader())
+		order.connect(bote.getTrueLeader().onOrder)
+	else:
+		selected.append(bote)
+		order.connect(bote.onOrder)
 
 func deselectBotes():
 	selecting = false
@@ -130,7 +133,7 @@ func _input(event):
 		if event.button_index == 2:
 			if event.pressed:
 				targetPosition = get_global_mouse_position()
-			if not event.pressed  and formationStatus == "off": #later add click and drag orders
+			if not event.pressed  and formationStatus == "off":
 				givePositionOrder()
 
 	
@@ -140,77 +143,88 @@ func _input(event):
 		#queue_redraw() called in process, unnecessary i think
 	
 	if event.is_action_pressed("lineOrder"):
-		if formationStatus == "line":
-			print("line mode D E A C T I V A T E D") #cancel position order stage
-			formationStatus = "off"
-			resetSelections()
-		elif formationStatus == "off":
-			resetSelections()
-			formationStatus = "line" #initiate line mode
-			print("line mode A C T I V A T E D")
-		else:
-			print("no botes selected!")
-			#eventually make this into a ui bit. all of the line stuff i guess
+		lineActivate()
 			
 	if event.get_class() == "InputEventMouseButton" and formationStatus == "line":
 		if event.pressed and event.button_index == 1:
-			#line mode should never be true if no botes are selected. so gonna assume that selected has elements
 			addClosestToList(getControllableBotes(), botesInLine)
 				
 		if not event.pressed and event.button_index == 2 and botesInLine.size() != 0:
-			for bote in botesInLine:
-				prepareForFormation(bote)
-			
-			order.connect(botesInLine[0].onOrder)
-			givePositionOrder() #assuming there are some in the list
-			
-			#make sure not to allow deactivating the line mode while right click held? QOL stuff
-			
-			for i in range(botesInLine.size()-1):
-				botesInLine[i].formationCommands = []
-				connectBotes(botesInLine[i], botesInLine[i+1], Vector2(-100, 0))
-				
-			selected = [botesInLine[0]]
-			botesInLine = []
-			formationStatus = "off"
+			enactLineOrder()
 	
 	if event.is_action_pressed("clusterOrder"):
-		if formationStatus != "cluster":
-			formationStatus = "cluster"
-			resetSelections()
-			print("C L U S I V A T E")
-		else:
-			formationStatus = "off"
-			var putInSelected = clusterLeader
-			resetSelections()
-			selected.append(putInSelected)
-			print("D E C L U S I V A T E")
+		clusterActivate()
 		
 	if event.get_class() == "InputEventMouseButton" and formationStatus == "cluster":
 		if event.pressed and event.button_index == 1:
-			if clusterLeader == null:
-				var clusterLeaderList = []
-				addClosestToList(getControllableBotes(), clusterLeaderList)
-				if clusterLeaderList != []:
-					clusterLeader = clusterLeaderList[0]
-					selected = [clusterLeader]
-					prepareForFormation(clusterLeader)
-			else:
-				var clusterFollowerList = []
-				addClosestToList(getControllableBotes(), clusterFollowerList)
-				if clusterFollowerList != []:
-					clusterFollower = clusterFollowerList[0]
-					
+			clusterSelection()
 		if event.pressed and event.button_index == 2 and clusterLeader != null and clusterFollower != null:
-			prepareForFormation(clusterFollower)
-			print("give clusterOrder")
-			var formationPos = (clusterLeader.transform.affine_inverse())*get_global_mouse_position()
-			connectBotes(clusterLeader, clusterFollower, formationPos)
-			clusterFollower = null
+			enactClusterOrder()
 				
 	if event.is_action_pressed("disband"):
 		for bote in selected:
 			selected.append_array(bote.disband()) #add the released botes to the selecteds
+
+func lineActivate():
+	if formationStatus == "line":
+		print("line mode D E A C T I V A T E D") #cancel position order stage
+		formationStatus = "off"
+		resetSelections()
+	elif formationStatus == "off":
+		resetSelections()
+		formationStatus = "line" #initiate line mode
+		print("line mode A C T I V A T E D")
+
+func enactLineOrder():
+	for bote in botesInLine:
+		prepareForFormation(bote)
+	
+	order.connect(botesInLine[0].onOrder)
+	givePositionOrder() #assuming there are some in the list
+	
+	#make sure not to allow deactivating the line mode while right click held? QOL stuff
+	
+	for i in range(botesInLine.size()-1):
+		botesInLine[i].formationCommands = []
+		connectBotes(botesInLine[i], botesInLine[i+1], Vector2(-100, 0))
+		
+	selected = [botesInLine[0]]
+	botesInLine = []
+	formationStatus = "off"
+
+func clusterActivate():
+	if formationStatus != "cluster":
+		formationStatus = "cluster"
+		resetSelections()
+		print("C L U S I V A T E")
+	else:
+		formationStatus = "off"
+		var putInSelected = clusterLeader
+		resetSelections()
+		selectBote(putInSelected)
+		print("D E C L U S I V A T E")
+
+func clusterSelection():
+	if clusterLeader == null:
+		var clusterLeaderList = []
+		addClosestToList(getControllableBotes(), clusterLeaderList)
+		if clusterLeaderList != []:
+			clusterLeader = clusterLeaderList[0]
+			selected = [clusterLeader]
+			prepareForFormation(clusterLeader)
+	else:
+		var clusterFollowerList = []
+		addClosestToList(getControllableBotes(), clusterFollowerList)
+		if clusterFollowerList != []:
+			if clusterFollowerList[0] != clusterLeader:
+				clusterFollower = clusterFollowerList[0]
+
+func enactClusterOrder():
+	prepareForFormation(clusterFollower)
+	print("give clusterOrder")
+	var formationPos = (clusterLeader.transform.affine_inverse())*get_global_mouse_position()
+	connectBotes(clusterLeader, clusterFollower, formationPos)
+	clusterFollower = null
 
 func _process(_delta):
 	queue_redraw()
