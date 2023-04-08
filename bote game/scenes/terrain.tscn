@@ -51,4 +51,3 @@ format = 2
 script = ExtResource("3_ci1mg")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.2, 0.2)

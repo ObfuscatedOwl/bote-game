@@ -21,11 +21,10 @@ func setupBoundaryConditions():
 			set_cell(0, cell, 0, Vector2i(3, 1))
 
 func allNeighboursSame(cell):
-	for relativeX in [Vector2i(-1, 0), Vector2i(0, 0), Vector2i(1, 0)]:
-		for relativeY in [Vector2i(0, -1), Vector2i(0, 0), Vector2i(0, 1)]:
-			if not get_cell_atlas_coords(0, cell) == get_cell_atlas_coords(0, cell + relativeX + relativeY):
-				if not get_cell_atlas_coords(0, cell + relativeX + relativeY) == emptyCellID:
-					return false
+	for adjacent in [Vector2i(-1, 0), Vector2i(1, 0), Vector2i(0, -1), Vector2i(0, 1)]:
+		if not get_cell_atlas_coords(0, cell) == get_cell_atlas_coords(0, cell +adjacent):
+			if not get_cell_atlas_coords(0, cell + adjacent) == emptyCellID:
+				return false
 	return true
 
 func setCornerGroundCell(cell):

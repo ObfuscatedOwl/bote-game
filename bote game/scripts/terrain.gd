@@ -26,7 +26,4 @@ func setCell(pos, value):
 		$Map.set_cell(0, pos, 0, tileRef["ground"])
 
 func centralFocus(x, y):
-	return pow(start.length() / (10 * Vector2(x, y).length() + 1), 2/3)
-
-func setWaterNoise():
-	pass
+	return pow(start.length() / (10 * Vector2(x, y).length() + 1), 1)

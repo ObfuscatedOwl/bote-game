@@ -3,3 +3,4 @@ res://scenes/testScene.tscn
 res://scenes/gun.tscn
 res://scenes/terrain.tscn
 res://scripts/terrain.gd
+res://scripts/customAutoTile.gd
