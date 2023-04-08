@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bssdixaukgmfu"
-path="res://.godot/imported/Destroyer.png-a00932f62eee4cea5442ed2d96dc66aa.ctex"
+uid="uid://bwwglaykga4y3"
+path="res://.godot/imported/rudder.png-7b9e2d1e61c3c74c69b520fbbd87f1c9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Destroyer.png"
-dest_files=["res://.godot/imported/Destroyer.png-a00932f62eee4cea5442ed2d96dc66aa.ctex"]
+source_file="res://sprites/botes/rudder.png"
+dest_files=["res://.godot/imported/rudder.png-7b9e2d1e61c3c74c69b520fbbd87f1c9.ctex"]
 
 [params]
 

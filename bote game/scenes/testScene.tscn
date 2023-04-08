@@ -1,10 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bpmjw7bq6ava5"]
+[gd_scene load_steps=7 format=3 uid="uid://b40crqmjyah52"]
 
 [ext_resource type="Script" path="res://scripts/camera.gd" id="1_2k4r3"]
 [ext_resource type="Script" path="res://scripts/boteHolder.gd" id="2_1en8m"]
-[ext_resource type="Texture2D" uid="uid://bwwglaykga4y3" path="res://sprites/rudder.png" id="3"]
 [ext_resource type="Script" path="res://scripts/boteController.gd" id="3_kidlr"]
-[ext_resource type="Texture2D" uid="uid://bssdixaukgmfu" path="res://sprites/Destroyer.png" id="5_xjbhr"]
+[ext_resource type="Texture2D" uid="uid://bwwglaykga4y3" path="res://sprites/botes/rudder.png" id="4_p3du1"]
+[ext_resource type="Texture2D" uid="uid://bssdixaukgmfu" path="res://sprites/botes/Destroyer.png" id="5_t3ubm"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_xp063"]
 vertices = PackedVector2Array(-441, -280, -72, -278, -298, -165, 147, -300, 371, -233, 187, -186, 98, -213, -502, 223, -189, -14, 398, -51, 349, 309, 65, -269)
@@ -34,12 +34,12 @@ script = ExtResource("3_kidlr")
 [node name="rudder" type="Sprite2D" parent="boteHolder/bote"]
 position = Vector2(-32, 0)
 rotation = 3.14159
-texture = ExtResource("3")
+texture = ExtResource("4_p3du1")
 offset = Vector2(2.5, 0)
 
 [node name="bote2pointOh" type="Sprite2D" parent="boteHolder/bote"]
 rotation = 1.5708
-texture = ExtResource("5_xjbhr")
+texture = ExtResource("5_t3ubm")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="boteHolder/bote"]
 
@@ -51,12 +51,12 @@ script = ExtResource("3_kidlr")
 [node name="rudder" type="Sprite2D" parent="boteHolder/bote2"]
 position = Vector2(-32, 0)
 rotation = 3.14159
-texture = ExtResource("3")
+texture = ExtResource("4_p3du1")
 offset = Vector2(2.5, 0)
 
 [node name="bote2pointOh" type="Sprite2D" parent="boteHolder/bote2"]
 rotation = 1.5708
-texture = ExtResource("5_xjbhr")
+texture = ExtResource("5_t3ubm")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="boteHolder/bote2"]
 
@@ -68,12 +68,12 @@ script = ExtResource("3_kidlr")
 [node name="rudder" type="Sprite2D" parent="boteHolder/bote3"]
 position = Vector2(-32, 0)
 rotation = 3.14159
-texture = ExtResource("3")
+texture = ExtResource("4_p3du1")
 offset = Vector2(2.5, 0)
 
 [node name="bote2pointOh" type="Sprite2D" parent="boteHolder/bote3"]
 rotation = 1.5708
-texture = ExtResource("5_xjbhr")
+texture = ExtResource("5_t3ubm")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="boteHolder/bote3"]
 
@@ -85,12 +85,12 @@ script = ExtResource("3_kidlr")
 [node name="rudder" type="Sprite2D" parent="boteHolder/bote4"]
 position = Vector2(-32, 0)
 rotation = 3.14159
-texture = ExtResource("3")
+texture = ExtResource("4_p3du1")
 offset = Vector2(2.5, 0)
 
 [node name="bote2pointOh" type="Sprite2D" parent="boteHolder/bote4"]
 rotation = 1.5708
-texture = ExtResource("5_xjbhr")
+texture = ExtResource("5_t3ubm")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="boteHolder/bote4"]
 
@@ -102,12 +102,12 @@ script = ExtResource("3_kidlr")
 [node name="rudder" type="Sprite2D" parent="boteHolder/bote5"]
 position = Vector2(-32, 0)
 rotation = 3.14159
-texture = ExtResource("3")
+texture = ExtResource("4_p3du1")
 offset = Vector2(2.5, 0)
 
 [node name="bote2pointOh" type="Sprite2D" parent="boteHolder/bote5"]
 rotation = 1.5708
-texture = ExtResource("5_xjbhr")
+texture = ExtResource("5_t3ubm")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="boteHolder/bote5"]
 
@@ -119,11 +119,11 @@ script = ExtResource("3_kidlr")
 [node name="rudder" type="Sprite2D" parent="boteHolder/bote6"]
 position = Vector2(-32, 0)
 rotation = 3.14159
-texture = ExtResource("3")
+texture = ExtResource("4_p3du1")
 offset = Vector2(2.5, 0)
 
 [node name="bote2pointOh" type="Sprite2D" parent="boteHolder/bote6"]
 rotation = 1.5708
-texture = ExtResource("5_xjbhr")
+texture = ExtResource("5_t3ubm")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="boteHolder/bote6"]

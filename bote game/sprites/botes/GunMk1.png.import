@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckh4o6a8r4dyg"
-path="res://.godot/imported/bote2pointOh.png-660159920cd773219c164f4b286cfb9f.ctex"
+uid="uid://bsm3mio6i0xcm"
+path="res://.godot/imported/GunMk1.png-a0590364c6705bc4ce3ca8cf45653989.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/bote2pointOh.png"
-dest_files=["res://.godot/imported/bote2pointOh.png-660159920cd773219c164f4b286cfb9f.ctex"]
+source_file="res://sprites/botes/GunMk1.png"
+dest_files=["res://.godot/imported/GunMk1.png-a0590364c6705bc4ce3ca8cf45653989.ctex"]
 
 [params]
 

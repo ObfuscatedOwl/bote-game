@@ -1,7 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://blv2pjba8objn"]
+[gd_scene load_steps=9 format=3 uid="uid://vairod3hykgk"]
 
 [ext_resource type="Script" path="res://scripts/terrain.gd" id="1_bdw1v"]
-[ext_resource type="Texture2D" uid="uid://bcxhwp28s8u4g" path="res://sprites/MapTileset.png" id="2_ru7ji"]
+[ext_resource type="Texture2D" uid="uid://bcxhwp28s8u4g" path="res://sprites/Tilemap/Sand.png" id="2_qtjrc"]
 [ext_resource type="Script" path="res://scripts/customAutoTile.gd" id="3_ci1mg"]
 
 [sub_resource type="Gradient" id="Gradient_eypxo"]
@@ -23,8 +23,8 @@ seamless_blend_skirt = 0.734
 color_ramp = SubResource("Gradient_eypxo")
 noise = SubResource("FastNoiseLite_i0lhg")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hjh70"]
-texture = ExtResource("2_ru7ji")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bbc65"]
+texture = ExtResource("2_qtjrc")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -35,9 +35,10 @@ texture = ExtResource("2_ru7ji")
 0:2/0 = 0
 1:2/0 = 0
 2:2/0 = 0
+3:0/0 = 0
 
-[sub_resource type="TileSet" id="TileSet_donwd"]
-sources/0 = SubResource("TileSetAtlasSource_hjh70")
+[sub_resource type="TileSet" id="TileSet_mh7ir"]
+sources/0 = SubResource("TileSetAtlasSource_bbc65")
 
 [node name="Terrain" type="Node2D"]
 script = ExtResource("1_bdw1v")
@@ -45,8 +46,8 @@ script = ExtResource("1_bdw1v")
 [node name="Noise" type="Sprite2D" parent="."]
 texture = SubResource("NoiseTexture2D_1kffh")
 
-[node name="Map" type="TileMap" parent="."]
-tile_set = SubResource("TileSet_donwd")
+[node name="Sand" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_mh7ir")
 format = 2
 script = ExtResource("3_ci1mg")
 

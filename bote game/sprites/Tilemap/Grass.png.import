@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rlxg2tq3vpmh"
-path="res://.godot/imported/bote2point1pointOh.png-823d3396c1016d5cafa067c010756a0f.ctex"
+uid="uid://305xf2hpv0hp"
+path="res://.godot/imported/Grass.png-e070f652f31c23f1edbad37860b419db.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/bote2point1pointOh.png"
-dest_files=["res://.godot/imported/bote2point1pointOh.png-823d3396c1016d5cafa067c010756a0f.ctex"]
+source_file="res://sprites/Tilemap/Grass.png"
+dest_files=["res://.godot/imported/Grass.png-e070f652f31c23f1edbad37860b419db.ctex"]
 
 [params]
 

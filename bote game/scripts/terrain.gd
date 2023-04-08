@@ -17,13 +17,13 @@ func _ready():
 			var pos = Vector2i(x, y)
 			setCell(pos, value)
 	
-	$Map.setupBoundaryConditions()
+	$Sand.setupBoundaryConditions()
 
 func setCell(pos, value):
-	if value < 0.1:
-		$Map.set_cell(0, pos, 0, tileRef["water"])
+	if value > 0.1:
+		$Sand.set_cell(0, pos, 0, tileRef["ground"])
 	else:
-		$Map.set_cell(0, pos, 0, tileRef["ground"])
+		$Sand.set_cell(0, pos, 0, tileRef["water"])
 
 func centralFocus(x, y):
 	return pow(start.length() / (10 * Vector2(x, y).length() + 1), 1)

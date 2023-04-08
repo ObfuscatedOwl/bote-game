@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcxhwp28s8u4g"
-path="res://.godot/imported/MapTileset.png-25d86ef7ebe5d3c318307bbb92838c2e.ctex"
+uid="uid://rlxg2tq3vpmh"
+path="res://.godot/imported/bote2point1pointOh.png-de385c9bf1aa7351d84b37fbcc0311a1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/MapTileset.png"
-dest_files=["res://.godot/imported/MapTileset.png-25d86ef7ebe5d3c318307bbb92838c2e.ctex"]
+source_file="res://sprites/botes/bote2point1pointOh.png"
+dest_files=["res://.godot/imported/bote2point1pointOh.png-de385c9bf1aa7351d84b37fbcc0311a1.ctex"]
 
 [params]
 
