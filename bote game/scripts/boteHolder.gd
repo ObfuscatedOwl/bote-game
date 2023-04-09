@@ -15,6 +15,7 @@ var targetPosition = Vector2(0, 0)
 
 const angleDontCare = 10
 const clickRadius = 50
+const lineSpread = -200
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -186,7 +187,7 @@ func enactLineOrder():
 	
 	for i in range(botesInLine.size()-1):
 		botesInLine[i].formationCommands = []
-		connectBotes(botesInLine[i], botesInLine[i+1], Vector2(-100, 0))
+		connectBotes(botesInLine[i], botesInLine[i+1], Vector2(lineSpread, 0))
 		
 	selected = [botesInLine[0]]
 	botesInLine = []
