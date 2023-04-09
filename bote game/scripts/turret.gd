@@ -26,7 +26,7 @@ func _process(delta):
 		if relativeTurn:
 			rotation += abs(relativeTurn)/relativeTurn * delta * turretTurnSpeed
 	elif (targetingType == "bote"):
-		
+		pass
 
 func fire():
 	$"Smoke".emitting = true
