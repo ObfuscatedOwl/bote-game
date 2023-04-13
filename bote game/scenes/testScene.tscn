@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/boteHolder.gd" id="2_1en8m"]
 [ext_resource type="Script" path="res://scripts/boteController.gd" id="3_kidlr"]
 [ext_resource type="Texture2D" uid="uid://bwwglaykga4y3" path="res://sprites/botes/rudder.png" id="4_p3du1"]
-[ext_resource type="Texture2D" uid="uid://boskxwe3yt54m" path="res://sprites/botes/Destroyer.png" id="5_t3ubm"]
+[ext_resource type="Texture2D" uid="uid://63k7u6yw04cs" path="res://sprites/botes/Destroyer.png" id="5_t3ubm"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_xp063"]
 vertices = PackedVector2Array(-441, -280, -72, -278, -298, -165, 147, -300, 371, -233, 187, -186, 98, -213, -502, 223, -189, -14, 398, -51, 349, 309, 65, -269)

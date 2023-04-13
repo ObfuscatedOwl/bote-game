@@ -89,6 +89,7 @@ explosiveness = 0.1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_vngco")
+offset = Vector2(0, -2)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
