@@ -6,26 +6,23 @@ const g = 10
 
 #~~~~~~~ ... ~~~~~~~#
 
+const bullet = preload("res://scenes/bullet.tscn")
+
 const muzzleSpeed = 50
 var reloadFull = 20
 var reloading = 20
 
 const adjustmentIterations = 5
 var targeting = true
-var globalTarget = Vector2(0, -10)
+var globalTarget = Vector2(0, -40)
 
-var relativeTargetVelocity = Vector2(0, 0)
+var relativeTargetVelocity = Vector2(-4, 0)
 var adjustedTarget = Vector2.ZERO
 
-const turretTurnSpeed = 1
+const turretTurnSpeed = 0.2
 var relativeTurn = 0
 
-func _ready():
-	position = Vector2.ZERO
-
 func _process(delta):
-	globalTarget += relativeTargetVelocity * delta
-	
 	if (reloading < reloadFull):
 		reloading += delta
 	else:
@@ -42,25 +39,20 @@ func _process(delta):
 		relativeTurn = -rotation
 		if relativeTurn:
 			rotation += abs(relativeTurn)/-relativeTurn * delta * turretTurnSpeed
-	
-	queue_redraw()
-
-func _draw():
-	draw_circle(to_local(globalTarget), 10, Color(0, 0, 0))
 
 func adjustAim():
 	var relativeTarget = globalTarget - position
+	var movedTarget = relativeTarget
 	
 	for adjustment in range(adjustmentIterations):
-		print(adjustment)
-		if inRange(relativeTarget.length()):
-			relativeTarget += relativeTargetVelocity * timeToStrike(relativeTarget.length())
+		if inRange(movedTarget.length()):
+			movedTarget = relativeTarget + relativeTargetVelocity * timeToStrike(movedTarget.length())
 	
-	adjustedTarget = relativeTarget
+	
+	adjustedTarget = movedTarget
 
 func timeToStrike(x):
-	print(x / cos(asin((g * x) / pow(muzzleSpeed, 2)) / 2))
-	return x / cos(asin((g * x) / pow(muzzleSpeed, 2)) / 2)
+	return x / (cos(asin((g * x) / pow(muzzleSpeed, 2)) / 2) * muzzleSpeed)
 
 func inRange(x):
 	return (g * x) / pow(muzzleSpeed, 2) < 1

@@ -70,7 +70,8 @@ script = ExtResource("1_12chk")
 metadata/_edit_horizontal_guides_ = []
 
 [node name="Smoke" type="GPUParticles2D" parent="."]
-position = Vector2(0, -6)
+position = Vector2(8, 0)
+rotation = 1.5708
 emitting = false
 amount = 40
 process_material = SubResource("ParticleProcessMaterial_ww1de")
@@ -79,7 +80,8 @@ one_shot = true
 explosiveness = 1.0
 
 [node name="Fire" type="GPUParticles2D" parent="."]
-position = Vector2(0, -6)
+position = Vector2(8, 0)
+rotation = 1.5708
 emitting = false
 amount = 16
 process_material = SubResource("ParticleProcessMaterial_wy5f3")
@@ -88,6 +90,7 @@ one_shot = true
 explosiveness = 0.1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
 texture = ExtResource("2_vngco")
 offset = Vector2(0, -2)
 
