@@ -6,3 +6,4 @@ res://scenes/terrain.tscn
 res://scenes/turretTestScene.tscn
 res://scripts/turretTestScene.gd
 res://scenes/bullet.tscn
+res://scenes/bote.tscn
