@@ -24,7 +24,7 @@ const turretTurnSpeed = 0.8
 var relativeTurn = 0
 
 func _process(delta):
-	globalTarget += relativeTargetVelocity * delta
+	#globalTarget += relativeTargetVelocity * delta
 	
 	if (reloading < reloadFull):
 		reloading += delta

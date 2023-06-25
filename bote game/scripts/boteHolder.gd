@@ -23,7 +23,7 @@ func _ready():
 	formationStatus = OFF
 	resetSelections()
 
-func drawSquare(pos, size, color):
+func drawRectangle(pos, size, color):
 	var pointsArr = PackedVector2Array([
 		pos,
 		Vector2(pos.x + size.x, pos.y),
@@ -102,7 +102,7 @@ func _draw():
 	draw_circle(targetPosition, 30, Color(1, 1, 1, 0.2))
 	
 	if selecting:
-		drawSquare(selectStart, get_global_mouse_position() - selectStart, Color(0.1, 0.4, 0.1, 0.5))
+		drawRectangle(selectStart, get_global_mouse_position() - selectStart, Color(0.1, 0.4, 0.1, 0.5))
 	for bote in selected:
 		draw_arc(bote.position, 50, 0, TAU, 20, Color(0, 0, 1), 2)
 		formationLines(bote)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dabl0ajxiu4on"]
 
 [ext_resource type="Script" path="res://scripts/terrain.gd" id="1_bdw1v"]
-[ext_resource type="Texture2D" uid="uid://bcxhwp28s8u4g" path="res://sprites/tilemap/Sand.png" id="2_bia0i"]
+[ext_resource type="Texture2D" uid="uid://bcxhwp28s8u4g" path="res://sprites/Tilemap/Sand.png" id="2_bia0i"]
 [ext_resource type="Script" path="res://scripts/customAutoTile.gd" id="3_ci1mg"]
 
 [sub_resource type="Gradient" id="Gradient_eypxo"]
