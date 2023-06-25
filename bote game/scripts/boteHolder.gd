@@ -2,7 +2,8 @@ extends Node2D
 
 signal order
 
-var formationStatus #off, line, cluster
+enum {OFF, LINE, CLUSTER}
+var formationStatus = OFF #off, line, cluster
 var botesInLine
 var clusterLeader
 var clusterFollower
@@ -19,7 +20,7 @@ const lineSpread = -200
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	formationStatus = "off"
+	formationStatus = OFF
 	resetSelections()
 
 func drawSquare(pos, size, color):
@@ -122,7 +123,7 @@ func formationLines(bote):
 
 func _input(event):
 	if event.get_class() == "InputEventMouseButton":
-		if event.button_index == 1 and formationStatus == "off": #primary mouse button
+		if event.button_index == 1 and formationStatus == OFF: #primary mouse button
 			if event.pressed:
 				selecting = true
 				selectStart = get_global_mouse_position()
@@ -134,7 +135,7 @@ func _input(event):
 		if event.button_index == 2:
 			if event.pressed:
 				targetPosition = get_global_mouse_position()
-			if not event.pressed  and formationStatus == "off":
+			if not event.pressed  and formationStatus == OFF:
 				givePositionOrder()
 
 	
@@ -146,7 +147,7 @@ func _input(event):
 	if event.is_action_pressed("lineOrder"):
 		lineActivate()
 			
-	if event.get_class() == "InputEventMouseButton" and formationStatus == "line":
+	if event.get_class() == "InputEventMouseButton" and formationStatus == LINE:
 		if event.pressed and event.button_index == 1:
 			addClosestToList(getControllableBotes(), botesInLine)
 				
@@ -156,7 +157,7 @@ func _input(event):
 	if event.is_action_pressed("clusterOrder"):
 		clusterActivate()
 		
-	if event.get_class() == "InputEventMouseButton" and formationStatus == "cluster":
+	if event.get_class() == "InputEventMouseButton" and formationStatus == CLUSTER:
 		if event.pressed and event.button_index == 1:
 			clusterSelection()
 		if event.pressed and event.button_index == 2 and clusterLeader != null and clusterFollower != null:
@@ -167,13 +168,13 @@ func _input(event):
 			selected.append_array(bote.disband()) #add the released botes to the selecteds
 
 func lineActivate():
-	if formationStatus == "line":
+	if formationStatus == LINE:
 		print("line mode D E A C T I V A T E D") #cancel position order stage
-		formationStatus = "off"
+		formationStatus = OFF
 		resetSelections()
-	elif formationStatus == "off":
+	elif formationStatus == OFF:
 		resetSelections()
-		formationStatus = "line" #initiate line mode
+		formationStatus = LINE #initiate line mode
 		print("line mode A C T I V A T E D")
 
 func enactLineOrder():
@@ -191,15 +192,15 @@ func enactLineOrder():
 		
 	selected = [botesInLine[0]]
 	botesInLine = []
-	formationStatus = "off"
+	formationStatus = OFF
 
 func clusterActivate():
-	if formationStatus != "cluster":
-		formationStatus = "cluster"
+	if formationStatus != CLUSTER:
+		formationStatus = CLUSTER
 		resetSelections()
 		print("C L U S I V A T E")
 	else:
-		formationStatus = "off"
+		formationStatus = OFF
 		var putInSelected = clusterLeader
 		resetSelections()
 		selectBote(putInSelected)
