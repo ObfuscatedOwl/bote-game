@@ -48,9 +48,9 @@ func adjustAim():
 	var movedTarget = relativeTarget
 	
 	for adjustment in range(adjustmentIterations):
-		if inRange(movedTarget.length()):
-			movedTarget = relativeTarget + relativeTargetVelocity * timeToStrike(movedTarget.length())
-	
+		movedTarget = relativeTarget + relativeTargetVelocity * timeToStrike(movedTarget.length())
+	if not inRange(movedTarget.length()):
+		movedTarget = relativeTarget
 	
 	adjustedTarget = movedTarget
 

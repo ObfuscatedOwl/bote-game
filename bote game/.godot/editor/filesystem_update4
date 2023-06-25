@@ -7,3 +7,4 @@ res://scenes/bullet.tscn
 res://scenes/bote.tscn
 res://scripts/turretTestScene.gd
 res://scenes/bullet.gd
+res://scripts/turret.gd
