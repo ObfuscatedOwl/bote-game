@@ -10,3 +10,4 @@ bote game/.godot/editor/filesystem_update4
 *.bin
 bote game/.godot/editor/testScene.tscn-editstate-9ad9e724fc9249b086d9710f487a4447.cfg
 bote game/.godot/editor/testScene.tscn-folding-9ad9e724fc9249b086d9710f487a4447.cfg
+*.cfg
