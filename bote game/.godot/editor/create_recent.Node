@@ -1,6 +1,6 @@
-TileMap
-Sprite2D
-AnimatedSprite2D
 Camera2D
+Sprite2D
+TileMap
+AnimatedSprite2D
 TextureRect
 GPUParticles2D

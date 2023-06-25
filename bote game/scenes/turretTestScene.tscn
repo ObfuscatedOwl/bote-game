@@ -11,9 +11,15 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-189, -14, 65, -269, 98
 script = ExtResource("1_ji4t0")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+visible = false
 scale = Vector2(100, 100)
 navigation_polygon = SubResource("NavigationPolygon_a4iwp")
 
 [node name="Polygon2D" type="Polygon2D" parent="NavigationRegion2D"]
 visible = false
 polygon = PackedVector2Array(-440, -277, -77, -278, -298, -164, -192, -16, 60, -268, 95, -215, 148, -302, 367, -236, 191, -184, 397, -52, 348, 313, -499, 222)
+
+[node name="bullets" type="Sprite2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.481, 1.481)

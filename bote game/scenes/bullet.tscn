@@ -1,3 +1,10 @@
-[gd_scene format=3 uid="uid://dpe3cg4ymnbca"]
+[gd_scene load_steps=3 format=3 uid="uid://dpe3cg4ymnbca"]
+
+[ext_resource type="Script" path="res://scenes/bullet.gd" id="1_cbdll"]
+[ext_resource type="Texture2D" uid="uid://bwwglaykga4y3" path="res://sprites/botes/rudder.png" id="2_r42a1"]
 
 [node name="bullet" type="Node2D"]
+script = ExtResource("1_cbdll")
+
+[node name="bulletSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_r42a1")

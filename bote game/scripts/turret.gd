@@ -7,22 +7,25 @@ const g = 10
 #~~~~~~~ ... ~~~~~~~#
 
 const bullet = preload("res://scenes/bullet.tscn")
+var bulletNode
 
 const muzzleSpeed = 50
-var reloadFull = 20
+var reloadFull = 4
 var reloading = 20
 
-const adjustmentIterations = 5
+const adjustmentIterations = 10
 var targeting = true
-var globalTarget = Vector2(0, -40)
+var globalTarget = Vector2(400, -40)
 
-var relativeTargetVelocity = Vector2(-4, 0)
+var relativeTargetVelocity = Vector2(-20, 0)
 var adjustedTarget = Vector2.ZERO
 
-const turretTurnSpeed = 0.2
+const turretTurnSpeed = 0.8
 var relativeTurn = 0
 
 func _process(delta):
+	globalTarget += relativeTargetVelocity * delta
+	
 	if (reloading < reloadFull):
 		reloading += delta
 	else:
@@ -60,3 +63,6 @@ func inRange(x):
 func fire():
 	$"Smoke".emitting = true
 	$"Fire".emitting = true
+	var newBullet = bullet.instantiate()
+	bulletNode.add_child(newBullet)
+	newBullet.velocity = Vector2.from_angle(rotation) * muzzleSpeed
