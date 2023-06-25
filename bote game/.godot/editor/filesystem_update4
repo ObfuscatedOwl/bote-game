@@ -1,11 +1,9 @@
 res://default_env.tres
 res://scenes/testScene.tscn
-res://scripts/boteHolder.gd
 res://scenes/gun.tscn
 res://scenes/terrain.tscn
+res://scenes/turretTestScene.tscn
 res://scenes/bullet.tscn
 res://scenes/bote.tscn
-res://scenes/turretTestScene.tscn
 res://scripts/turretTestScene.gd
-res://scripts/turret.gd
 res://scenes/bullet.gd
