@@ -16,7 +16,7 @@ func _ready():
 
 func _draw():
 	draw_circle($Turret.globalTarget, 2, Color(1, 1, 1, 0.5))
-	draw_circle($Turret.adjustedTarget, 2, Color(1, 0, 0, 0.5))
+	draw_circle($Turret.adjustedTarget, 2, Color(1, 0, 0, 1))
 
 
 func _process(delta):

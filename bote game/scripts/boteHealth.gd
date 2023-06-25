@@ -10,8 +10,8 @@ func drawRectangle(pos, size, color):
 		pos + size,
 		Vector2(pos.x, pos.y + size.y)
 	])
-	var antiRotation = Transform2D(global_rotation, Vector2.ZERO)
-	draw_polygon(pointsArr * antiRotation, PackedColorArray([color]))
+	#var antiRotation = Transform2D(global_rotation, Vector2.ZERO)
+	draw_polygon(pointsArr, PackedColorArray([color]))
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,7 +25,7 @@ func _draw():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	queue_redraw()
+	pass
 
 
 func _on_hitbox_entered(area):
@@ -34,3 +34,4 @@ func _on_hitbox_entered(area):
 		health -= areaParent.damage
 		print("Health decreased to " + str(health))
 		areaParent.queue_free()
+		queue_redraw()

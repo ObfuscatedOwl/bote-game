@@ -5,6 +5,7 @@ var keybinds = {"W" : "throtU", "S" : "throtD", "A" : "ruddL", "D" : "ruddR"}
 var throttle = 0.0 #from -1 to 1
 
 var velocity = Vector2(0, 0)
+var boteRotation = 0.0
 var mass = 1
 var rotorForce = 1.8
 var rotorRunning = true
@@ -138,7 +139,7 @@ func _process(delta):
 		var next_path_position = navigation_agent.get_next_path_position()
 		
 		targetSpeed = maxSpeed * (position - next_path_position).length() / slowDownDist
-		rudd = angleToAngleDiff(rotation, position.angle_to_point(next_path_position))
+		rudd = angleToAngleDiff(boteRotation, position.angle_to_point(next_path_position))
 		metTarget = (position - next_path_position).length() <= closeEnough
 	elif not preTargetDone:
 		preTargetDone = true
@@ -152,33 +153,35 @@ func _process(delta):
 	targetSpeed = clamp(targetSpeed, -maxSpeed, +maxSpeed)
 	
 	moveBote(rudd, targetSpeed, delta)
+	$bote2pointOh.rotation = boteRotation + PI/2
+	$"health/hitbox".rotation = boteRotation
 	
 	formationOrder.emit(getGlobalCommands())
 
 func moveBote(rudd, targetSpeed, delta):
-	var parallel = Vector2.from_angle(rotation)
+	var parallel = Vector2.from_angle(boteRotation)
 	var currentSpeed = parallel.dot(velocity)
 	if rotorRunning:
 		velocity += delta * parallel * clamp((targetSpeed - currentSpeed) * forcePerDeltaSpeed, -rotorForce, rotorForce) / mass
 	#velocity -= parallel * velocity.length() * drag
 	velocity *= pow(10, -drag * delta)
 	
-	var sideways = Vector2.from_angle(rotation - PI/2)
+	var sideways = Vector2.from_angle(boteRotation - PI/2)
 	var sidewaysSpeed = sideways.dot(velocity)
 	velocity -= delta * sideways * sidewaysSpeed * sideForce / mass
 	
 	var velocityAngle = velocity.angle()
-	var alpha = velocityAngle - rotation
-	rotation += delta * cos(rudd) * velocity.length() * sin(alpha - rudd) * ruddEffect
+	var alpha = velocityAngle - boteRotation
+	boteRotation += delta * cos(rudd) * velocity.length() * sin(alpha - rudd) * ruddEffect
 	
 	position += velocity * delta
 	
-	$"rudder".rotation = PI + rudd 
+	$"bote2pointOh/rudder".rotation = PI + rudd 
 
 func getGlobalCommands():
 	var commands = []
 	for command in formationCommands:
-		commands.append([command[0].rotated(rotation) + position, command[1]])
+		commands.append([command[0].rotated(boteRotation) + position, command[1]])
 	return commands
 
 func enactOrder(pos, desiredAngle):

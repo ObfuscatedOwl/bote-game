@@ -9,9 +9,13 @@
 show_behind_parent = true
 script = ExtResource("1_jvag8")
 
-[node name="rudder" type="Sprite2D" parent="."]
-position = Vector2(-32, 0)
-rotation = 3.14159
+[node name="bote2pointOh" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("3_kr6kh")
+
+[node name="rudder" type="Sprite2D" parent="bote2pointOh"]
+position = Vector2(0.00011584, 32)
+rotation = 1.57079
 texture = ExtResource("2_r825u")
 offset = Vector2(2.5, 0)
 
@@ -19,10 +23,6 @@ offset = Vector2(2.5, 0)
 
 [node name="health" type="Node2D" parent="."]
 script = ExtResource("3_lgynd")
-
-[node name="bote2pointOh" type="Sprite2D" parent="health"]
-rotation = 1.5708
-texture = ExtResource("3_kr6kh")
 
 [node name="hitbox" type="Area2D" parent="health"]
 collision_mask = 3
