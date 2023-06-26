@@ -64,5 +64,6 @@ func fire():
 	$"Smoke".emitting = true
 	$"Fire".emitting = true
 	var newBullet = bullet.instantiate()
-	bulletNode.add_child(newBullet)
+	if bulletNode != null:
+		bulletNode.add_child(newBullet)
 	newBullet.velocity = Vector2.from_angle(rotation) * muzzleSpeed

@@ -1,11 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b40crqmjyah52"]
+[gd_scene load_steps=5 format=3 uid="uid://b40crqmjyah52"]
 
 [ext_resource type="Script" path="res://scripts/camera.gd" id="1_2k4r3"]
 [ext_resource type="Script" path="res://scripts/boteHolder.gd" id="2_1en8m"]
 [ext_resource type="PackedScene" uid="uid://82s0k7lpx1un" path="res://scenes/bote.tscn" id="3_b5p0u"]
-[ext_resource type="Script" path="res://scripts/boteController.gd" id="3_kidlr"]
-[ext_resource type="Texture2D" uid="uid://bwwglaykga4y3" path="res://sprites/botes/rudder.png" id="4_p3du1"]
-[ext_resource type="Texture2D" uid="uid://63k7u6yw04cs" path="res://sprites/botes/Destroyer.png" id="5_t3ubm"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_xp063"]
 vertices = PackedVector2Array(-441, -280, -72, -278, -298, -165, 147, -300, 371, -233, 187, -186, 98, -213, -502, 223, -189, -14, 398, -51, 349, 309, 65, -269)
@@ -30,87 +27,17 @@ script = ExtResource("2_1en8m")
 
 [node name="bote" parent="boteHolder" instance=ExtResource("3_b5p0u")]
 
-[node name="bote2" type="Node2D" parent="boteHolder"]
-show_behind_parent = true
-position = Vector2(200, 0)
-script = ExtResource("3_kidlr")
+[node name="bote2" parent="boteHolder" instance=ExtResource("3_b5p0u")]
+position = Vector2(338, -8)
 
-[node name="rudder" type="Sprite2D" parent="boteHolder/bote2"]
-position = Vector2(-32, 0)
-rotation = 3.14159
-texture = ExtResource("4_p3du1")
-offset = Vector2(2.5, 0)
+[node name="bote3" parent="boteHolder" instance=ExtResource("3_b5p0u")]
+position = Vector2(578, 0)
 
-[node name="bote2pointOh" type="Sprite2D" parent="boteHolder/bote2"]
-rotation = 1.5708
-texture = ExtResource("5_t3ubm")
+[node name="bote4" parent="boteHolder" instance=ExtResource("3_b5p0u")]
+position = Vector2(-23, 141)
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="boteHolder/bote2"]
+[node name="bote5" parent="boteHolder" instance=ExtResource("3_b5p0u")]
+position = Vector2(335, 156)
 
-[node name="bote3" type="Node2D" parent="boteHolder"]
-show_behind_parent = true
-position = Vector2(400, 0)
-script = ExtResource("3_kidlr")
-
-[node name="rudder" type="Sprite2D" parent="boteHolder/bote3"]
-position = Vector2(-32, 0)
-rotation = 3.14159
-texture = ExtResource("4_p3du1")
-offset = Vector2(2.5, 0)
-
-[node name="bote2pointOh" type="Sprite2D" parent="boteHolder/bote3"]
-rotation = 1.5708
-texture = ExtResource("5_t3ubm")
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="boteHolder/bote3"]
-
-[node name="bote4" type="Node2D" parent="boteHolder"]
-show_behind_parent = true
-position = Vector2(0, 100)
-script = ExtResource("3_kidlr")
-
-[node name="rudder" type="Sprite2D" parent="boteHolder/bote4"]
-position = Vector2(-32, 0)
-rotation = 3.14159
-texture = ExtResource("4_p3du1")
-offset = Vector2(2.5, 0)
-
-[node name="bote2pointOh" type="Sprite2D" parent="boteHolder/bote4"]
-rotation = 1.5708
-texture = ExtResource("5_t3ubm")
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="boteHolder/bote4"]
-
-[node name="bote5" type="Node2D" parent="boteHolder"]
-show_behind_parent = true
-position = Vector2(200, 100)
-script = ExtResource("3_kidlr")
-
-[node name="rudder" type="Sprite2D" parent="boteHolder/bote5"]
-position = Vector2(-32, 0)
-rotation = 3.14159
-texture = ExtResource("4_p3du1")
-offset = Vector2(2.5, 0)
-
-[node name="bote2pointOh" type="Sprite2D" parent="boteHolder/bote5"]
-rotation = 1.5708
-texture = ExtResource("5_t3ubm")
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="boteHolder/bote5"]
-
-[node name="bote6" type="Node2D" parent="boteHolder"]
-show_behind_parent = true
-position = Vector2(400, 100)
-script = ExtResource("3_kidlr")
-
-[node name="rudder" type="Sprite2D" parent="boteHolder/bote6"]
-position = Vector2(-32, 0)
-rotation = 3.14159
-texture = ExtResource("4_p3du1")
-offset = Vector2(2.5, 0)
-
-[node name="bote2pointOh" type="Sprite2D" parent="boteHolder/bote6"]
-rotation = 1.5708
-texture = ExtResource("5_t3ubm")
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="boteHolder/bote6"]
+[node name="bote6" parent="boteHolder" instance=ExtResource("3_b5p0u")]
+position = Vector2(577, 152)

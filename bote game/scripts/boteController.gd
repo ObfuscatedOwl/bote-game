@@ -37,6 +37,8 @@ const turningDistance = 150
 var preTargetDone = false
 var finalTarget = Vector2(0,0)
 
+var isSunk = false
+
 func getTrueLeader():
 	if formationLeader == null:
 		return null
@@ -62,7 +64,6 @@ func disband():
 	var followers = getFollowers(true)
 	print(followers)
 	for follower in followers:
-		print("hello")
 		follower.disconnectFollowers()
 		follower.formationLeader = null
 		
@@ -73,9 +74,7 @@ func disband():
 		followers.append_array(formationLeader.disband())
 	
 	formationLeader = null
-	
 	disconnectFollowers()
-	
 	return followers
 
 func disconnectFollowers():
@@ -198,10 +197,23 @@ func enactOrder(pos, desiredAngle):
 	metTarget = false
 
 func onOrder(pos, desiredAngle):
-	enactOrder(pos, desiredAngle)
-	print("order recieved maam")
+	if not isSunk:
+		enactOrder(pos, desiredAngle)
+		print("order recieved maam")
 
 func onFormationOrder(commands):
-	for command in commands:
-		if command[1] == self:
-			enactOrder(command[0], null)
+	if not isSunk:
+		for command in commands:
+			if command[1] == self:
+				enactOrder(command[0], null)
+
+func canBeControlled(id):
+	#do something to ensure id is correct
+	if isSunk:
+		return false
+	return true
+		
+func sink():
+	disband()
+	#also go about removing self from formations
+	isSunk = true

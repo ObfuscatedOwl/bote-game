@@ -3,6 +3,8 @@ extends Node2D
 var health = 100.0
 var maxHealth = 100.0
 
+signal sink
+
 func drawRectangle(pos, size, color):
 	var pointsArr = PackedVector2Array([
 		pos,
@@ -15,23 +17,41 @@ func drawRectangle(pos, size, color):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	sink.connect($"..".sink)
 
 
 func _draw():
 	drawRectangle(Vector2(-20, -50), Vector2(40, 10), Color(1, 0, 0))
-	var healthFraction = health/maxHealth
+	var healthFraction = max(0, health/maxHealth)
 	drawRectangle(Vector2(-20, -50), Vector2(40*healthFraction, 10), Color(0, 1, 0))
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
+	if health <= 0:
+		var major = Vector2(2, 2)
+		var minor = Vector2(0.2, 0.2)
+		var color = PackedColorArray([Color(1, 0, 0)])
+		draw_polygon(PackedVector2Array([
+			major+minor, major-minor, -major-minor, -major+minor
+		]), color)
+		major = major.rotated(PI/2)
+		minor = minor.rotated(PI/2)
+		draw_polygon(PackedVector2Array([
+			major+minor, major-minor, -major-minor, -major+minor
+		]), color)
+		print("cross")
+	else:
+		print("no cross")
 
 func _on_hitbox_entered(area):
 	var areaParent = area.get_parent()
 	if area.collision_layer == 2:
-		health -= areaParent.damage
+		bulletHit(areaParent)
+		
+func bulletHit(bullet):
+	if health > 0:
+		health -= bullet.damage
 		print("Health decreased to " + str(health))
-		areaParent.queue_free()
-		queue_redraw()
+	bullet.queue_free()
+	if health <= 0:
+		sink.emit()
+		print("noooo ahh imdead")
+	queue_redraw()
+	

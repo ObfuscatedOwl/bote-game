@@ -22,6 +22,7 @@ offset = Vector2(2.5, 0)
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [node name="health" type="Node2D" parent="."]
+z_index = 1
 script = ExtResource("3_lgynd")
 
 [node name="hitbox" type="Area2D" parent="health"]

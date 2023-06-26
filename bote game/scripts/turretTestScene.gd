@@ -9,7 +9,6 @@ func _ready():
 	newTurret = turret.instantiate()
 	add_child(newTurret)
 	newTurret.bulletNode = $bullets
-	$bullets.add_child(newTurret)
 	newBote = bote.instantiate()
 	$boteHolder.add_child(newBote)
 	newBote.position = Vector2(250, -40)

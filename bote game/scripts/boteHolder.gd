@@ -37,7 +37,12 @@ func globalToMouseDist(globalPos):
 	return (globalPos - get_global_mouse_position()).length() / zoom
 	
 func getControllableBotes():
-	return get_children()
+	var children = get_children()
+	var controllableBotes = []
+	for child in children:
+		if child.canBeControlled(null):
+			controllableBotes.append(child)
+	return controllableBotes
 	
 func selectBotes():
 	var childs = getControllableBotes()
