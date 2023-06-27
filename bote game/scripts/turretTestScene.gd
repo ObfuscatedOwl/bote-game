@@ -1,6 +1,6 @@
 extends Node2D
 
-const turret = preload("res://scenes/gun.tscn")
+const turret = preload("res://scenes/turret.tscn")
 const bote = preload("res://scenes/bote.tscn")
 var newTurret
 var newBote
@@ -9,16 +9,21 @@ func _ready():
 	newTurret = turret.instantiate()
 	add_child(newTurret)
 	newTurret.bulletNode = $bullets
+	#newTurret.position = Vector2(100, 0)
+	#newTurret.startRotation = PI
 	newBote = bote.instantiate()
 	$boteHolder.add_child(newBote)
-	newBote.position = Vector2(250, -40)
+	newBote.position = Vector2(-250, -40)
+	newTurret.target = newBote
+	newTurret.targeting = true
 
 func _draw():
-	draw_circle($Turret.globalTarget, 2, Color(1, 1, 1, 0.5))
+	if newTurret.relTargetPos != null:
+		draw_circle(newTurret.relTargetPos, 2, Color(1, 1, 1))
+	else:
+		print("it is nil")
 	draw_circle($Turret.adjustedTarget, 2, Color(1, 0, 0, 1))
 
 
 func _process(delta):
-	newTurret.globalTarget = newBote.position
-	newTurret.relativeTargetVelocity = newBote.velocity
 	queue_redraw()

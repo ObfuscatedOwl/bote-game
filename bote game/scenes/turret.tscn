@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://dhrvsxswyqo8t"]
+[gd_scene load_steps=14 format=3 uid="uid://dhrvsxswyqo8t"]
 
-[ext_resource type="Script" path="res://scripts/turret.gd" id="1_12chk"]
-[ext_resource type="Texture2D" uid="uid://bsm3mio6i0xcm" path="res://sprites/botes/GunMk1.png" id="2_vngco"]
+[ext_resource type="Script" path="res://scripts/turret.gd" id="1_gkw0t"]
+[ext_resource type="Texture2D" uid="uid://bsm3mio6i0xcm" path="res://sprites/botes/GunMk1.png" id="2_l28ed"]
+[ext_resource type="Script" path="res://scenes/rangeDisplay.gd" id="3_8vgqe"]
 
 [sub_resource type="Gradient" id="Gradient_8ytho"]
 offsets = PackedFloat32Array(0, 0.874126, 1)
@@ -66,7 +67,8 @@ hue_variation_max = -0.82
 hue_variation_curve = SubResource("CurveTexture_h43xv")
 
 [node name="Turret" type="Node2D"]
-script = ExtResource("1_12chk")
+script = ExtResource("1_gkw0t")
+maxRotation = 0.69
 metadata/_edit_horizontal_guides_ = []
 
 [node name="Smoke" type="GPUParticles2D" parent="."]
@@ -91,8 +93,11 @@ explosiveness = 0.1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708
-texture = ExtResource("2_vngco")
+texture = ExtResource("2_l28ed")
 offset = Vector2(0, -2)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
+
+[node name="firingRange" type="Node2D" parent="."]
+script = ExtResource("3_8vgqe")

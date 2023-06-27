@@ -14,43 +14,53 @@ var reloadFull = 4
 var reloading = 20
 
 const adjustmentIterations = 10
-var targeting = true
-var globalTarget = Vector2(400, -40)
+var targeting = false
+var target : Node2D
+var relTargetPos
 
-var relativeTargetVelocity = Vector2(-20, 0)
 var adjustedTarget = Vector2.ZERO
 
 const turretTurnSpeed = 0.8
-var relativeTurn = 0
+var goalRotation = 0
+@export var maxRotation : float
+var startRotation: float = 0
+
+func _ready():
+	startRotation = rotation
 
 func _process(delta):
 	#globalTarget += relativeTargetVelocity * delta
+
+	if targeting:
+		adjustAim()
+		goalRotation = adjustedTarget.angle()
+	else:
+		# Return to default position
+		goalRotation = 0
+	var maxDTurn = delta * turretTurnSpeed
+	rotation = clamp(rotation- maxDTurn, goalRotation, rotation + maxDTurn)
+	rotation = clamp(startRotation - maxRotation, rotation, startRotation + maxRotation)
 	
 	if (reloading < reloadFull):
 		reloading += delta
 	else:
-		reloading = 0
-		fire()
-
-	if targeting:
-		adjustAim()
-		relativeTurn = adjustedTarget.angle() - rotation
-		if relativeTurn:
-			rotation += abs(relativeTurn)/relativeTurn * delta * turretTurnSpeed
-	else:
-		# Return to default position
-		relativeTurn = -rotation
-		if relativeTurn:
-			rotation += abs(relativeTurn)/-relativeTurn * delta * turretTurnSpeed
-
+		if rotation == goalRotation:
+			reloading = 0
+			fire()
+	
 func adjustAim():
-	var relativeTarget = globalTarget - position
-	var movedTarget = relativeTarget
+	var trans = get_global_transform()
+	var transInv = trans.affine_inverse()
+	var rotInv = Transform2D(-trans.get_rotation(), Vector2.ZERO)
+	relTargetPos = target.getPosition() - position#transInv *target.getPosition()
+	print(relTargetPos)
+	var relTargetVel = target.getVelocity()#rotInv * target.getVelocity()
+	var movedTarget = relTargetPos
 	
 	for adjustment in range(adjustmentIterations):
-		movedTarget = relativeTarget + relativeTargetVelocity * timeToStrike(movedTarget.length())
+		movedTarget = relTargetPos + relTargetVel * timeToStrike(movedTarget.length())
 	if not inRange(movedTarget.length()):
-		movedTarget = relativeTarget
+		movedTarget = relTargetPos
 	
 	adjustedTarget = movedTarget
 
@@ -66,4 +76,5 @@ func fire():
 	var newBullet = bullet.instantiate()
 	if bulletNode != null:
 		bulletNode.add_child(newBullet)
+	newBullet.position = position
 	newBullet.velocity = Vector2.from_angle(rotation) * muzzleSpeed
