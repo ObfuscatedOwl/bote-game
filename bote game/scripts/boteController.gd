@@ -120,6 +120,7 @@ func actor_setup():
 	#since we're not going to a target immediately this may not be needed
 
 func _process(delta):
+	delta=delta*20
 	if playerControlled:
 		for key in keybinds.keys():
 			actions[keybinds[key]] = Input.is_action_pressed(key)

@@ -11,6 +11,9 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-189, -14, 65, -269, 98
 
 [node name="Node2D" type="Node2D"]
 
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("1_2k4r3")
+
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 scale = Vector2(100, 100)
 navigation_polygon = SubResource("NavigationPolygon_xp063")
@@ -18,9 +21,6 @@ navigation_polygon = SubResource("NavigationPolygon_xp063")
 [node name="Polygon2D" type="Polygon2D" parent="NavigationRegion2D"]
 visible = false
 polygon = PackedVector2Array(-440, -277, -77, -278, -298, -164, -192, -16, 60, -268, 95, -215, 148, -302, 367, -236, 191, -184, 397, -52, 348, 313, -499, 222)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-script = ExtResource("1_2k4r3")
 
 [node name="boteHolder" type="Node2D" parent="."]
 script = ExtResource("2_1en8m")
