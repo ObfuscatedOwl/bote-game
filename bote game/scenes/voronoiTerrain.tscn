@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxujpy0et70qg"]
+
+[ext_resource type="Script" path="res://scripts/voronoiTerrain.gd" id="1_eduh8"]
+
+[node name="voronoiTerrain" type="Node2D"]
+script = ExtResource("1_eduh8")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(-0.028, -0.028)
