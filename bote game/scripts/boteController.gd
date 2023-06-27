@@ -152,9 +152,14 @@ func _process(delta):
 	rudd = clamp(rudd, -maxRudd, maxRudd)
 	targetSpeed = clamp(targetSpeed, -maxSpeed, +maxSpeed)
 	
+	if isSunk:
+		rudd = 0
+		targetSpeed = 0
+	
 	moveBote(rudd, targetSpeed, delta)
-	$bote2pointOh.rotation = boteRotation + PI/2
-	$"health/hitbox".rotation = boteRotation
+	rotation = boteRotation
+	#$bote2pointOh.rotation = boteRotation + PI/2
+	#$"health/hitbox".rotation = boteRotation
 	
 	formationOrder.emit(getGlobalCommands())
 
@@ -218,3 +223,8 @@ func sink():
 	disband()
 	#also go about removing self from formations
 	isSunk = true
+
+func getPosition():
+	return position
+func getVelocity():
+	return velocity
