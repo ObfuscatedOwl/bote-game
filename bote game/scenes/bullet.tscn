@@ -1,6 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://dpe3cg4ymnbca"]
+[gd_scene load_steps=4 format=3 uid="uid://dpe3cg4ymnbca"]
 
-[ext_resource type="Script" path="res://scripts/bullet.gd" id="1_qoso5"]
+[ext_resource type="Script" path="res://scripts/bullet.gd" id="1_jhjuq"]
+[ext_resource type="Texture2D" uid="uid://bwwglaykga4y3" path="res://sprites/botes/rudder.png" id="2_r42a1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4o5o7"]
+size = Vector2(5, 2)
 
 [node name="bullet" type="Node2D"]
-script = ExtResource("1_qoso5")
+script = ExtResource("1_jhjuq")
+
+[node name="bulletSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_r42a1")
+
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("RectangleShape2D_4o5o7")
