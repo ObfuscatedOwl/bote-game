@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/turret.gd" id="1_gkw0t"]
 [ext_resource type="Texture2D" uid="uid://bsm3mio6i0xcm" path="res://sprites/botes/GunMk1.png" id="2_l28ed"]
-[ext_resource type="Script" path="res://scenes/rangeDisplay.gd" id="3_8vgqe"]
+[ext_resource type="Script" path="res://scripts/rangeDisplay.gd" id="3_b1ote"]
 
 [sub_resource type="Gradient" id="Gradient_8ytho"]
 offsets = PackedFloat32Array(0, 0.874126, 1)
@@ -100,4 +100,4 @@ offset = Vector2(0, -2)
 zoom = Vector2(5, 5)
 
 [node name="firingRange" type="Node2D" parent="."]
-script = ExtResource("3_8vgqe")
+script = ExtResource("3_b1ote")
