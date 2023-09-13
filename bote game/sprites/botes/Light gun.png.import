@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwwglaykga4y3"
-path="res://.godot/imported/Rudder.png-c389edd9520cd43b392bf93fb1d737dc.ctex"
+uid="uid://cwpvvt4408qj3"
+path="res://.godot/imported/Light gun.png-07f924c9b80e8e89b776298806251c27.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/botes/Rudder.png"
-dest_files=["res://.godot/imported/Rudder.png-c389edd9520cd43b392bf93fb1d737dc.ctex"]
+source_file="res://sprites/botes/Light gun.png"
+dest_files=["res://.godot/imported/Light gun.png-07f924c9b80e8e89b776298806251c27.ctex"]
 
 [params]
 

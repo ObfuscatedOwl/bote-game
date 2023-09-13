@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bwexrebmkp5tq"]
 
-[ext_resource type="Script" path="res://scripts/turretTestScene.gd" id="1_ji4t0"]
+[ext_resource type="Script" path="res://scripts/turret/turretTestScene.gd" id="1_ueyr8"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="2_7x18y"]
 [ext_resource type="Script" path="res://scripts/boteHolder.gd" id="2_voxgj"]
 
@@ -10,7 +10,7 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(
 outlines = Array[PackedVector2Array]([PackedVector2Array(-189, -14, 65, -269, 98, -213, 147, -300, 371, -233, 187, -186, 398, -51, 349, 309, -502, 223, -441, -280, -72, -278, -298, -165)])
 
 [node name="turretTestScene" type="Node2D"]
-script = ExtResource("1_ji4t0")
+script = ExtResource("1_ueyr8")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 visible = false

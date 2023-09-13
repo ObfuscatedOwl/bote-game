@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://82s0k7lpx1un"]
 
 [ext_resource type="Script" path="res://scripts/boteController.gd" id="1_jvag8"]
-[ext_resource type="Texture2D" uid="uid://bwwglaykga4y3" path="res://sprites/botes/rudder.png" id="2_r825u"]
+[ext_resource type="Texture2D" uid="uid://bwwglaykga4y3" path="res://sprites/botes/Rudder.png" id="3_jhuji"]
 [ext_resource type="Texture2D" uid="uid://63k7u6yw04cs" path="res://sprites/botes/Destroyer.png" id="3_kr6kh"]
 [ext_resource type="Script" path="res://scripts/boteHealth.gd" id="3_lgynd"]
 [ext_resource type="PackedScene" uid="uid://dhrvsxswyqo8t" path="res://scenes/turret.tscn" id="5_7duhv"]
@@ -15,12 +15,12 @@ rotation = 1.5708
 texture = ExtResource("3_kr6kh")
 
 [node name="rudder" type="Sprite2D" parent="bote2pointOh"]
-position = Vector2(0.00011584, 32)
-rotation = 1.57079
-texture = ExtResource("2_r825u")
-offset = Vector2(2.5, 0)
+position = Vector2(0, 66.5)
+rotation = 3.14159
+texture = ExtResource("3_jhuji")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
 
 [node name="health" type="Node2D" parent="."]
 z_index = 1
@@ -31,12 +31,22 @@ collision_mask = 3
 
 [node name="botePolygon" type="CollisionPolygon2D" parent="health/hitbox"]
 position = Vector2(0, 0.5)
-polygon = PackedVector2Array(-66, 0, -63, -8, 56, -7, 66, 0, 56, 7, -63, 8)
+polygon = PackedVector2Array(-66, -0.5, -63, -8.5, 56, -7.5, 66, -0.5, 56, 6.5, -63, 7.5)
 
 [node name="turrets" type="Node2D" parent="."]
 
-[node name="Turret" parent="turrets" instance=ExtResource("5_7duhv")]
-position = Vector2(37, 0)
-maxRotation = 2.25
+[node name="turret" parent="turrets" instance=ExtResource("5_7duhv")]
+position = Vector2(38, 0)
+
+[node name="turret2" parent="turrets" instance=ExtResource("5_7duhv")]
+position = Vector2(17, 0)
+
+[node name="turret3" parent="turrets" instance=ExtResource("5_7duhv")]
+position = Vector2(-30, 0)
+rotation = 3.14159
+
+[node name="turret4" parent="turrets" instance=ExtResource("5_7duhv")]
+position = Vector2(-50, 0)
+rotation = 3.14159
 
 [connection signal="area_entered" from="health/hitbox" to="health" method="_on_hitbox_entered"]

@@ -23,7 +23,7 @@ var adjustedTarget = Vector2.ZERO
 const turretTurnSpeed = 0.8
 var goalRotation = 0
 @export var maxRotation : float
-var startRotation: float = 0
+@export var startRotation: float = 0
 
 func _ready():
 	startRotation = rotation

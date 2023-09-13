@@ -1,8 +1,8 @@
 [gd_scene load_steps=14 format=3 uid="uid://dhrvsxswyqo8t"]
 
-[ext_resource type="Script" path="res://scripts/turret.gd" id="1_gkw0t"]
-[ext_resource type="Texture2D" uid="uid://bsm3mio6i0xcm" path="res://sprites/botes/GunMk1.png" id="2_l28ed"]
-[ext_resource type="Script" path="res://scripts/rangeDisplay.gd" id="3_b1ote"]
+[ext_resource type="Script" path="res://scripts/turret/turret.gd" id="1_g1rrf"]
+[ext_resource type="Texture2D" uid="uid://cwpvvt4408qj3" path="res://sprites/botes/Light gun.png" id="2_6o38i"]
+[ext_resource type="Script" path="res://scripts/turret/rangeDisplay.gd" id="3_tnhvr"]
 
 [sub_resource type="Gradient" id="Gradient_8ytho"]
 offsets = PackedFloat32Array(0, 0.874126, 1)
@@ -66,10 +66,21 @@ hue_variation_min = -1.0
 hue_variation_max = -0.82
 hue_variation_curve = SubResource("CurveTexture_h43xv")
 
-[node name="Turret" type="Node2D"]
-script = ExtResource("1_gkw0t")
-maxRotation = 0.69
+[node name="turret" type="Node2D"]
+script = ExtResource("1_g1rrf")
+maxRotation = 2.5
 metadata/_edit_horizontal_guides_ = []
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("2_6o38i")
+offset = Vector2(0, -2)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+
+[node name="firingRange" type="Node2D" parent="."]
+script = ExtResource("3_tnhvr")
 
 [node name="Smoke" type="GPUParticles2D" parent="."]
 position = Vector2(8, 0)
@@ -82,7 +93,7 @@ one_shot = true
 explosiveness = 1.0
 
 [node name="Fire" type="GPUParticles2D" parent="."]
-position = Vector2(8, 0)
+position = Vector2(6, 0)
 rotation = 1.5708
 emitting = false
 amount = 16
@@ -90,14 +101,3 @@ process_material = SubResource("ParticleProcessMaterial_wy5f3")
 lifetime = 0.3
 one_shot = true
 explosiveness = 0.1
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-rotation = 1.5708
-texture = ExtResource("2_l28ed")
-offset = Vector2(0, -2)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(5, 5)
-
-[node name="firingRange" type="Node2D" parent="."]
-script = ExtResource("3_b1ote")

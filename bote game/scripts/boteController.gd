@@ -1,5 +1,7 @@
 extends Node2D
 
+@export var playerShip = true
+
 var actions = {"throtU" : false, "throtD" : false, "ruddL" : false, "ruddR" : true}
 var keybinds = {"W" : "throtU", "S" : "throtD", "A" : "ruddL", "D" : "ruddR"}
 var throttle = 0.0 #from -1 to 1
@@ -26,8 +28,7 @@ signal formationOrder
 var formationCommands = []
 var formationLeader = null
 
-
-const playerControlled = false
+@export var playerKeyControlled = false
 var targetPos = Vector2(0, 0)
 const closeEnough = 80
 var metTarget = true
@@ -120,8 +121,7 @@ func actor_setup():
 	#since we're not going to a target immediately this may not be needed
 
 func _process(delta):
-	delta=delta*20
-	if playerControlled:
+	if playerKeyControlled:
 		for key in keybinds.keys():
 			actions[keybinds[key]] = Input.is_action_pressed(key)
 		

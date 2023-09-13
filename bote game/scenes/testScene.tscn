@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b40crqmjyah52"]
+[gd_scene load_steps=6 format=3 uid="uid://b40crqmjyah52"]
 
 [ext_resource type="Script" path="res://scripts/camera.gd" id="1_2k4r3"]
 [ext_resource type="Script" path="res://scripts/boteHolder.gd" id="2_1en8m"]
 [ext_resource type="PackedScene" uid="uid://82s0k7lpx1un" path="res://scenes/bote.tscn" id="3_b5p0u"]
+[ext_resource type="PackedScene" uid="uid://dxujpy0et70qg" path="res://scenes/voronoiTerrain.tscn" id="4_phxbj"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_xp063"]
 vertices = PackedVector2Array(-441, -280, -72, -278, -298, -165, 147, -300, 371, -233, 187, -186, 98, -213, -502, 223, -189, -14, 398, -51, 349, 309, 65, -269)
@@ -17,6 +18,7 @@ script = ExtResource("1_2k4r3")
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 scale = Vector2(100, 100)
 navigation_polygon = SubResource("NavigationPolygon_xp063")
+enabled = false
 
 [node name="Polygon2D" type="Polygon2D" parent="NavigationRegion2D"]
 visible = false
@@ -26,6 +28,7 @@ polygon = PackedVector2Array(-440, -277, -77, -278, -298, -164, -192, -16, 60, -
 script = ExtResource("2_1en8m")
 
 [node name="bote" parent="boteHolder" instance=ExtResource("3_b5p0u")]
+playerKeyControlled = true
 
 [node name="bote2" parent="boteHolder" instance=ExtResource("3_b5p0u")]
 position = Vector2(338, -8)
@@ -41,3 +44,5 @@ position = Vector2(335, 156)
 
 [node name="bote6" parent="boteHolder" instance=ExtResource("3_b5p0u")]
 position = Vector2(577, 152)
+
+[node name="voronoiTerrain" parent="." instance=ExtResource("4_phxbj")]

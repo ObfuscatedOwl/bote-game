@@ -1,14 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dxujpy0et70qg"]
+[gd_scene load_steps=2 format=3 uid="uid://dxujpy0et70qg"]
 
-[ext_resource type="Script" path="res://scripts/voronoiTerrain.gd" id="1_eduh8"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_6bkky"]
+[ext_resource type="Script" path="res://scripts/terrain/voronoiTerrain.gd" id="1_n4y6c"]
 
 [node name="voronoiTerrain" type="Node2D"]
-script = ExtResource("1_eduh8")
+script = ExtResource("1_n4y6c")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(-0.028, -0.028)
-
-[node name="voronoiNavRegion" type="NavigationRegion2D" parent="."]
-navigation_polygon = SubResource("NavigationPolygon_6bkky")

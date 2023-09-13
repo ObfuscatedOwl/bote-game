@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://dabl0ajxiu4on"]
 
-[ext_resource type="Script" path="res://scripts/terrain.gd" id="1_bdw1v"]
+[ext_resource type="Script" path="res://scripts/terrain/terrain.gd" id="1_fgbry"]
 [ext_resource type="Texture2D" uid="uid://bcxhwp28s8u4g" path="res://sprites/tilemap/Sand.png" id="2_bia0i"]
-[ext_resource type="Script" path="res://scripts/customAutoTile.gd" id="3_ci1mg"]
+[ext_resource type="Script" path="res://scripts/terrain/customAutoTile.gd" id="3_y6yyw"]
 
 [sub_resource type="Gradient" id="Gradient_eypxo"]
 offsets = PackedFloat32Array(0, 0.00645161, 1)
@@ -41,7 +41,7 @@ texture = ExtResource("2_bia0i")
 sources/0 = SubResource("TileSetAtlasSource_bbc65")
 
 [node name="Terrain" type="Node2D"]
-script = ExtResource("1_bdw1v")
+script = ExtResource("1_fgbry")
 
 [node name="Noise" type="Sprite2D" parent="."]
 texture = SubResource("NoiseTexture2D_1kffh")
@@ -49,6 +49,6 @@ texture = SubResource("NoiseTexture2D_1kffh")
 [node name="Sand" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_mh7ir")
 format = 2
-script = ExtResource("3_ci1mg")
+script = ExtResource("3_y6yyw")
 
 [node name="Camera2D" type="Camera2D" parent="."]
