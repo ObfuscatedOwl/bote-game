@@ -1,6 +1,6 @@
 extends Node2D
 
-const WATER = Color(0, 0, 0.35, 0.3)
+const WATER = Color(0, 0.25, 0.35, 0.3)
 
 var delaunay: Delaunay
 
@@ -12,91 +12,73 @@ func _ready():
 	for i in range(-20, 20):
 		for j in range(-10, 10):
 			delaunay.add_point(Vector2(i*1000 + randi_range(-300,300), j*1000 + randi_range(-300,300)) * 1.2)
-
+	
 	var triangles = delaunay.triangulate()
 	var regions = delaunay.make_voronoi(triangles)
-	
 	var land = createNoise()
-	var regionPolygon = {}
-	var polygonNeighbours = {}
-
+	
+	var tiles = []
+	
 	for region in regions:
 		var polygon = setupPolygon(region, land)
+		var newTile = tile.new(region, polygon)
+		tiles.append(newTile)
 		add_child(polygon)
-
-		if (polygon.color == WATER):
-			regionPolygon[region] = polygon
 	
-	for region in regionPolygon:
-		var neighbours = []
-		for edge in region.neighbours:
-			if edge.other in regionPolygon.keys():
-				neighbours.append(regionPolygon[edge.other])
-		polygonNeighbours[regionPolygon[region]] = neighbours
+	for tile in tiles:
+		for edge in tile.region.neighbours:
+			for potentialNeighbour in tiles:
+				if potentialNeighbour.region == edge.other:
+					tile.neighbours.append(potentialNeighbour)
 	
-	var polygons = combineWater(polygonNeighbours)
-	for polygon in polygons:
-		var navRegion = setupNavRegion(polygon)
-		add_child(navRegion)
+	var groupedNavPolygons = groupWaterNavRegions(tiles, [])
+	for group in groupedNavPolygons:
+		var combinedGroup = group[0]
+		for polygon in group:
+			combinedGroup = Geometry2D.merge_polygons(combinedGroup, polygon)
+		add_child(setupNavRegion(combinedGroup))
 
+class tile:
+	var region
+	var polygon
+	var neighbours
+	var isNavTile
+	var matched
+	
+	func _init(region, polygon):
+		self.region = region
+		self.polygon = polygon
 		
+		self.neighbours = [] # Populate externally
+		
+		self.isNavTile = polygon.color == WATER
+		self.matched = false
+
+	func getPolyNavNeighbours(chainedPolygons) -> Array:
+		for neighbour in self.neighbours:
+			if not neighbour.matched and neighbour.isNavTile:
+				print("here")
+				self.matched = true
+				var nextNeighbours = neighbour.getPolyNavNeighbours(chainedPolygons)
+				return chainedPolygons + nextNeighbours
+		return [self.polygon]
+
+func groupWaterNavRegions(tiles, groupedNavPolygons):
+	for tile in tiles:
+		if tile.matched == false and tile.isNavTile:
+			groupedNavPolygons.append(tile.getPolyNavNeighbours([]))
+			return groupWaterNavRegions(tiles, groupedNavPolygons)
+	return groupedNavPolygons
 
 func setupNavRegion(polygon: Polygon2D):
 	var navRegion = NavigationRegion2D.new()
 	var navPolygon = NavigationPolygon.new()
-
+	
 	navPolygon.add_outline(polygon.polygon)
 	navPolygon.make_polygons_from_outlines()
 	navRegion.navigation_polygon = navPolygon
-
+	
 	return navRegion
-
-func combineWater(polygonNeighbours: Dictionary):
-	print("how many")
-	var size = polygonNeighbours.size()
-
-	var target = null
-	for polygon in polygonNeighbours:
-		if (polygonNeighbours[polygon] > []):
-			target = polygon
-			continue
-	if not target:
-		return polygonNeighbours
-	
-	var newNeighbours = []
-	var oldNeighbours = []
-
-	for oldNeighbour in polygonNeighbours[target]:
-		target.polygon = Geometry2D.merge_polygons(target.polygon, oldNeighbour.polygon)[0]
-		oldNeighbours.append(oldNeighbour)
-	
-	for oldNeighbour in oldNeighbours:
-		for newNeighbour in polygonNeighbours[oldNeighbour]:
-			if not (target == newNeighbour or newNeighbour in oldNeighbours):
-				newNeighbours.append(newNeighbour)
-
-	newNeighbours = arrayUnique(newNeighbours)
-	polygonNeighbours[target] = []
-	
-	for newNeighbour in newNeighbours:
-		for oldNeighbour in oldNeighbours:
-			if polygonNeighbours[newNeighbour].has(oldNeighbour):
-				polygonNeighbours[newNeighbour].erase(oldNeighbour)
-		
-		polygonNeighbours[newNeighbour].append(target)
-		polygonNeighbours[target].append(newNeighbour)
-	
-	for oldNeighbour in oldNeighbours:
-		polygonNeighbours.erase(oldNeighbour)
-
-	return combineWater(polygonNeighbours)
-
-func arrayUnique(array: Array):
-	var unique = []
-	for item in array:
-		if not unique.has(item):
-			unique.append(item)
-	return unique
 
 func createNoise():
 	var land = FastNoiseLite.new()
@@ -122,7 +104,7 @@ func setupPolygon(region: Delaunay.VoronoiSite, land):
 
 	return polygon
 
-func showLine(region: Delaunay.VoronoiSite):
+func showBorders(region: Delaunay.VoronoiSite):
 	var line = Line2D.new()
 	var p = region.polygon
 	p.append(p[0])
