@@ -23,7 +23,7 @@ var adjustedTarget = Vector2.ZERO
 const turretTurnSpeed = 0.8
 var goalRotation = 0
 @export var maxRotation : float
-@export var startRotation: float = 0
+@export var startRotation: float
 
 func _ready():
 	startRotation = rotation
@@ -36,11 +36,11 @@ func _process(delta):
 		goalRotation = adjustedTarget.angle()
 	else:
 		# Return to default position
-		goalRotation = 0
+		goalRotation = startRotation
 	var maxDTurn = delta * turretTurnSpeed
-	rotation = clamp(rotation- maxDTurn, goalRotation, rotation + maxDTurn)
+	rotation = clamp(rotation - maxDTurn, goalRotation, rotation + maxDTurn)
 	rotation = clamp(startRotation - maxRotation, rotation, startRotation + maxRotation)
-	
+
 	if (reloading < reloadFull):
 		reloading += delta
 	else:
