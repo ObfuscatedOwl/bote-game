@@ -5,7 +5,6 @@ const WATER = Color(0, 0.25, 0.35, 0.3)
 var delaunay: Delaunay
 
 func _ready():
-	print("hello????")
 	delaunay = Delaunay.new(Rect2(-50000, -20000, 50000, 20000))
 	
 	randomize()
@@ -31,11 +30,11 @@ func _ready():
 				if potentialNeighbour.region == edge.other:
 					tile.neighbours.append(potentialNeighbour)
 	
-	var groupedNavPolygons = groupWaterNavRegions(tiles, [])
+	var groupedNavPolygons = groupWaterNavRegions(tiles)
 	for group in groupedNavPolygons:
 		var combinedGroup = group[0]
 		for polygon in group:
-			combinedGroup = Geometry2D.merge_polygons(combinedGroup, polygon)
+			combinedGroup.polygon = Geometry2D.merge_polygons(combinedGroup.polygon, polygon.polygon)
 		add_child(setupNavRegion(combinedGroup))
 
 class tile:
@@ -54,20 +53,20 @@ class tile:
 		self.isNavTile = polygon.color == WATER
 		self.matched = false
 
-	func getPolyNavNeighbours(chainedPolygons) -> Array:
+	func getPolyNavNeighbours() -> Array:
 		for neighbour in self.neighbours:
 			if not neighbour.matched and neighbour.isNavTile:
-				print("here")
 				self.matched = true
-				var nextNeighbours = neighbour.getPolyNavNeighbours(chainedPolygons)
-				return chainedPolygons + nextNeighbours
+				var nextNeighbours = neighbour.getPolyNavNeighbours()
+				return [self.polygon] + nextNeighbours
 		return [self.polygon]
 
-func groupWaterNavRegions(tiles, groupedNavPolygons):
+func groupWaterNavRegions(tiles):
+	var groupedNavPolygons = []
 	for tile in tiles:
-		if tile.matched == false and tile.isNavTile:
-			groupedNavPolygons.append(tile.getPolyNavNeighbours([]))
-			return groupWaterNavRegions(tiles, groupedNavPolygons)
+		if not tile.matched:
+			groupedNavPolygons.append(tile.getPolyNavNeighbours())
+	
 	return groupedNavPolygons
 
 func setupNavRegion(polygon: Polygon2D):
@@ -95,12 +94,7 @@ func setupPolygon(region: Delaunay.VoronoiSite, land):
 	polygon.z_index = -1
 
 	var value = land.get_noise_2dv(polygon.polygon[0]/80)
-	var color = value if value > 0 else 1
-
-	if color == 1:
-		polygon.color = WATER
-	else:
-		polygon.color = Color(color, color, color)
+	polygon.color = WATER if value > 0 else Color(value, value, value)
 
 	return polygon
 
