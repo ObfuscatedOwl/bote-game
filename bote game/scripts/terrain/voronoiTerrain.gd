@@ -1,6 +1,6 @@
 extends Node2D
 
-const WATER = Color(0, 0.25, 0.35, 0.3)
+const WATER = Color(0, 0, 0.35, 0.3)
 
 var delaunay: Delaunay
 

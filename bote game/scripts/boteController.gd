@@ -167,7 +167,7 @@ func moveBote(rudd, targetSpeed, delta):
 	var parallel = Vector2.from_angle(boteRotation)
 	var currentSpeed = parallel.dot(velocity)
 	if rotorRunning:
-		velocity += delta * parallel * clamp((targetSpeed - currentSpeed) * forcePerDeltaSpeed, -rotorForce, rotorForce) / mass
+		velocity += parallel * clamp((targetSpeed - currentSpeed) * forcePerDeltaSpeed, -rotorForce, rotorForce) / mass
 	#velocity -= parallel * velocity.length() * drag
 	velocity *= pow(10, -drag * delta)
 	
