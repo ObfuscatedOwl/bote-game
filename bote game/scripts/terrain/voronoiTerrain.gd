@@ -17,25 +17,38 @@ func _ready():
 	var land = createNoise()
 	
 	var tiles = []
+	var navTiles = []
 	
 	for region in regions:
 		var polygon = setupPolygon(region, land)
 		var newTile = tile.new(region, polygon)
+		if polygon.color == WATER:
+			navTiles.append(newTile)
 		tiles.append(newTile)
 		add_child(polygon)
 	
+	var n = 0
 	for tile in tiles:
 		for edge in tile.region.neighbours:
 			for potentialNeighbour in tiles:
 				if potentialNeighbour.region == edge.other:
 					tile.neighbours.append(potentialNeighbour)
+					n += 1
+	print(n)
+	print(len(tiles))
 	
-	var groupedNavPolygons = groupWaterNavRegions(tiles)
-	for group in groupedNavPolygons:
-		var combinedGroup = group[0]
-		for polygon in group:
-			combinedGroup.polygon = Geometry2D.merge_polygons(combinedGroup.polygon, polygon.polygon)
+	var groupedNavTiles = groupWaterNavRegions(navTiles)
+	for group in groupedNavTiles:
+		var combinedGroup = group[0].polygon.duplicate()
+		group.pop_front()
+		for tile in group:
+			var PV2Apolygon = tile.polygon.polygon
+			print(combinedGroup.polygon)
+			print(PV2Apolygon)
+			combinedGroup.polygon = Geometry2D.merge_polygons(combinedGroup.polygon, PV2Apolygon)
 		add_child(setupNavRegion(combinedGroup))
+		combinedGroup.color = Color(1, 0.25, 0.35, 1)
+		add_child(combinedGroup)
 
 class tile:
 	var region
@@ -52,22 +65,27 @@ class tile:
 		
 		self.isNavTile = polygon.color == WATER
 		self.matched = false
-
-	func getPolyNavNeighbours() -> Array:
+	
+	func getNavNeighbours():
+		var nextNeighbours = []
 		for neighbour in self.neighbours:
 			if not neighbour.matched and neighbour.isNavTile:
 				self.matched = true
-				var nextNeighbours = neighbour.getPolyNavNeighbours()
-				return [self.polygon] + nextNeighbours
-		return [self.polygon]
+				neighbour.matched = true
+				nextNeighbours += neighbour.getNavNeighbours()
+		return [self] + nextNeighbours
 
-func groupWaterNavRegions(tiles):
-	var groupedNavPolygons = []
-	for tile in tiles:
-		if not tile.matched:
-			groupedNavPolygons.append(tile.getPolyNavNeighbours())
+func groupWaterNavRegions(navTiles: Array):
+	var allGroups = []
+	while len(navTiles):
+		print("new group")
+		var newGroup = navTiles[0].getNavNeighbours()
+		allGroups.append(newGroup)
+		
+		for navTile in newGroup:
+			navTiles.erase(navTile)
 	
-	return groupedNavPolygons
+	return allGroups
 
 func setupNavRegion(polygon: Polygon2D):
 	var navRegion = NavigationRegion2D.new()
@@ -94,8 +112,8 @@ func setupPolygon(region: Delaunay.VoronoiSite, land):
 	polygon.z_index = -1
 
 	var value = land.get_noise_2dv(polygon.polygon[0]/80)
-	polygon.color = WATER if value > 0 else Color(value, value, value)
-
+	polygon.color = Color(0, 0.5, 0.1, 0.3) if value > 0 else WATER
+	
 	return polygon
 
 func showBorders(region: Delaunay.VoronoiSite):

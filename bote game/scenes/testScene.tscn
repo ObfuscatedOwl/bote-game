@@ -18,7 +18,6 @@ script = ExtResource("1_2k4r3")
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 scale = Vector2(100, 100)
 navigation_polygon = SubResource("NavigationPolygon_xp063")
-enabled = false
 
 [node name="Polygon2D" type="Polygon2D" parent="NavigationRegion2D"]
 visible = false
