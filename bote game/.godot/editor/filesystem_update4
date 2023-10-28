@@ -6,4 +6,3 @@ res://scenes/bote.tscn
 res://scenes/turret.tscn
 res://scenes/bullet.tscn
 res://scenes/voronoiTerrain.tscn
-res://scripts/terrain/voronoiTerrain.gd
