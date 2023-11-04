@@ -1,7 +1,7 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1698318006
+::res://::1698848032
 bugWithLinePeterFound!.txt::TextFile::-1::1697018161::0::1::::<><>::
-default_env.tres::Environment::2281046586866283389::1698247083::0::1::::<><>::
+default_env.tres::Environment::2281046586866283389::1698847869::0::1::::<><>::
 icon.png::CompressedTexture2D::7921813261049669099::1697018161::1697018161::1::::<><>::
 notes for formations.txt::TextFile::-1::1697018161::0::1::::<><>::
 ::res://addons/::1697018161
@@ -9,15 +9,15 @@ notes for formations.txt::TextFile::-1::1697018161::0::1::::<><>::
 Delaunay.gd::GDScript::-1::1697018161::0::1::::Delaunay<>Resource<>::
 plugin.cfg::TextFile::-1::1697018161::0::1::::<><>::
 plugin.gd::GDScript::-1::1697018161::0::1::::<>EditorPlugin<>::
-::res://scenes/::1698247083
-bote.tscn::PackedScene::2373108165320113573::1698247083::0::1::::<><>::res://scripts/boteController.gd<>uid://bwwglaykga4y3::::res://sprites/botes/rudder.png<>uid://63k7u6yw04cs::::res://sprites/botes/Destroyer.png<>res://scripts/boteHealth.gd<>uid://dhrvsxswyqo8t::::res://scenes/turret.tscn
-bullet.tscn::PackedScene::8222056225097726128::1698247083::0::1::::<><>::res://scripts/turret/bullet.gd
+::res://scenes/::1698847869
+bote.tscn::PackedScene::2373108165320113573::1698847869::0::1::::<><>::res://scripts/boteController.gd<>uid://bwwglaykga4y3::::res://sprites/botes/rudder.png<>uid://63k7u6yw04cs::::res://sprites/botes/Destroyer.png<>res://scripts/boteHealth.gd<>uid://dhrvsxswyqo8t::::res://scenes/turret.tscn
+bullet.tscn::PackedScene::8222056225097726128::1698847869::0::1::::<><>::res://scripts/turret/bullet.gd
 merge_poly_tests.tscn::PackedScene::7454242868487070140::1698240896::0::1::::<><>::res://scripts/mergePolyTests.gd
-terrain.tscn::PackedScene::7162038975561181725::1698247083::0::1::::<><>::res://scripts/terrain/terrain.gd<>uid://bcxhwp28s8u4g::::res://sprites/Tilemap/Sand.png<>res://scripts/terrain/customAutoTile.gd
-testScene.tscn::PackedScene::4473659244881706067::1698247083::0::1::::<><>::res://scripts/camera.gd<>res://scripts/boteHolder.gd<>uid://82s0k7lpx1un::::res://scenes/bote.tscn<>uid://dxujpy0et70qg::::res://scenes/voronoiTerrain.tscn
-turret.tscn::PackedScene::7686986816378760301::1698247083::0::1::::<><>::res://scripts/turret/turret.gd<>uid://cwpvvt4408qj3::::res://sprites/botes/Light gun.png<>res://scripts/turret/rangeDisplay.gd
-turretTestScene.tscn::PackedScene::3940259816273482854::1698247083::0::1::::<><>::res://scripts/turret/turretTestScene.gd<>res://scripts/camera.gd<>res://scripts/boteHolder.gd
-voronoiTerrain.tscn::PackedScene::8815467549067648250::1698247083::0::1::::<><>::res://scripts/terrain/voronoiTerrain.gd
+terrain.tscn::PackedScene::7162038975561181725::1698847869::0::1::::<><>::res://scripts/terrain/terrain.gd<>uid://bcxhwp28s8u4g::::res://sprites/Tilemap/Sand.png<>res://scripts/terrain/customAutoTile.gd
+testScene.tscn::PackedScene::4473659244881706067::1698847869::0::1::::<><>::res://scripts/camera.gd<>res://scripts/boteHolder.gd<>uid://82s0k7lpx1un::::res://scenes/bote.tscn<>uid://dxujpy0et70qg::::res://scenes/voronoiTerrain.tscn
+turret.tscn::PackedScene::7686986816378760301::1698847869::0::1::::<><>::res://scripts/turret/turret.gd<>uid://cwpvvt4408qj3::::res://sprites/botes/Light gun.png<>res://scripts/turret/rangeDisplay.gd
+turretTestScene.tscn::PackedScene::3940259816273482854::1698847869::0::1::::<><>::res://scripts/turret/turretTestScene.gd<>res://scripts/camera.gd<>res://scripts/boteHolder.gd
+voronoiTerrain.tscn::PackedScene::8815467549067648250::1698847869::0::1::::<><>::res://scripts/terrain/voronoiTerrain.gd
 ::res://scripts/::1698243699
 boteController.gd::GDScript::-1::1698243699::0::1::::<>Node2D<>::
 boteHealth.gd::GDScript::-1::1697018161::0::1::::<>Node2D<>::

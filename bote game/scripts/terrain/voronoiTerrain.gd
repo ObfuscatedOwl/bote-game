@@ -33,6 +33,7 @@ func _ready():
 			for potentialNeighbour in tiles:
 				if potentialNeighbour.region == edge.other:
 					tile.neighbours.append(potentialNeighbour)
+					break
 	
 	var groupedNavTiles = groupWaterNavRegions(navTiles)
 	for group in groupedNavTiles:
@@ -52,7 +53,7 @@ class Tile:
 		self.region = region
 		self.polygon = polygon
 		
-		self.neighbours = [] # Populate externally
+		self.neighbours = [] # Populated externally
 		self.isNavTile = polygon.color == WATER
 
 func groupWaterNavRegions(navTiles: Array):
