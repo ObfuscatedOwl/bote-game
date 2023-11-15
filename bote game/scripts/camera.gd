@@ -13,7 +13,6 @@ func _input(event):
 	pass
 
 func _process(delta):
-	
 	for key in actions.keys():
 		actions[key] = Input.is_action_pressed(key)
 	

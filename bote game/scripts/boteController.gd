@@ -18,8 +18,8 @@ var drag = 0.012
 var targetSpeed = 0.0
 var rudd = 0.0
 
-const maxSpeed = 18.0
-const acc = 0.06
+const maxSpeed = 35.0 #18.0
+const acc = 0.6 #0.06
 const maxRudd = 0.5
 const ruddEffect = 0.05
 
@@ -141,6 +141,7 @@ func _process(delta):
 		targetSpeed = maxSpeed * (position - next_path_position).length() / slowDownDist
 		rudd = angleToAngleDiff(boteRotation, position.angle_to_point(next_path_position))
 		metTarget = (position - next_path_position).length() <= closeEnough
+	
 	elif not preTargetDone:
 		preTargetDone = true
 		targetPos = finalTarget

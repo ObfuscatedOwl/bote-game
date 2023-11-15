@@ -15,7 +15,7 @@ var reloading = 20
 
 const adjustmentIterations = 10
 var targeting = false
-var target : Node2D
+var target: Node2D
 var relTargetPos
 
 var adjustedTarget = Vector2.ZERO

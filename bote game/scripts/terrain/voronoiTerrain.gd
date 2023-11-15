@@ -1,102 +1,96 @@
 extends Node2D
 
-const WATER = Color(0, 0, 0.35, 0.3)
+const WATER = Color(0, 0.25, 0.35, 0.3)
 
 var delaunay: Delaunay
 
 func _ready():
-	print("hello????")
 	delaunay = Delaunay.new(Rect2(-50000, -20000, 50000, 20000))
 	
 	randomize()
 	for i in range(-20, 20):
 		for j in range(-10, 10):
 			delaunay.add_point(Vector2(i*1000 + randi_range(-300,300), j*1000 + randi_range(-300,300)) * 1.2)
-
+	
 	var triangles = delaunay.triangulate()
 	var regions = delaunay.make_voronoi(triangles)
-	
 	var land = createNoise()
-	var regionPolygon = {}
-	var polygonNeighbours = {}
-
+	
+	var tiles = []
+	var navTiles = []
+	
 	for region in regions:
 		var polygon = setupPolygon(region, land)
+		var newTile = Tile.new(region, polygon)
+		if polygon.color == WATER:
+			navTiles.append(newTile)
+		tiles.append(newTile)
 		add_child(polygon)
-
-		if (polygon.color == WATER):
-			regionPolygon[region] = polygon
 	
-	for region in regionPolygon:
-		var neighbours = []
-		for edge in region.neighbours:
-			if edge.other in regionPolygon.keys():
-				neighbours.append(regionPolygon[edge.other])
-		polygonNeighbours[regionPolygon[region]] = neighbours
+	print(len(navTiles))
+	for tile in tiles:
+		for edge in tile.region.neighbours:
+			for potentialNeighbour in tiles:
+				if potentialNeighbour.region == edge.other:
+					tile.neighbours.append(potentialNeighbour)
+					break
 	
-	var polygons = combineWater(polygonNeighbours)
-	for polygon in polygons:
-		var navRegion = setupNavRegion(polygon)
-		add_child(navRegion)
+	var groupedNavTiles = groupWaterNavRegions(navTiles)
+	for group in groupedNavTiles:
+		var combinedGroup = group[0].polygon.duplicate()
+		for tile in group:
+			var PV2Apolygon = tile.polygon.polygon
+			combinedGroup.polygon = Geometry2D.merge_polygons(combinedGroup.polygon, PV2Apolygon)[0]
+		add_child(setupNavRegion(combinedGroup))
 
+class Tile:
+	var region
+	var polygon
+	var neighbours
+	var isNavTile
+	
+	func _init(region, polygon):
+		self.region = region
+		self.polygon = polygon
 		
+		self.neighbours = [] # Populated externally
+		self.isNavTile = polygon.color == WATER
+
+func groupWaterNavRegions(navTiles: Array):
+	var allGroups = []
+	while len(navTiles):
+		print("new group")
+		var newGroup = getNavNeighbours(navTiles[0])
+		allGroups.append(newGroup)
+		
+		for navTile in newGroup:
+			navTiles.erase(navTile)
+	
+	return allGroups
+
+func getNavNeighbours(startingTile: Tile):
+	var navGroup = [startingTile]
+	var complete = false
+	
+	while not complete:
+		complete = true
+		for tile in navGroup:
+			for neighbour in tile.neighbours:
+				if not neighbour in navGroup and neighbour.isNavTile:
+					complete = false
+					navGroup.append(neighbour)
+	
+	return navGroup
 
 func setupNavRegion(polygon: Polygon2D):
 	var navRegion = NavigationRegion2D.new()
 	var navPolygon = NavigationPolygon.new()
-
+	
 	navPolygon.add_outline(polygon.polygon)
 	navPolygon.make_polygons_from_outlines()
 	navRegion.navigation_polygon = navPolygon
-
+	
 	return navRegion
-
-func combineWater(polygonNeighbours: Dictionary):
-	print("how many")
-	var size = polygonNeighbours.size()
-
-	var target = null
-	for polygon in polygonNeighbours:
-		if (polygonNeighbours[polygon] > []):
-			target = polygon
-			continue
-	if not target:
-		return polygonNeighbours
-	
-	var newNeighbours = []
-	var oldNeighbours = []
-
-	for oldNeighbour in polygonNeighbours[target]:
-		target.polygon = Geometry2D.merge_polygons(target.polygon, oldNeighbour.polygon)[0]
-		oldNeighbours.append(oldNeighbour)
-	
-	for oldNeighbour in oldNeighbours:
-		for newNeighbour in polygonNeighbours[oldNeighbour]:
-			if not (target == newNeighbour or newNeighbour in oldNeighbours):
-				newNeighbours.append(newNeighbour)
-
-	newNeighbours = arrayUnique(newNeighbours)
-	polygonNeighbours[target] = []
-	
-	for newNeighbour in newNeighbours:
-		for oldNeighbour in oldNeighbours:
-			if polygonNeighbours[newNeighbour].has(oldNeighbour):
-				polygonNeighbours[newNeighbour].erase(oldNeighbour)
-		
-		polygonNeighbours[newNeighbour].append(target)
-		polygonNeighbours[target].append(newNeighbour)
-	
-	for oldNeighbour in oldNeighbours:
-		polygonNeighbours.erase(oldNeighbour)
-
-	return combineWater(polygonNeighbours)
-
-func arrayUnique(array: Array):
-	var unique = []
-	for item in array:
-		if not unique.has(item):
-			unique.append(item)
-	return unique
 
 func createNoise():
 	var land = FastNoiseLite.new()
@@ -113,16 +107,11 @@ func setupPolygon(region: Delaunay.VoronoiSite, land):
 	polygon.z_index = -1
 
 	var value = land.get_noise_2dv(polygon.polygon[0]/80)
-	var color = value if value > 0 else 1
-
-	if color == 1:
-		polygon.color = WATER
-	else:
-		polygon.color = Color(color, color, color)
-
+	polygon.color = Color(value, value, value, 0.6) if value > 0 else WATER
+	
 	return polygon
 
-func showLine(region: Delaunay.VoronoiSite):
+func showBorders(region: Delaunay.VoronoiSite):
 	var line = Line2D.new()
 	var p = region.polygon
 	p.append(p[0])

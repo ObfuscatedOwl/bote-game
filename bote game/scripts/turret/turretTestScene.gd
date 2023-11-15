@@ -22,7 +22,7 @@ func _draw():
 		draw_circle(newTurret.relTargetPos, 2, Color(1, 1, 1))
 	else:
 		print("it is nil")
-	draw_circle($Turret.adjustedTarget, 2, Color(1, 0, 0, 1))
+	draw_circle($turret.adjustedTarget, 2, Color(1, 0, 0, 1))
 
 
 func _process(delta):
