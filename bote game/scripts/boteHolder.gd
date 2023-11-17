@@ -127,7 +127,7 @@ func formationLines(bote):
 		formationLines(follower)
 
 func _input(event):
-	if event.get_class() == "InputEventMouseButton":
+	if event is InputEventMouseButton:
 		if event.button_index == 1 and formationStatus == OFF: #primary mouse button
 			if event.pressed:
 				selecting = true
@@ -135,8 +135,8 @@ func _input(event):
 			else:
 				resetSelections()
 				selectBotes()
-					
 				queue_redraw()
+		
 		if event.button_index == 2:
 			if event.pressed:
 				targetPosition = get_global_mouse_position()
@@ -144,7 +144,7 @@ func _input(event):
 				givePositionOrder()
 
 	
-	if event.get_class() == "InputEventMouseMotion":
+	if event is InputEventMouseMotion:
 		pass#if selecting:
 		#	queue_redraw()
 		#queue_redraw() called in process, unnecessary i think
@@ -152,7 +152,7 @@ func _input(event):
 	if event.is_action_pressed("lineOrder"):
 		lineActivate()
 			
-	if event.get_class() == "InputEventMouseButton" and formationStatus == LINE:
+	if event is InputEventMouseButton and formationStatus == LINE:
 		if event.pressed and event.button_index == 1:
 			addClosestToList(getControllableBotes(), botesInLine)
 				
@@ -162,7 +162,7 @@ func _input(event):
 	if event.is_action_pressed("clusterOrder"):
 		clusterActivate()
 		
-	if event.get_class() == "InputEventMouseButton" and formationStatus == CLUSTER:
+	if event is InputEventMouseButton and formationStatus == CLUSTER:
 		if event.pressed and event.button_index == 1:
 			clusterSelection()
 		if event.pressed and event.button_index == 2 and clusterLeader != null and clusterFollower != null:
