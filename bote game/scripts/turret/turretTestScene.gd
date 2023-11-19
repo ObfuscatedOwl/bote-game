@@ -18,11 +18,12 @@ func _ready():
 	newTurret.targeting = true
 
 func _draw():
-	if newTurret.relTargetPos != null:
+	if newTurret.relTargetPos:
 		draw_circle(newTurret.relTargetPos, 2, Color(1, 1, 1))
 	else:
 		print("it is nil")
-	draw_circle($turret.adjustedTarget, 2, Color(1, 0, 0, 1))
+	if $turret.adjustedTarget:
+		draw_circle($turret.adjustedTarget, 2, Color(1, 0, 0, 1))
 
 
 func _process(delta):

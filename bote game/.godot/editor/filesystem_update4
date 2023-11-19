@@ -1,5 +1,6 @@
 res://default_env.tres
 res://scenes/testScene.tscn
+res://scripts/turret/turret.gd
 res://scenes/terrain.tscn
 res://scenes/turretTestScene.tscn
 res://scenes/bote.tscn

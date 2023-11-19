@@ -1,15 +1,10 @@
 extends Node2D
 
-#~~~~~~~ TEMPORARY CONSTANTS - SHOULD BE EXPORTED SCENEWIDE FROM MAIN ~~~~~~~#
-
-const g = 10
-
-#~~~~~~~ ... ~~~~~~~#
-
 const bullet = preload("res://scenes/bullet.tscn")
 var bulletNode
 
-const muzzleSpeed = 50
+const g = 10
+const muzzleSpeed = 100
 var reloadFull = 4
 var reloading = 20
 
@@ -33,6 +28,8 @@ func _process(delta):
 
 	if targeting:
 		adjustAim()
+
+	if adjustedTarget:
 		goalRotation = adjustedTarget.angle()
 	else:
 		# Return to default position
@@ -44,7 +41,7 @@ func _process(delta):
 	if (reloading < reloadFull):
 		reloading += delta
 	else:
-		if rotation == goalRotation:
+		if rotation == goalRotation and adjustedTarget:
 			reloading = 0
 			fire()
 	
@@ -52,15 +49,15 @@ func adjustAim():
 	var trans = get_global_transform()
 	var transInv = trans.affine_inverse()
 	var rotInv = Transform2D(-trans.get_rotation(), Vector2.ZERO)
-	relTargetPos = target.getPosition() - position#transInv *target.getPosition()
+	relTargetPos = target.getPosition() - position #transInv *target.getPosition()
 	print(relTargetPos)
-	var relTargetVel = target.getVelocity()#rotInv * target.getVelocity()
+	var relTargetVel = target.getVelocity() #rotInv * target.getVelocity()
 	var movedTarget = relTargetPos
 	
 	for adjustment in range(adjustmentIterations):
 		movedTarget = relTargetPos + relTargetVel * timeToStrike(movedTarget.length())
 	if not inRange(movedTarget.length()):
-		movedTarget = relTargetPos
+		movedTarget = null
 	
 	adjustedTarget = movedTarget
 
