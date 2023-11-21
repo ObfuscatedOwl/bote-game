@@ -46,12 +46,17 @@ func _process(delta):
 			fire()
 	
 func adjustAim():
+	""" Not sure how this is useful (anymore)
 	var trans = get_global_transform()
 	var transInv = trans.affine_inverse()
 	var rotInv = Transform2D(-trans.get_rotation(), Vector2.ZERO)
-	relTargetPos = target.getPosition() - position #transInv *target.getPosition()
-	print(relTargetPos)
-	var relTargetVel = target.getVelocity() #rotInv * target.getVelocity()
+	"""
+	
+	#This code creates problems if we want to target a position rather than another node
+	#Thus, I have created a branch to refactor this code with that in mind...
+	
+	relTargetPos = target.getPosition() - position #transInv *target.getPosition() [AND THESE COMMENTS]:
+	var relTargetVel = target.getVelocity() #rotInv * target.getVelocity() [HERE TOO]
 	var movedTarget = relTargetPos
 	
 	for adjustment in range(adjustmentIterations):
