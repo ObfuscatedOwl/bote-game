@@ -69,6 +69,7 @@ hue_variation_curve = SubResource("CurveTexture_h43xv")
 [node name="turret" type="Node2D"]
 script = ExtResource("1_g1rrf")
 maxRotation = 2.5
+startElevation = 0.524
 metadata/_edit_horizontal_guides_ = []
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
