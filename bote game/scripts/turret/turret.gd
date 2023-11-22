@@ -11,11 +11,11 @@ var reloading = 20
 const adjustmentIterations = 10
 
 var targeting = false
-var target: Vector2
+var target: Node2D
 
 var relTargetVel: Vector2
 var relTargetPos: Vector2
-var adjustedTarget = Vector2.ZERO
+var adjustedTarget = null
 
 const turretTurnSpeed = 0.8
 @export var maxRotation: float
@@ -27,17 +27,18 @@ const turretElevationSpeed = 0.4
 var goalElevation = startElevation
 var currentElevation = startElevation
 
-
 func _ready():
 	startRotation = rotation
 
 func _process(delta):
 	if targeting:
 		adjustedTarget = adjustAim()
+		relTargetVel = target.velocity
 	
 	if adjustedTarget != null:
 		goalRotation = adjustedTarget.angle()
 		goalElevation = findElevation(adjustedTarget.length())
+		print(goalElevation)
 	else:
 		goalRotation = startRotation
 	
@@ -48,18 +49,17 @@ func _process(delta):
 	
 	# Identical, but with elevation instead (startElevation is the centre between 0 elevation & maxElevation) - DOES NOT CONSIDER FIRING OVER OBSTRUCTIONS
 	var maxDElevation = delta * turretElevationSpeed
-	rotation = clamp(currentElevation - maxDElevation, goalElevation, currentElevation + maxDTurn)
-	rotation = clamp(0, currentElevation, startElevation * 2)
+	currentElevation = clamp(currentElevation - maxDElevation, goalElevation, currentElevation + maxDTurn)
+	currentElevation = clamp(0, currentElevation, startElevation * 2)
 	
 	if (reloading < reloadFull):
 		reloading += delta
-	else:
-		if (rotation == goalRotation and currentElevation == goalElevation and adjustedTarget != null):
-			reloading = 0
-			fire()
+	elif (rotation == goalRotation and currentElevation == goalElevation and adjustedTarget != null):
+		reloading = 0
+		fire()
 
 func adjustAim():
-	relTargetPos = target
+	relTargetPos = target.position - position
 	var movedTarget = relTargetPos
 	
 	for adjustment in range(adjustmentIterations):
@@ -79,7 +79,7 @@ func timeToStrike(range):
 	return null
 
 func findElevation(range):
-	var m2Parameter = g/2 * pow(range/muzzleSpeed, 2)
+	var m2Parameter = (g/2) * pow(range/muzzleSpeed, 2)
 	
 	# Check within range
 	var b24ac = pow(range, 2) - 4 * pow(m2Parameter, 2)
@@ -87,7 +87,7 @@ func findElevation(range):
 		return null
 	
 	# Elevation required by the turret to strike the target
-	return atan(-(range + sqrt(b24ac)) / (2 * m2Parameter))
+	return atan((sqrt(b24ac) - range) / (2 * m2Parameter))
 
 func fire():
 	$"Smoke".emitting = true

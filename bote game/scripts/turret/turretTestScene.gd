@@ -15,16 +15,16 @@ func _ready():
 	$boteHolder.add_child(newBote)
 	newBote.position = Vector2(-250, -40)
 	newTurret.target = newBote
-	newTurret.targeting = true
 
 func _draw():
-	if newTurret.relTargetPos:
+	'''if newTurret.relTargetPos:
 		draw_circle(newTurret.relTargetPos, 2, Color(1, 1, 1))
 	else:
-		print("it is nil")
+		print("it is nil")'''
 	if $turret.adjustedTarget:
 		draw_circle($turret.adjustedTarget, 2, Color(1, 0, 0, 1))
 
 
 func _process(delta):
 	queue_redraw()
+	newTurret.targeting = true
