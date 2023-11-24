@@ -35,12 +35,12 @@ func _process(delta):
 		adjustedTarget = adjustAim()
 		relTargetVel = target.velocity
 	
-	if adjustedTarget != null:
+	goalElevation = findElevation(adjustedTarget.length()) if adjustedTarget else null
+	if goalElevation:
 		goalRotation = adjustedTarget.angle()
-		goalElevation = findElevation(adjustedTarget.length())
-		print(goalElevation)
 	else:
 		goalRotation = startRotation
+		goalElevation = startElevation
 	
 	# Clamps rotation speed against maxDTurn & rotation against maxRotation
 	var maxDTurn = delta * turretTurnSpeed
@@ -97,3 +97,4 @@ func fire():
 		bulletNode.add_child(newBullet)
 	newBullet.position = position
 	newBullet.velocity = Vector2.from_angle(rotation) * muzzleSpeed * cos(currentElevation)
+	print(newBullet.velocity.length())
