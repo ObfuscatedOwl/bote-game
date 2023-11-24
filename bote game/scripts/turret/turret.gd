@@ -11,6 +11,7 @@ var reloading = 20
 const adjustmentIterations = 10
 
 var targeting = false
+var targetInRange = true
 var target: Node2D
 
 var relTargetVel: Vector2
@@ -33,13 +34,18 @@ func _ready():
 func _process(delta):
 	if targeting:
 		adjustedTarget = adjustAim()
+		goalRotation = adjustedTarget.angle()
+		goalElevation = findElevation(adjustedTarget.length())
+
+		targetInRange = true
 		relTargetVel = target.velocity
 	
-	goalElevation = findElevation(adjustedTarget.length()) if adjustedTarget else null
-	if goalElevation:
-		goalRotation = adjustedTarget.angle()
 	else:
+		goalElevation = startElevation
 		goalRotation = startRotation
+	
+	if (goalElevation == null):
+		targetInRange = false
 		goalElevation = startElevation
 	
 	# Clamps rotation speed against maxDTurn & rotation against maxRotation
@@ -54,23 +60,25 @@ func _process(delta):
 	
 	if (reloading < reloadFull):
 		reloading += delta
-	elif (rotation == goalRotation and currentElevation == goalElevation and adjustedTarget != null):
+	elif (rotation == goalRotation and currentElevation == goalElevation and targetInRange):
 		reloading = 0
 		fire()
 
 func adjustAim():
 	relTargetPos = target.position - position
+
 	var movedTarget = relTargetPos
+	var adjustedTimeToStrike = null
 	
+	targetInRange = true
 	for adjustment in range(adjustmentIterations):
-		var adjustedTimeToStrike = timeToStrike(movedTarget.length())
+		adjustedTimeToStrike = timeToStrike(movedTarget.length())
 		if (adjustedTimeToStrike != null):
 			movedTarget = relTargetPos + relTargetVel * timeToStrike(movedTarget.length())
 		else:
-			movedTarget = null
 			break
 	
-	return movedTarget if (movedTarget != null) else relTargetPos
+	return movedTarget if targetInRange else relTargetPos
 
 func timeToStrike(range):
 	var requiredElevation = findElevation(range)
