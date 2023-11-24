@@ -3,74 +3,99 @@ extends Node2D
 const bullet = preload("res://scenes/bullet.tscn")
 var bulletNode
 
-const g = 10
+const g = -10
 const muzzleSpeed = 100
 var reloadFull = 4
 var reloading = 20
 
 const adjustmentIterations = 10
-var targeting = false
-var target: Node2D
-var relTargetPos
 
-var adjustedTarget = Vector2.ZERO
+var targeting = false
+var targetInRange = true
+var target: Node2D
+
+var relTargetVel: Vector2
+var relTargetPos: Vector2
+var adjustedTarget = null
 
 const turretTurnSpeed = 0.8
-var goalRotation = 0
-@export var maxRotation : float
+@export var maxRotation: float
 @export var startRotation: float
+var goalRotation = 0
+
+const turretElevationSpeed = 0.4
+@export var startElevation: float
+var goalElevation = startElevation
+var currentElevation = startElevation
 
 func _ready():
 	startRotation = rotation
 
 func _process(delta):
-	#globalTarget += relativeTargetVelocity * delta
-
 	if targeting:
-		adjustAim()
-
-	if adjustedTarget:
+		adjustedTarget = adjustAim()
 		goalRotation = adjustedTarget.angle()
+		goalElevation = findElevation(adjustedTarget.length())
+
+		targetInRange = true
+		relTargetVel = target.velocity
+	
 	else:
-		# Return to default position
+		goalElevation = startElevation
 		goalRotation = startRotation
+	
+	if (goalElevation == null):
+		targetInRange = false
+		goalElevation = startElevation
+	
+	# Clamps rotation speed against maxDTurn & rotation against maxRotation
 	var maxDTurn = delta * turretTurnSpeed
 	rotation = clamp(rotation - maxDTurn, goalRotation, rotation + maxDTurn)
 	rotation = clamp(startRotation - maxRotation, rotation, startRotation + maxRotation)
-
+	
+	# Identical, but with elevation instead (startElevation is the centre between 0 elevation & maxElevation) - DOES NOT CONSIDER FIRING OVER OBSTRUCTIONS
+	var maxDElevation = delta * turretElevationSpeed
+	currentElevation = clamp(currentElevation - maxDElevation, goalElevation, currentElevation + maxDTurn)
+	currentElevation = clamp(0, currentElevation, startElevation * 2)
+	
 	if (reloading < reloadFull):
 		reloading += delta
-	else:
-		if rotation == goalRotation and adjustedTarget:
-			reloading = 0
-			fire()
-	
+	elif (rotation == goalRotation and currentElevation == goalElevation and targetInRange):
+		reloading = 0
+		fire()
+
 func adjustAim():
-	""" Not sure how this is useful (anymore)
-	var trans = get_global_transform()
-	var transInv = trans.affine_inverse()
-	var rotInv = Transform2D(-trans.get_rotation(), Vector2.ZERO)
-	"""
-	
-	#This code creates problems if we want to target a position rather than another node
-	#Thus, I have created a branch to refactor this code with that in mind...
-	
-	relTargetPos = target.getPosition() - position #transInv *target.getPosition() [AND THESE COMMENTS]:
-	var relTargetVel = target.getVelocity() #rotInv * target.getVelocity() [HERE TOO]
+	relTargetPos = target.position - position
+
 	var movedTarget = relTargetPos
+	var adjustedTimeToStrike = null
 	
+	targetInRange = true
 	for adjustment in range(adjustmentIterations):
-		movedTarget = relTargetPos + relTargetVel * timeToStrike(movedTarget.length())
-	if not inRange(movedTarget.length()):
-		movedTarget = null
+		adjustedTimeToStrike = timeToStrike(movedTarget.length())
+		if (adjustedTimeToStrike != null):
+			movedTarget = relTargetPos + relTargetVel * timeToStrike(movedTarget.length())
+		else:
+			break
 	
-	adjustedTarget = movedTarget
+	return movedTarget if targetInRange else relTargetPos
 
-func timeToStrike(x):
-	return x / (cos(asin((g * x) / pow(muzzleSpeed, 2)) / 2) * muzzleSpeed)
+func timeToStrike(range):
+	var requiredElevation = findElevation(range)
+	if (requiredElevation != null):
+		return range / (muzzleSpeed * cos(requiredElevation))
+	return null
 
-func inRange(x):
-	return (g * x) / pow(muzzleSpeed, 2) < 1
+func findElevation(range):
+	var m2Parameter = (g/2) * pow(range/muzzleSpeed, 2)
+	
+	# Check within range
+	var b24ac = pow(range, 2) - 4 * pow(m2Parameter, 2)
+	if (b24ac < 0):
+		return null
+	
+	# Elevation required by the turret to strike the target
+	return atan((sqrt(b24ac) - range) / (2 * m2Parameter))
 
 func fire():
 	$"Smoke".emitting = true
@@ -79,4 +104,5 @@ func fire():
 	if bulletNode != null:
 		bulletNode.add_child(newBullet)
 	newBullet.position = position
-	newBullet.velocity = Vector2.from_angle(rotation) * muzzleSpeed
+	newBullet.velocity = Vector2.from_angle(rotation) * muzzleSpeed * cos(currentElevation)
+	print(newBullet.velocity.length())
