@@ -1,12 +1,12 @@
+GPUParticles2D
+Node2D
 Sprite2D
 Camera2D
 NavigationRegion2D
 SubViewport
-Node2D
 CollisionShape2D
 CollisionPolygon2D
 Area2D
 TileMap
 AnimatedSprite2D
 TextureRect
-GPUParticles2D
