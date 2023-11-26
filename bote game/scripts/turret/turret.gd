@@ -11,12 +11,13 @@ var reloading = 20
 const adjustmentIterations = 10
 
 var targeting = false
-var targetInRange = true
+var targetInRange = false
 var target: Node2D
 
 var relTargetVel: Vector2
 var relTargetPos: Vector2
 var adjustedTarget = null
+var targetInaccuracy = Vector2.ZERO
 
 const turretTurnSpeed = 0.8
 @export var maxRotation: float
@@ -62,7 +63,7 @@ func _process(delta):
 		reloading += delta
 	elif (rotation == goalRotation and currentElevation == goalElevation and targetInRange):
 		reloading = 0
-		fire()
+		fire(adjustedTarget)
 
 func adjustAim():
 	relTargetPos = target.position - position
@@ -97,12 +98,13 @@ func findElevation(range):
 	# Elevation required by the turret to strike the target
 	return atan((sqrt(b24ac) - range) / (2 * m2Parameter))
 
-func fire():
+func fire(target):
 	$"Smoke".emitting = true
 	$"Fire".emitting = true
 	var newBullet = bullet.instantiate()
 	if bulletNode != null:
 		bulletNode.add_child(newBullet)
+
 	newBullet.position = position
 	newBullet.velocity = Vector2.from_angle(rotation) * muzzleSpeed * cos(currentElevation)
-	print(newBullet.velocity.length())
+	newBullet.zSpeed = muzzleSpeed * sin(currentElevation)

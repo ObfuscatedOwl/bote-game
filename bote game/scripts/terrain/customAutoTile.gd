@@ -22,7 +22,7 @@ func setupBoundaryConditions():
 
 func allNeighboursSame(cell):
 	for adjacent in [Vector2i(-1, 0), Vector2i(1, 0), Vector2i(0, -1), Vector2i(0, 1)]:
-		if not get_cell_atlas_coords(0, cell) == get_cell_atlas_coords(0, cell +adjacent):
+		if not get_cell_atlas_coords(0, cell) == get_cell_atlas_coords(0, cell + adjacent):
 			if not get_cell_atlas_coords(0, cell + adjacent) == emptyCellID:
 				return false
 	return true

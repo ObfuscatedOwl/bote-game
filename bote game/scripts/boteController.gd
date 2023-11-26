@@ -12,7 +12,7 @@ var mass = 1
 var rotorForce = 1.8
 var rotorRunning = true
 const forcePerDeltaSpeed = 10
-var sideForce = 3.0
+var sideForce = 4.0
 var drag = 0.012
 
 var targetSpeed = 0.0
@@ -216,9 +216,7 @@ func onFormationOrder(commands):
 
 func canBeControlled(id):
 	#do something to ensure id is correct
-	if isSunk:
-		return false
-	return true
+	return (not isSunk and playerShip)
 		
 func sink():
 	disband()
