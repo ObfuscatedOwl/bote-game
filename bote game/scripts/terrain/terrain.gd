@@ -1,29 +1,23 @@
 extends Node2D
 
-const tileSizeAdjustment = 0.5
+const tileSizeAdjustment = 15
 const tileRef = {"ground": Vector2i(1, 1), "water": Vector2i(3, 1)}
 
 var landOrSea = FastNoiseLite.new()
-var start = Vector2(-100, -100)
-var camSize = Vector2(200, 200)
+var start = Vector2(-20, -200)
+var mapSize = Vector2(400, 400)
 
-func _ready():
-	landOrSea.noise_type = 1
-	landOrSea.seed = randi()
-	
-	for x in range(start.x, start.x+camSize.x):
-		for y in range(start.y, start.y+camSize.y):
-			var value = landOrSea.get_noise_2d(x*tileSizeAdjustment, y*tileSizeAdjustment) * centralFocus(x, y)
+func setup_pathfinding(noise):
+	for x in range(start.x, start.x+mapSize.x):
+		for y in range(start.y, start.y+mapSize.y):
+			var value = noise.get_noise_2d(x*tileSizeAdjustment, y*tileSizeAdjustment)
 			var pos = Vector2i(x, y)
 			setCell(pos, value)
 	
 	$Sand.setupBoundaryConditions()
 
 func setCell(pos, value):
-	if value > 0.1:
+	if value > -0.03:
 		$Sand.set_cell(0, pos, 0, tileRef["ground"])
 	else:
 		$Sand.set_cell(0, pos, 0, tileRef["water"])
-
-func centralFocus(x, y):
-	return pow(start.length() / (10 * Vector2(x, y).length() + 1), 1)

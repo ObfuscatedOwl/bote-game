@@ -1,6 +1,7 @@
 extends TileMap
 
 const emptyCellID = Vector2i(3, 0)
+const landCellID = Vector2i(3, 1)
 
 var cells = []
 var emptyCells = []

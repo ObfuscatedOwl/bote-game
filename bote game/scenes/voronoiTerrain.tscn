@@ -1,9 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://dxujpy0et70qg"]
+[gd_scene load_steps=4 format=3 uid="uid://dxujpy0et70qg"]
 
 [ext_resource type="Script" path="res://scripts/terrain/voronoiTerrain.gd" id="1_n4y6c"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="2_bando"]
+[ext_resource type="PackedScene" uid="uid://dabl0ajxiu4on" path="res://scenes/pathfindingGen.tscn" id="3_gfyf6"]
 
 [node name="voronoiTerrain" type="Node2D"]
 script = ExtResource("1_n4y6c")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(-0.028, -0.028)
+[node name="Camera2D2" type="Camera2D" parent="."]
+zoom = Vector2(0.01, 0.01)
+script = ExtResource("2_bando")
+
+[node name="pathfindingGen" parent="." instance=ExtResource("3_gfyf6")]
+modulate = Color(1, 1, 1, 0.105882)

@@ -1,6 +1,5 @@
 res://default_env.tres
 res://scenes/testScene.tscn
-res://scripts/turret/turret.gd
 res://scenes/terrain.tscn
 res://scenes/turretTestScene.tscn
 res://scenes/turret.tscn
@@ -8,3 +7,6 @@ res://scenes/bote.tscn
 res://scenes/bullet.tscn
 res://scenes/voronoiTerrain.tscn
 res://scenes/explosion.tscn
+res://scripts/terrain/terrain.gd
+res://scripts/terrain/voronoiTerrain.gd
+res://scripts/terrain/customAutoTile.gd

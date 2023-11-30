@@ -1,14 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://b40crqmjyah52"]
+[gd_scene load_steps=5 format=3 uid="uid://b40crqmjyah52"]
 
 [ext_resource type="Script" path="res://scripts/camera.gd" id="1_2k4r3"]
 [ext_resource type="Script" path="res://scripts/boteHolder.gd" id="2_1en8m"]
 [ext_resource type="PackedScene" uid="uid://82s0k7lpx1un" path="res://scenes/bote.tscn" id="3_b5p0u"]
-[ext_resource type="PackedScene" uid="uid://dxujpy0et70qg" path="res://scenes/voronoiTerrain.tscn" id="4_phxbj"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_xp063"]
 vertices = PackedVector2Array(-441, -280, -72, -278, -298, -165, 147, -300, 371, -233, 187, -186, 98, -213, -502, 223, -189, -14, 398, -51, 349, 309, 65, -269)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(3, 4, 5, 6), PackedInt32Array(7, 0, 2, 8), PackedInt32Array(5, 9, 10, 7, 8, 6), PackedInt32Array(6, 8, 11)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-189, -14, 65, -269, 98, -213, 147, -300, 371, -233, 187, -186, 398, -51, 349, 309, -502, 223, -441, -280, -72, -278, -298, -165)])
+source_geometry_group_name = &"navigation_polygon_source_group"
 
 [node name="Node2D" type="Node2D"]
 
@@ -44,5 +44,3 @@ position = Vector2(335, 156)
 
 [node name="bote6" parent="boteHolder" instance=ExtResource("3_b5p0u")]
 position = Vector2(577, 152)
-
-[node name="voronoiTerrain" parent="." instance=ExtResource("4_phxbj")]
