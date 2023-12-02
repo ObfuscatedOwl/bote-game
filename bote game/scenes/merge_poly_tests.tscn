@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://deg5j5mdvpvjo"]
-
-[ext_resource type="Script" path="res://scripts/mergePolyTests.gd" id="1_xehj1"]
-
-[node name="mergePolyTests" type="Node2D"]
-script = ExtResource("1_xehj1")
-
-[node name="Camera2D" type="Camera2D" parent="."]

@@ -1,15 +1,78 @@
-[gd_scene load_steps=4 format=3 uid="uid://dxujpy0et70qg"]
+[gd_scene load_steps=12 format=3 uid="uid://dxujpy0et70qg"]
 
 [ext_resource type="Script" path="res://scripts/terrain/voronoiTerrain.gd" id="1_n4y6c"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="2_bando"]
-[ext_resource type="PackedScene" uid="uid://dabl0ajxiu4on" path="res://scenes/pathfindingGen.tscn" id="3_gfyf6"]
+[ext_resource type="Texture2D" uid="uid://bcxhwp28s8u4g" path="res://sprites/tilemap/Sand.png" id="3_ne4te"]
+[ext_resource type="Script" path="res://scripts/terrain/customAutoTile.gd" id="4_svu5a"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_wggxu"]
+vertices = PackedVector2Array(-8, 8, -8, -8, 8, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, -8, 8)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_wsq7y"]
+vertices = PackedVector2Array(8, 8, -8, 8, -8, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, 8, -8, 8)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_wf7x3"]
+vertices = PackedVector2Array(8, 8, -8, -8, 8, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_xjiay"]
+vertices = PackedVector2Array(8, 8, -8, 8, 8, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(8, -8, 8, 8, -8, 8)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_uqihb"]
+vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bbc65"]
+texture = ExtResource("3_ne4te")
+0:0/0 = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_wggxu")
+1:0/0 = 0
+2:0/0 = 0
+2:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_wf7x3")
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+3:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_uqihb")
+0:2/0 = 0
+0:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_wsq7y")
+1:2/0 = 0
+2:2/0 = 0
+2:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_xjiay")
+3:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_reajn"]
+navigation_layer_0/layers = 1
+sources/0 = SubResource("TileSetAtlasSource_bbc65")
 
 [node name="voronoiTerrain" type="Node2D"]
 script = ExtResource("1_n4y6c")
 
-[node name="Camera2D2" type="Camera2D" parent="."]
+[node name="pathfindingGen" type="TileMap" parent="."]
+z_index = -100
+scale = Vector2(64, 64)
+tile_set = SubResource("TileSet_reajn")
+format = 2
+script = ExtResource("4_svu5a")
+
+[node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.01, 0.01)
 script = ExtResource("2_bando")
-
-[node name="pathfindingGen" parent="." instance=ExtResource("3_gfyf6")]
-modulate = Color(1, 1, 1, 0.105882)

@@ -3,6 +3,11 @@ extends Node2D
 const WATER = Color(0, 0.25, 0.35, 0.3)
 const SAND = Color(0.3, 0.3, 0.1, 0.3)
 
+const tileMapNoiseAdjustment = 13
+const tileRef = {"ground": Vector2i(1, 1), "water": Vector2i(3, 1)}
+const tileSize = 1024
+const noiseImpact = 25
+
 var start = Vector2(-20, -10)
 var end = Vector2(20, 10)
 
@@ -14,7 +19,7 @@ func _ready():
 	randomize()
 	for i in range(start.x, end.x):
 		for j in range(start.y, end.y):
-			delaunay.add_point(Vector2(i*1000 + randi_range(-300,300), j*1000 + randi_range(-300,300)) * 1.2)
+			delaunay.add_point(Vector2(i*tileSize + randi_range(-300,300), j*tileSize + randi_range(-300,300)) * 1.2)
 	
 	var triangles = delaunay.triangulate()
 	var regions = delaunay.make_voronoi(triangles)
@@ -39,59 +44,26 @@ func _ready():
 					tile.neighbours.append(potentialNeighbour)
 					break
 	
-	$"pathfindingGen".setup_pathfinding(heightMap)
-	
-	"""
-	var groupedNavTiles = groupWaterNavRegions(navTiles)
-	for group in groupedNavTiles:
-		var combinedGroup = group[0].polygon.duplicate()
-		for tile in group:
-			var PV2Apolygon = tile.polygon.polygon
-			combinedGroup.polygon = Geometry2D.merge_polygons(combinedGroup.polygon, PV2Apolygon)[0]
-		print(combinedGroup, pow(len(combinedGroup.polygon), 2)/36)
-		combinedGroup.color = WATER
-		add_child(setupNavRegion(combinedGroup))
-		add_child(combinedGroup)
-	"""
-	"""
-	var potentialNeighbours = navTiles
-	var allGroups = []
-	
-	var totalAreaPolygon = Polygon2D.new()
-	totalAreaPolygon.polygon = PackedVector2Array([Vector2(-60000, -30000), Vector2(-60000, 30000), Vector2(60000, 30000), Vector2(60000, -30000)])
-	
-	for tile in tiles:
-		if not tile.isNavTile:
-			totalAreaPolygon.polygon = Geometry2D.clip_polygons(totalAreaPolygon.polygon, tile.polygon.polygon)[0]
-			break
-	
-	print(len(totalAreaPolygon.polygon))
-	totalAreaPolygon.color = WATER
-	add_child(totalAreaPolygon)
-	add_child(setupNavRegion(totalAreaPolygon))
-	"""
-	"""
-	while potentialNeighbours:
-		var groupCompleted = false
-		var combinedGroup = potentialNeighbours[0].polygon
-		potentialNeighbours.pop_front()
-		
-		while not groupCompleted:
-			groupCompleted = true
-			for tile in potentialNeighbours:
-				var combination = Geometry2D.merge_polygons(combinedGroup.polygon, tile.polygon.polygon)[0]
-				if combination:
-					potentialNeighbours.erase(tile)
-					groupCompleted = false
-		
-		combinedGroup.color = WATER
-		add_child(setupNavRegion(combinedGroup))
-		add_child(combinedGroup)
-	"""
+	setup_pathfinding(heightMap)
 
-func centralFocus(x, y):
-	return
-	#return pow(start.length() / (10 * Vector2(x, y).length() + 1), 1)
+func setup_pathfinding(heightMap):
+	for x in range(start.x-10, end.x+10):
+		for y in range(start.y-5, end.y+5):
+			var value = heightMap.get_noise_2d(x*noiseImpact, y*noiseImpact)
+			var pos = Vector2i(x, y)
+			value += centralFocus(pos)
+			setCell(pos, value+0.05)
+	
+	$pathfindingGen.setupBoundaryConditions()
+
+func setCell(pos, value):
+	if value > -0.03:
+		$pathfindingGen.set_cell(0, pos, 0, tileRef["ground"])
+	else:
+		$pathfindingGen.set_cell(0, pos, 0, tileRef["water"])
+
+func centralFocus(point):
+	return 0.5 - point.length()/20
 
 class Tile:
 	var region
@@ -105,20 +77,6 @@ class Tile:
 		
 		self.neighbours = [] # Populated externally
 		self.isNavTile = false
-
-func groupWaterNavRegions(navTiles: Array):
-	var allGroups = []
-	while len(navTiles):
-		var newGroup = getNavNeighbours(navTiles[0])
-		allGroups.append(newGroup)
-		
-		for navTile in newGroup:
-			navTiles.erase(navTile)
-		
-		print(len(navTiles))
-	
-	print(allGroups)
-	return allGroups
 
 func getNavNeighbours(startingTile: Tile):
 	var navGroup = [startingTile]
@@ -134,30 +92,12 @@ func getNavNeighbours(startingTile: Tile):
 	
 	return navGroup
 
-func setupNavRegion(polygon: Polygon2D):
-	var navRegion = NavigationRegion2D.new()
-	var navPolygon = NavigationPolygon.new()
-	
-	navPolygon.add_outline(polygon.polygon)
-	navPolygon.make_polygons_from_outlines()
-	navRegion.navigation_polygon = navPolygon
-	navRegion.constrain_avoidance = true
-	
-	return navRegion
-
 func createNoise():
 	var land = FastNoiseLite.new()
 	land.seed = randi()
 	land.noise_type = 4
 	
 	return land
-
-func colourTiles(tiles):
-	for tile in tiles:
-		if not tile.isNavTile:
-			for neighbour in tile.neighbours:
-				if neighbour.isNavTile:
-					tile.polygon.color = SAND
 
 func setupPolygon(region: Delaunay.VoronoiSite, heightMap):
 	var polygon = Polygon2D.new()
@@ -171,7 +111,8 @@ func setupPolygon(region: Delaunay.VoronoiSite, heightMap):
 		averagePoint += vertex
 	averagePoint /= len(polygon.polygon)
 	
-	var value = heightMap.get_noise_2dv(polygon.polygon[0]/80)
+	var noisePosition = noiseImpact * averagePoint/tileSize
+	var value = heightMap.get_noise_2dv(noisePosition) + centralFocus(averagePoint/tileSize)
 	polygon.color = Color(value, value, value, 0.6) if value > 0 else WATER
 	
 	return polygon
