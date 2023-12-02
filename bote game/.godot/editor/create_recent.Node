@@ -1,8 +1,9 @@
+NavigationRegion2D
+Polygon2D
 GPUParticles2D
 Node2D
 Sprite2D
 Camera2D
-NavigationRegion2D
 SubViewport
 CollisionShape2D
 CollisionPolygon2D

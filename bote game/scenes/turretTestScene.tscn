@@ -8,6 +8,7 @@
 vertices = PackedVector2Array(-441, -280, -72, -278, -298, -165, 147, -300, 371, -233, 187, -186, 98, -213, -502, 223, -189, -14, 398, -51, 349, 309, 65, -269)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(3, 4, 5, 6), PackedInt32Array(7, 0, 2, 8), PackedInt32Array(5, 9, 10, 7, 8, 6), PackedInt32Array(6, 8, 11)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-189, -14, 65, -269, 98, -213, 147, -300, 371, -233, 187, -186, 398, -51, 349, 309, -502, 223, -441, -280, -72, -278, -298, -165)])
+source_geometry_group_name = &"navigation_polygon_source_group"
 
 [node name="turretTestScene" type="Node2D"]
 script = ExtResource("1_ueyr8")
