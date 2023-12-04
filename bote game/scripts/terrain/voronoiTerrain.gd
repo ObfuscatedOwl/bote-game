@@ -49,10 +49,11 @@ func _ready():
 func setup_pathfinding(heightMap):
 	for x in range(start.x-10, end.x+10):
 		for y in range(start.y-5, end.y+5):
-			var value = heightMap.get_noise_2d(x*noiseImpact, y*noiseImpact)
+			
+			var value = heightMap.get_noise_2d((x-0.5)*noiseImpact, (y-0.5)*noiseImpact)
 			var pos = Vector2i(x, y)
 			value += centralFocus(pos)
-			setCell(pos, value+0.05)
+			setCell(pos, value+0.3)
 	
 	$pathfindingGen.setupBoundaryConditions()
 
