@@ -1,7 +1,7 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1701642336
+::res://::1701871607
 bugWithLinePeterFound!.txt::TextFile::-1::1700611655::0::1::::<><>::
-default_env.tres::Environment::2281046586866283389::1701642336::0::1::::<><>::
+default_env.tres::Environment::2281046586866283389::1701709043::0::1::::<><>::
 icon.png::CompressedTexture2D::7921813261049669099::1700611655::1700611655::1::::<><>::
 notes for formations.txt::TextFile::-1::1700611655::0::1::::<><>::
 ::res://addons/::1700611655
@@ -9,22 +9,22 @@ notes for formations.txt::TextFile::-1::1700611655::0::1::::<><>::
 Delaunay.gd::GDScript::-1::1700611655::0::1::::Delaunay<>Resource<>::
 plugin.cfg::TextFile::-1::1700611655::0::1::::<><>::
 plugin.gd::GDScript::-1::1700611655::0::1::::<>EditorPlugin<>::
-::res://scenes/::1701642336
-bote.tscn::PackedScene::2373108165320113573::1701641931::0::1::::<><>::res://scripts/boteController.gd<>uid://bwwglaykga4y3::::res://sprites/botes/rudder.png<>uid://63k7u6yw04cs::::res://sprites/botes/Destroyer.png<>res://scripts/boteHealth.gd<>uid://dhrvsxswyqo8t::::res://scenes/turret.tscn
-bullet.tscn::PackedScene::8222056225097726128::1701641931::0::1::::<><>::res://scripts/turret/bullet.gd<>uid://bwwglaykga4y3::::res://sprites/botes/rudder.png
+::res://scenes/::1701709043
+bote.tscn::PackedScene::2373108165320113573::1701708502::0::1::::<><>::res://scripts/boteController.gd<>uid://bwwglaykga4y3::::res://sprites/botes/rudder.png<>uid://63k7u6yw04cs::::res://sprites/botes/Destroyer.png<>res://scripts/boteHealth.gd<>uid://dhrvsxswyqo8t::::res://scenes/turret.tscn
+bullet.tscn::PackedScene::8222056225097726128::1701708502::0::1::::<><>::res://scripts/turret/bullet.gd<>uid://bwwglaykga4y3::::res://sprites/botes/rudder.png
 explosion.tscn::PackedScene::2578622321490465517::1701354741::0::1::::<><>::
-testScene.tscn::PackedScene::4473659244881706067::1701641931::0::1::::<><>::res://scripts/camera.gd<>res://scripts/boteHolder.gd<>uid://82s0k7lpx1un::::res://scenes/bote.tscn<>uid://dxujpy0et70qg::::res://scenes/voronoiTerrain.tscn
-turret.tscn::PackedScene::7686986816378760301::1701641931::0::1::::<><>::res://scripts/turret/turret.gd<>uid://cwpvvt4408qj3::::res://sprites/botes/Light gun.png<>res://scripts/turret/rangeDisplay.gd
-turretTestScene.tscn::PackedScene::3940259816273482854::1701641931::0::1::::<><>::res://scripts/turret/turretTestScene.gd<>res://scripts/camera.gd<>res://scripts/boteHolder.gd
-voronoiTerrain.tscn::PackedScene::8815467549067648250::1701642336::0::1::::<><>::res://scripts/terrain/voronoiTerrain.gd<>res://scripts/camera.gd<>uid://bcxhwp28s8u4g::::res://sprites/Tilemap/Sand.png<>res://scripts/terrain/customAutoTile.gd
+testScene.tscn::PackedScene::4473659244881706067::1701708502::0::1::::<><>::res://scripts/camera.gd<>res://scripts/boteHolder.gd<>uid://82s0k7lpx1un::::res://scenes/bote.tscn<>uid://dxujpy0et70qg::::res://scenes/voronoiTerrain.tscn
+turret.tscn::PackedScene::7686986816378760301::1701708502::0::1::::<><>::res://scripts/turret/turret.gd<>uid://cwpvvt4408qj3::::res://sprites/botes/Light gun.png<>res://scripts/turret/rangeDisplay.gd
+turretTestScene.tscn::PackedScene::3940259816273482854::1701708502::0::1::::<><>::res://scripts/turret/turretTestScene.gd<>res://scripts/camera.gd<>res://scripts/boteHolder.gd
+voronoiTerrain.tscn::PackedScene::8815467549067648250::1701709043::0::1::::<><>::res://scripts/terrain/voronoiTerrain.gd<>res://scripts/camera.gd<>uid://bcxhwp28s8u4g::::res://sprites/Tilemap/Sand.png<>res://scripts/terrain/customAutoTile.gd
 ::res://scripts/::1701641901
 boteController.gd::GDScript::-1::1701266358::0::1::::<>Node2D<>::
 boteHealth.gd::GDScript::-1::1700611655::0::1::::<>Node2D<>::
 boteHolder.gd::GDScript::-1::1700611655::0::1::::<>Node2D<>::
 camera.gd::GDScript::-1::1700611655::0::1::::<>Camera2D<>::
-::res://scripts/terrain/::1701641901
+::res://scripts/terrain/::1701708457
 customAutoTile.gd::GDScript::-1::1701354535::0::1::::<>TileMap<>::
-voronoiTerrain.gd::GDScript::-1::1701641901::0::1::::<>Node2D<>::
+voronoiTerrain.gd::GDScript::-1::1701708457::0::1::::<>Node2D<>::
 ::res://scripts/turret/::1701266358
 bullet.gd::GDScript::-1::1701266358::0::1::::<>Node2D<>::
 rangeDisplay.gd::GDScript::-1::1700611655::0::1::::<>Node2D<>::
