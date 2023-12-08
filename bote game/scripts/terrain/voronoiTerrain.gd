@@ -8,8 +8,11 @@ const tileRef = {"ground": Vector2i(1, 1), "water": Vector2i(3, 1)}
 const tileSize = 1024
 const noiseImpact = 25
 
-var start = Vector2(-20, -10)
-var end = Vector2(20, 10)
+var voronoiStart = Vector2(-25, -15)
+var voronoiEnd = Vector2(25, 15)
+
+var tileStart = Vector2(-50, -30)
+var tileEnd = Vector2(50, 30)
 
 var delaunay: Delaunay
 
@@ -17,8 +20,8 @@ func _ready():
 	delaunay = Delaunay.new(Rect2(-50000, -20000, 50000, 20000))
 	
 	randomize()
-	for i in range(start.x, end.x):
-		for j in range(start.y, end.y):
+	for i in range(voronoiStart.x, voronoiEnd.x):
+		for j in range(voronoiStart.y, voronoiEnd.y):
 			delaunay.add_point(Vector2(i*tileSize + randi_range(-300,300), j*tileSize + randi_range(-300,300)) * 1.2)
 	
 	var triangles = delaunay.triangulate()
@@ -47,8 +50,8 @@ func _ready():
 	setup_pathfinding(heightMap)
 
 func setup_pathfinding(heightMap):
-	for x in range(start.x-10, end.x+10):
-		for y in range(start.y-5, end.y+5):
+	for x in range(tileStart.x-10, tileEnd.x+10):
+		for y in range(tileStart.y-5, tileEnd.y+5):
 			
 			var value = heightMap.get_noise_2d((x-0.5)*noiseImpact, (y-0.5)*noiseImpact)
 			var pos = Vector2i(x, y)
@@ -78,20 +81,6 @@ class Tile:
 		
 		self.neighbours = [] # Populated externally
 		self.isNavTile = false
-
-func getNavNeighbours(startingTile: Tile):
-	var navGroup = [startingTile]
-	var complete = false
-	
-	while not complete:
-		complete = true
-		for tile in navGroup:
-			for neighbour in tile.neighbours:
-				if not neighbour in navGroup and neighbour.isNavTile:
-					complete = false
-					navGroup.append(neighbour)
-	
-	return navGroup
 
 func createNoise():
 	var land = FastNoiseLite.new()
