@@ -1,11 +1,11 @@
 extends Node2D
 
-const WATER = Color(0, 0.25, 0.35, 0.3)
-const SAND = Color(0.3, 0.3, 0.1, 0.3)
+const WATER = Color(0.01400048937649, 0.25016698241234, 0.36195242404938, 0.30000001192093)
+const SHALLOWS = Color(0.17935448884964, 0.34574511647224, 0.44956946372986, 0.32549020648003)
 
 const tileMapNoiseAdjustment = 13
 const tileRef = {"ground": Vector2i(1, 1), "water": Vector2i(3, 1)}
-const tileSize = 1024
+const voronoiTileSize = 1024
 const noiseImpact = 25
 
 var voronoiStart = Vector2(-25, -15)
@@ -22,7 +22,7 @@ func _ready():
 	randomize()
 	for i in range(voronoiStart.x, voronoiEnd.x):
 		for j in range(voronoiStart.y, voronoiEnd.y):
-			delaunay.add_point(Vector2(i*tileSize + randi_range(-300,300), j*tileSize + randi_range(-300,300)) * 1.2)
+			delaunay.add_point(Vector2(i*voronoiTileSize + randi_range(-300,300), j*voronoiTileSize + randi_range(-300,300)) * 1.2)
 	
 	var triangles = delaunay.triangulate()
 	var regions = delaunay.make_voronoi(triangles)
@@ -50,10 +50,21 @@ func _ready():
 	setup_pathfinding(heightMap)
 
 func setup_pathfinding(heightMap):
+	var tileScaling = $pathfindingGen.scale.x / 64
+	for x in range(tileStart.x-10, tileEnd.x+10):
+		for y in range(tileStart.y-5, tileEnd.y+5):
+			var value = heightMap.get_noise_2d(x*noiseImpact*tileScaling, y*noiseImpact*tileScaling)
+			var pos = Vector2i(x, y)
+			value += centralFocus(pos*tileScaling)
+			setCell(pos, value+0.3)
+	
+	$pathfindingGen.setupBoundaryConditions()
+
+func setupPathfinding(heightMap):
 	for x in range(tileStart.x-10, tileEnd.x+10):
 		for y in range(tileStart.y-5, tileEnd.y+5):
 			
-			var value = heightMap.get_noise_2d((x-0.5)*noiseImpact, (y-0.5)*noiseImpact)
+			var value = heightMap.get_noise_2d(x*noiseImpact, y*noiseImpact)
 			var pos = Vector2i(x, y)
 			value += centralFocus(pos)
 			setCell(pos, value+0.3)
@@ -61,7 +72,7 @@ func setup_pathfinding(heightMap):
 	$pathfindingGen.setupBoundaryConditions()
 
 func setCell(pos, value):
-	if value > -0.03:
+	if value > -0.05:
 		$pathfindingGen.set_cell(0, pos, 0, tileRef["ground"])
 	else:
 		$pathfindingGen.set_cell(0, pos, 0, tileRef["water"])
@@ -96,15 +107,15 @@ func setupPolygon(region: Delaunay.VoronoiSite, heightMap):
 	polygon.polygon = p
 	polygon.z_index = -1
 	
-	var averagePoint = Vector2.ZERO
-	for vertex in polygon.polygon:
-		averagePoint += vertex
-	averagePoint /= len(polygon.polygon)
+	var averagePoint = region.center
 	
-	var noisePosition = noiseImpact * averagePoint/tileSize
-	var value = heightMap.get_noise_2dv(noisePosition) + centralFocus(averagePoint/tileSize)
+	var noisePosition = noiseImpact * averagePoint/voronoiTileSize
+	var value = heightMap.get_noise_2dv(noisePosition) + centralFocus(averagePoint/voronoiTileSize)
 	polygon.color = Color(value, value, value, 0.6) if value > 0 else WATER
-	
+	"""
+	if (value > -0.2 and polygon.color == WATER):
+		polygon.color = SHALLOWS
+	"""
 	return polygon
 
 func showBorders(region: Delaunay.VoronoiSite):
