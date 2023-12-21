@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/terrain/voronoiTerrain.gd" id="1_n4y6c"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="2_bando"]
-[ext_resource type="Texture2D" uid="uid://bcxhwp28s8u4g" path="res://sprites/Tilemap/Sand.png" id="3_ne4te"]
+[ext_resource type="Texture2D" uid="uid://bcxhwp28s8u4g" path="res://sprites/tilemap/Sand.png" id="3_ne4te"]
 [ext_resource type="Script" path="res://scripts/terrain/customAutoTile.gd" id="4_svu5a"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_wggxu"]
@@ -68,7 +68,8 @@ script = ExtResource("1_n4y6c")
 
 [node name="pathfindingGen" type="TileMap" parent="."]
 z_index = -100
-scale = Vector2(64, 64)
+position = Vector2(-1536, -1536)
+scale = Vector2(192, 192)
 tile_set = SubResource("TileSet_reajn")
 format = 2
 script = ExtResource("4_svu5a")
