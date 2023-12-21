@@ -1,9 +1,9 @@
 res://default_env.tres
-res://scenes/voronoiTerrain.tscn
-res://scripts/turret/turret.gd
-res://scripts/terrain/voronoiTerrain.gd
 res://scenes/testScene.tscn
+res://scripts/turret/turret.gd
+res://notes for AI.txt
 res://scenes/turretTestScene.tscn
 res://scenes/turret.tscn
 res://scenes/bote.tscn
 res://scenes/bullet.tscn
+res://scenes/voronoiTerrain.tscn
