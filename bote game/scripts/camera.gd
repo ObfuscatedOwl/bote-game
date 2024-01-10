@@ -5,13 +5,6 @@ var actions = {"ui_up" : false, "ui_down" : false, "ui_left" : false, "ui_right"
 const moveSpeed = 500
 const zoomRate = 0.5
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-func _input(event):
-	pass
-
 func _process(delta):
 	for key in actions.keys():
 		actions[key] = Input.is_action_pressed(key)

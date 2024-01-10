@@ -17,27 +17,28 @@ var tileEnd = Vector2(50, 30)
 var delaunay: Delaunay
 
 func _ready():
+	print("1 Initialising Delaunay")
 	delaunay = Delaunay.new(Rect2(-50000, -20000, 50000, 20000))
+	print("1 Completed")
 	
+	print("2 Setting up Delaunay Points")
 	randomize()
 	for i in range(voronoiStart.x, voronoiEnd.x):
 		for j in range(voronoiStart.y, voronoiEnd.y):
 			delaunay.add_point(Vector2(i*voronoiTileSize + randi_range(-300,300), j*voronoiTileSize + randi_range(-300,300)) * 1.2)
+	print("2 Completed")
 	
+	print("3 Setting up Noise, Triangulation & Regions")
 	var triangles = delaunay.triangulate()
 	var regions = delaunay.make_voronoi(triangles)
 	var heightMap = createNoise()
+	print("3 Completed")
 	
+	print("4 Setting up Tiles")
 	var tiles = []
-	var navTiles = []
 	
 	for region in regions:
-		var polygon = setupPolygon(region, heightMap)
-		var newTile = Tile.new(region, polygon)
-		if polygon.color == WATER:
-			newTile.isNavTile = true
-			navTiles.append(newTile)
-		add_child(polygon)
+		var newTile = setupTile(region, heightMap)
 		tiles.append(newTile)
 	
 	for tile in tiles:
@@ -46,8 +47,11 @@ func _ready():
 				if potentialNeighbour.region == edge.other:
 					tile.neighbours.append(potentialNeighbour)
 					break
+	print("4 Completed")
 	
+	print("5 Setting up Pathfinding")
 	setup_pathfinding(heightMap)
+	print("Completed")
 
 func setup_pathfinding(heightMap):
 	var tileScaling = $pathfindingGen.scale.x / 64
@@ -100,23 +104,27 @@ func createNoise():
 	
 	return land
 
-func setupPolygon(region: Delaunay.VoronoiSite, heightMap):
+func setupTile(region: Delaunay.VoronoiSite, heightMap):
 	var polygon = Polygon2D.new()
-	var p = region.polygon
-	p.append(p[0])
-	polygon.polygon = p
+	polygon.polygon = region.polygon
+	polygon.polygon.append(polygon.polygon[0])
 	polygon.z_index = -1
 	
+	var isNavTile = false
 	var averagePoint = region.center
-	
 	var noisePosition = noiseImpact * averagePoint/voronoiTileSize
 	var value = heightMap.get_noise_2dv(noisePosition) + centralFocus(averagePoint/voronoiTileSize)
-	polygon.color = Color(value, value, value, 0.6) if value > 0 else WATER
-	"""
-	if (value > -0.2 and polygon.color == WATER):
-		polygon.color = SHALLOWS
-	"""
-	return polygon
+	
+	if value > 0:
+		polygon.color = Color(value, value, value, 0.6)
+	else:
+		polygon.color = WATER
+		isNavTile = true
+	add_child(polygon)
+	
+	var newTile = Tile.new(region, polygon)
+	newTile.isNavTile = isNavTile
+	return Tile.new(region, polygon)
 
 func showBorders(region: Delaunay.VoronoiSite):
 	var line = Line2D.new()
