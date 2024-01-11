@@ -1,11 +1,14 @@
 res://default_env.tres
-res://scenes/voronoiTerrain.tscn
+res://scenes/explosion.tscn
 res://scripts/turret/turret.gd
-res://scripts/terrain/voronoiTerrain.gd
 res://scenes/testScene.tscn
 res://scenes/turretTestScene.tscn
 res://scenes/turret.tscn
 res://scenes/bote.tscn
 res://scenes/bullet.tscn
+res://scenes/voronoiTerrain.tscn
 res://scenes/enemy_ai.tscn
-res://scripts/camera.gd
+res://scenes/smoke.gd
+res://scenes/explosion.gd
+res://scenes/particleTesting.tscn
+res://scenes/enemyAi.tscn

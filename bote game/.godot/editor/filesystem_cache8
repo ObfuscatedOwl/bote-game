@@ -1,7 +1,7 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1703429564
+::res://::1704987563
 bugWithLinePeterFound!.txt::TextFile::-1::1680623335::0::1::::<><>::
-default_env.tres::Environment::2281046586866283389::1703428627::0::1::::<><>::
+default_env.tres::Environment::2281046586866283389::1704987652::0::1::::<><>::
 icon.png::CompressedTexture2D::7921813261049669099::1680107512::1680107604::1::::<><>::
 notes for AI.txt::TextFile::-1::1703199511::0::1::::<><>::
 notes for formations.txt::TextFile::-1::1680107512::0::1::::<><>::
@@ -10,15 +10,17 @@ notes for formations.txt::TextFile::-1::1680107512::0::1::::<><>::
 Delaunay.gd::GDScript::-1::1687709811::0::1::::Delaunay<>Resource<>::
 plugin.cfg::TextFile::-1::1687709811::0::1::::<><>::
 plugin.gd::GDScript::-1::1687709811::0::1::::<>EditorPlugin<>::
-::res://scenes/::1703428627
-bote.tscn::PackedScene::2373108165320113573::1703421237::0::1::::<><>::res://scripts/boteController.gd<>uid://bwwglaykga4y3::::res://sprites/botes/Rudder.png<>uid://63k7u6yw04cs::::res://sprites/botes/Destroyer.png<>res://scripts/boteHealth.gd<>uid://dhrvsxswyqo8t::::res://scenes/turret.tscn
-bullet.tscn::PackedScene::8222056225097726128::1703421237::0::1::::<><>::res://scripts/turret/bullet.gd<>uid://bwwglaykga4y3::::res://sprites/botes/Rudder.png
-enemy_ai.tscn::PackedScene::5735883687437381741::1703421237::0::1::::<><>::res://scripts/enemyAI.gd
-explosion.tscn::PackedScene::2578622321490465517::1701472174::0::1::::<><>::
-testScene.tscn::PackedScene::4473659244881706067::1703421237::0::1::::<><>::res://scripts/camera.gd<>res://scripts/boteHolder.gd<>uid://82s0k7lpx1un::::res://scenes/bote.tscn<>uid://dxujpy0et70qg::::res://scenes/voronoiTerrain.tscn
-turret.tscn::PackedScene::7686986816378760301::1703421237::0::1::::<><>::res://scripts/turret/turret.gd<>uid://cwpvvt4408qj3::::res://sprites/botes/Light gun.png<>res://scripts/turret/rangeDisplay.gd
-turretTestScene.tscn::PackedScene::3940259816273482854::1703421237::0::1::::<><>::res://scripts/turret/turretTestScene.gd<>res://scripts/camera.gd<>res://scripts/boteHolder.gd
-voronoiTerrain.tscn::PackedScene::8815467549067648250::1703428627::0::1::::<><>::res://scripts/terrain/voronoiTerrain.gd<>res://scripts/camera.gd<>uid://bcxhwp28s8u4g::::res://sprites/tilemap/Sand.png<>res://scripts/terrain/customAutoTile.gd
+::res://scenes/::1704987563
+bote.tscn::PackedScene::2373108165320113573::1704987563::0::1::::<><>::res://scripts/boteController.gd<>uid://bwwglaykga4y3::::res://sprites/botes/Rudder.png<>uid://63k7u6yw04cs::::res://sprites/botes/Destroyer.png<>res://scripts/boteHealth.gd<>uid://dhrvsxswyqo8t::::res://scenes/turret.tscn
+bullet.tscn::PackedScene::8222056225097726128::1704987563::0::1::::<><>::res://scripts/turret/bullet.gd<>uid://bwwglaykga4y3::::res://sprites/botes/Rudder.png
+enemy_ai.tscn::PackedScene::5735883687437381741::1704987563::0::1::::<><>::res://scripts/enemyAI.gd
+explosion.tscn::PackedScene::2578622321490465517::1704987608::0::1::::<><>::res://scenes/explosion.gd<>uid://bexnjqxw0wpkh::::res://sprites/explosions/circle.png
+explosion.gd::GDScript::-1::1704986949::0::1::::<>Node2D<>::
+particleTesting.tscn::PackedScene::8855879486797433292::1704987652::0::1::::<><>::uid://bc0dsea31wn0x::::res://scenes/explosion.tscn
+testScene.tscn::PackedScene::4473659244881706067::1704987563::0::1::::<><>::res://scripts/camera.gd<>res://scripts/boteHolder.gd<>uid://82s0k7lpx1un::::res://scenes/bote.tscn<>uid://dxujpy0et70qg::::res://scenes/voronoiTerrain.tscn
+turret.tscn::PackedScene::7686986816378760301::1704987563::0::1::::<><>::res://scripts/turret/turret.gd<>uid://cwpvvt4408qj3::::res://sprites/botes/Light gun.png<>res://scripts/turret/rangeDisplay.gd
+turretTestScene.tscn::PackedScene::3940259816273482854::1704987563::0::1::::<><>::res://scripts/turret/turretTestScene.gd<>res://scripts/camera.gd<>res://scripts/boteHolder.gd
+voronoiTerrain.tscn::PackedScene::8815467549067648250::1704987563::0::1::::<><>::res://scripts/terrain/voronoiTerrain.gd<>res://scripts/camera.gd<>uid://bcxhwp28s8u4g::::res://sprites/tilemap/Sand.png<>res://scripts/terrain/customAutoTile.gd
 ::res://scripts/::1703420688
 boteController.gd::GDScript::-1::1700996934::0::1::::<>Node2D<>::
 boteHealth.gd::GDScript::-1::1700397346::0::1::::<>Node2D<>::
@@ -28,12 +30,12 @@ enemyAI.gd::GDScript::-1::1703372074::0::1::::<>Node2D<>::
 ::res://scripts/terrain/::1703421216
 customAutoTile.gd::GDScript::-1::1701471843::0::1::::<>TileMap<>::
 voronoiTerrain.gd::GDScript::-1::1703421216::0::1::::<>Node2D<>::
-::res://scripts/turret/::1703418984
+::res://scripts/turret/::1704986714
 bullet.gd::GDScript::-1::1700915477::0::1::::<>Node2D<>::
 rangeDisplay.gd::GDScript::-1::1692646539::0::1::::<>Node2D<>::
-turret.gd::GDScript::-1::1703418984::0::1::::<>Node2D<>::
+turret.gd::GDScript::-1::1704986714::0::1::::<>Node2D<>::
 turretTestScene.gd::GDScript::-1::1700862863::0::1::::<>Node2D<>::
-::res://sprites/::1681055829
+::res://sprites/::1704929518
 ::res://sprites/botes/::1702051126
 bote2point1pointOh.png::CompressedTexture2D::1217327150985231235::1680107513::1680983774::1::::<><>::
 bote2pointOh.png::CompressedTexture2D::5490967871696925658::1680107513::1680983774::1::::<><>::
@@ -41,6 +43,8 @@ Destroyer.png::CompressedTexture2D::2234322144702104498::1692646709::1692640257:
 GunMk1.png::CompressedTexture2D::3676314350784982100::1681056663::1681056663::1::::<><>::
 Light gun.png::CompressedTexture2D::6349275196349242118::1692633677::1692633678::1::::<><>::
 Rudder.png::CompressedTexture2D::3976375537546393824::1692640116::1702051126::1::::<><>::
+::res://sprites/explosions/::1704930527
+circle.png::CompressedTexture2D::2715463016577687511::1704930525::1704930527::1::::<><>::
 ::res://sprites/tilemap/::1702051126
 Grass.png::CompressedTexture2D::2018759953424625177::1680984982::1702051126::1::::<><>::
 Sand.png::CompressedTexture2D::2574744196812529208::1701543009::1702051126::1::::<><>::
