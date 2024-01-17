@@ -17,14 +17,16 @@ curve = SubResource("Curve_ctmpu")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xn0ns"]
 particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 20.0
 direction = Vector3(0, 0, 0)
 spread = 180.0
 flatness = 0.6
 initial_velocity_min = 20.0
 initial_velocity_max = 25.0
 gravity = Vector3(0, 0, 0)
-damping_min = 7.034
-damping_max = 7.034
+damping_min = 8.0
+damping_max = 8.0
 scale_min = 0.5
 scale_curve = SubResource("CurveTexture_n8dsq")
 color_ramp = SubResource("GradientTexture1D_0ofad")
@@ -34,6 +36,7 @@ script = ExtResource("1_43apd")
 
 [node name="smoke" type="GPUParticles2D" parent="."]
 position = Vector2(100, 100)
+emitting = false
 amount = 500
 process_material = SubResource("ParticleProcessMaterial_xn0ns")
 texture = ExtResource("1_j5wdi")
