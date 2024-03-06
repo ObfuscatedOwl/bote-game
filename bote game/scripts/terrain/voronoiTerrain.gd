@@ -1,5 +1,101 @@
 extends Node2D
 
+const WATER = Color(0, 0.25, 0.35, 0.3)
+const SAND = Color(0.3, 0.3, 0.1, 0.3)
+
+var delaunay: Delaunay
+
+func _ready():
+	delaunay = Delaunay.new(Rect2(-50000, -20000, 50000, 20000))
+	
+	randomize()
+	for i in range(-20, 20):
+		for j in range(-10, 10):
+			delaunay.add_point(Vector2(i*1000 + randi_range(-300,300), j*1000 + randi_range(-300,300)) * 1.2)
+	
+	var triangles = delaunay.triangulate()
+	var regions = delaunay.make_voronoi(triangles)
+	var heightMap = createNoise()
+	
+	var tiles = []
+	
+	for region in regions:
+		var polygon = setupPolygon(region)
+		var value = 2 * heightMap.get_noise_2dv(polygon.polygon[0]/80) + centralFocus(region.center)
+		polygon.color = Color(value, value, value, 0.6) if value > 0 else WATER
+		
+		var newTile = Tile.new(region, polygon)
+		if value < 0:
+			newTile.isNavTile = true
+		
+		tiles.append(newTile)
+		add_child(polygon)
+	
+	var navigablePolygon = NavigationPolygon.new()
+	for tile in tiles:
+		if tile.isNavTile:
+			navigablePolygon.add_outline(tile.polygon.polygon)
+	NavigationServer2D.bake_from_source_geometry_data(navigablePolygon, NavigationMeshSourceGeometryData2D.new());
+	%navigableMap.navigation_polygon = navigablePolygon
+
+class Tile:
+	var region
+	var polygon
+	var isNavTile
+	
+	func _init(initRegion, initPolygon):
+		self.region = initRegion
+		self.polygon = initPolygon
+
+func setupNavRegion(polygon: Polygon2D):
+	var navRegion = NavigationRegion2D.new()
+	var navPolygon = NavigationPolygon.new()
+	
+	navPolygon.add_outline(polygon.polygon)
+	navPolygon.make_polygons_from_outlines()
+	navRegion.navigation_polygon = navPolygon
+	
+	return navRegion
+
+func createNoise():
+	var land = FastNoiseLite.new()
+	land.seed = randi()
+	land.noise_type = 4
+
+	return land
+
+func colourTiles(tiles):
+	for tile in tiles:
+		if not tile.isNavTile:
+			for neighbour in tile.neighbours:
+				if neighbour.isNavTile:
+					tile.polygon.color = SAND
+
+func centralFocus(point):
+	return 0.5 - point.length()/13000
+
+func setupPolygon(region: Delaunay.VoronoiSite):
+	var polygon = Polygon2D.new()
+	var p = region.polygon
+	p.append(p[0])
+	polygon.polygon = p
+	polygon.z_index = -1
+	
+	return polygon
+
+func showBorders(region: Delaunay.VoronoiSite):
+	var line = Line2D.new()
+	var p = region.polygon
+	p.append(p[0])
+	line.points = p
+	line.width = 3
+	line.default_color = Color.GREEN_YELLOW
+	
+	return line
+
+
+"""extends Node2D
+
 const WATER = Color(0.01400048937649, 0.25016698241234, 0.36195242404938, 0.30000001192093)
 const SHALLOWS = Color(0.17935448884964, 0.34574511647224, 0.44956946372986, 0.32549020648003)
 
@@ -135,3 +231,4 @@ func showBorders(region: Delaunay.VoronoiSite):
 	line.default_color = Color.GREEN_YELLOW
 	
 	return line
+"""

@@ -1,9 +1,9 @@
+NavigationRegion2D
 Camera2D
 CanvasLayer
 GPUParticles2D
 TextureRect
 SubViewport
-NavigationRegion2D
 Polygon2D
 Node2D
 Sprite2D
