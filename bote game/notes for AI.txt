@@ -7,4 +7,3 @@ Which one do we want?
 
 Setup for the 'naive' approach to creating the AI will be best initially ig - as explained on Obsidian
 - will upload the docs alongside or separately to the game (which)
-

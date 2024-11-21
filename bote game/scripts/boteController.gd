@@ -18,8 +18,8 @@ var drag = 0.012
 var targetSpeed = 0.0
 var rudd = 0.0
 
-const maxSpeed = 350.0 #18.0
-const acc = 6.0 #0.06
+const maxSpeed = 18.0 #18.0
+const acc = 0.06 #0.06
 const maxRudd = 0.5
 const ruddEffect = 0.05
 

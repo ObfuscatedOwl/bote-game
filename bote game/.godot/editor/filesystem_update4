@@ -1,6 +1,6 @@
 res://default_env.tres
 res://scenes/testScene.tscn
-res://scripts/turret/turret.gd
+res://notes for AI.txt
 res://scenes/turretTestScene.tscn
 res://scenes/turret.tscn
 res://scenes/bote.tscn
@@ -9,4 +9,4 @@ res://scenes/voronoiTerrain.tscn
 res://scenes/enemyAi.tscn
 res://scenes/explosion.tscn
 res://scenes/particleTesting.tscn
-res://scripts/terrain/voronoiTerrain.gd
+res://scripts/boteController.gd
