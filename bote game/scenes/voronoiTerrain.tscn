@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dxujpy0et70qg"]
 
-[ext_resource type="Script" path="res://scripts/terrain/voronoiTerrain.gd" id="1_n4y6c"]
-[ext_resource type="Script" path="res://scripts/camera.gd" id="2_bando"]
+[ext_resource type="Script" uid="uid://b8n5behju1jr5" path="res://scripts/terrain/voronoiTerrain.gd" id="1_n4y6c"]
+[ext_resource type="Script" uid="uid://mqdpl514uuso" path="res://scripts/camera.gd" id="2_bando"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_kwvbj"]
 source_geometry_group_name = &"navigation_polygon_source_group"

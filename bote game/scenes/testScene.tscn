@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b40crqmjyah52"]
 
-[ext_resource type="Script" path="res://scripts/camera.gd" id="1_2k4r3"]
-[ext_resource type="Script" path="res://scripts/boteHolder.gd" id="2_1en8m"]
+[ext_resource type="Script" uid="uid://mqdpl514uuso" path="res://scripts/camera.gd" id="1_2k4r3"]
+[ext_resource type="Script" uid="uid://d4g75x4wxr5s4" path="res://scripts/boteHolder.gd" id="2_1en8m"]
 [ext_resource type="PackedScene" uid="uid://82s0k7lpx1un" path="res://scenes/bote.tscn" id="3_b5p0u"]
 [ext_resource type="PackedScene" uid="uid://dxujpy0et70qg" path="res://scenes/voronoiTerrain.tscn" id="4_si3lx"]
 

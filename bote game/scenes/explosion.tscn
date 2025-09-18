@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bc0dsea31wn0x"]
 
-[ext_resource type="Script" path="res://scenes/explosion.gd" id="1_43apd"]
+[ext_resource type="Script" uid="uid://dwn4pxbonbw4u" path="res://scenes/explosion.gd" id="1_43apd"]
 [ext_resource type="Texture2D" uid="uid://bexnjqxw0wpkh" path="res://sprites/explosions/circle.png" id="1_j5wdi"]
 
 [sub_resource type="Gradient" id="Gradient_sq0xs"]
@@ -35,6 +35,6 @@ script = ExtResource("1_43apd")
 [node name="smoke" type="GPUParticles2D" parent="."]
 position = Vector2(100, 100)
 amount = 500
-process_material = SubResource("ParticleProcessMaterial_xn0ns")
 texture = ExtResource("1_j5wdi")
 lifetime = 5.0
+process_material = SubResource("ParticleProcessMaterial_xn0ns")

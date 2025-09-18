@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://bwexrebmkp5tq"]
 
-[ext_resource type="Script" path="res://scripts/turret/turretTestScene.gd" id="1_ueyr8"]
-[ext_resource type="Script" path="res://scripts/camera.gd" id="2_7x18y"]
-[ext_resource type="Script" path="res://scripts/boteHolder.gd" id="2_voxgj"]
+[ext_resource type="Script" uid="uid://b828v4cthjjtc" path="res://scripts/turret/turretTestScene.gd" id="1_ueyr8"]
+[ext_resource type="Script" uid="uid://mqdpl514uuso" path="res://scripts/camera.gd" id="2_7x18y"]
+[ext_resource type="Script" uid="uid://d4g75x4wxr5s4" path="res://scripts/boteHolder.gd" id="2_voxgj"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_a4iwp"]
 vertices = PackedVector2Array(-441, -280, -72, -278, -298, -165, 147, -300, 371, -233, 187, -186, 98, -213, -502, 223, -189, -14, 398, -51, 349, 309, 65, -269)

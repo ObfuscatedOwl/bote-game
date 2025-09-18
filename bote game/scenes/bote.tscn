@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://82s0k7lpx1un"]
 
-[ext_resource type="Script" path="res://scripts/boteController.gd" id="1_jvag8"]
+[ext_resource type="Script" uid="uid://bb5k35mvi3wr2" path="res://scripts/boteController.gd" id="1_jvag8"]
 [ext_resource type="Texture2D" uid="uid://bwwglaykga4y3" path="res://sprites/botes/rudder.png" id="3_jhuji"]
 [ext_resource type="Texture2D" uid="uid://63k7u6yw04cs" path="res://sprites/botes/Destroyer.png" id="3_kr6kh"]
-[ext_resource type="Script" path="res://scripts/boteHealth.gd" id="3_lgynd"]
+[ext_resource type="Script" uid="uid://qardaicenkte" path="res://scripts/boteHealth.gd" id="3_lgynd"]
 [ext_resource type="PackedScene" uid="uid://dhrvsxswyqo8t" path="res://scenes/turret.tscn" id="5_7duhv"]
 
 [node name="bote" type="Node2D"]

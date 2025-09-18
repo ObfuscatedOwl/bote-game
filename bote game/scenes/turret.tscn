@@ -1,8 +1,8 @@
 [gd_scene load_steps=14 format=3 uid="uid://dhrvsxswyqo8t"]
 
-[ext_resource type="Script" path="res://scripts/turret/turret.gd" id="1_g1rrf"]
+[ext_resource type="Script" uid="uid://cf2pmyj5jeimt" path="res://scripts/turret/turret.gd" id="1_g1rrf"]
 [ext_resource type="Texture2D" uid="uid://cwpvvt4408qj3" path="res://sprites/botes/Light gun.png" id="2_6o38i"]
-[ext_resource type="Script" path="res://scripts/turret/rangeDisplay.gd" id="3_tnhvr"]
+[ext_resource type="Script" uid="uid://dw12eb2nkxg4l" path="res://scripts/turret/rangeDisplay.gd" id="3_tnhvr"]
 
 [sub_resource type="Gradient" id="Gradient_8ytho"]
 offsets = PackedFloat32Array(0, 0.874126, 1)
@@ -25,7 +25,7 @@ hue_variation_min = -1.0
 hue_variation_max = -0.9
 
 [sub_resource type="Curve" id="Curve_1d6qm"]
-max_value = 100.0
+_limits = [0.0, 100.0, 0.0, 1.0]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -21.0909, 0.0, 0, 0]
 point_count = 2
 
@@ -33,7 +33,7 @@ point_count = 2
 curve = SubResource("Curve_1d6qm")
 
 [sub_resource type="Curve" id="Curve_cquwh"]
-min_value = -1.0
+_limits = [-1.0, 1.0, 0.0, 1.0]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.988506, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
@@ -84,17 +84,17 @@ position = Vector2(8, 0)
 rotation = 1.5708
 emitting = false
 amount = 40
-process_material = SubResource("ParticleProcessMaterial_ww1de")
 lifetime = 5.0
 one_shot = true
 explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ww1de")
 
 [node name="Fire" type="GPUParticles2D" parent="."]
 position = Vector2(6, 0)
 rotation = 1.5708
 emitting = false
 amount = 16
-process_material = SubResource("ParticleProcessMaterial_wy5f3")
 lifetime = 0.3
 one_shot = true
 explosiveness = 0.1
+process_material = SubResource("ParticleProcessMaterial_wy5f3")
